@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block crickets_stuff %}
+
+<div class="centred-block">
+  <h3>{% trans "Training video - watch the cricket!" %}</h3>
+</div>
+
+<div class="video-top">
+  <div class="video-container">
+    <video nocontrols poster="{{ MEDIA_URL }}movies/tutorial/arriving.jpg" id="ourvideo" class="video-start {% if ipad %}ipad{% endif %}" webkit-playsinline playsinline>
+      <source src="{{ MEDIA_URL }}movies/tutorial/arriving.webm">
+	<source src="{{ MEDIA_URL }}movies/tutorial/arriving.mp4" type="video/mp4">
+	  <source src="{{ MEDIA_URL }}movies/tutorial/arriving.ogg" type="video/ogg">
+            {% trans "I'm sorry; your browser doesn't support HTML5 video in WebM with VP8 or MP4 with H.264." %}
+    </video>
+    
+    <div class="timeline-container"><!-- timeline row -->
+      <button class="toggle-button play" style="background: url(/media/images/movie_buttons/play.png); background-size: 100% 100%;" onclick='play_state_toggle()'></button>
+      <button class="play" style="background: url(/media/images/movie_buttons/redo.png); background-size: 100% 100%;"
+              onclick="play_state_redo({{redo.id}},{{movie.id}},'{{user.id}}');"></button>
+      <div id="timeline" class="timeline bar"><!-- timeline div -->
+	<div class="timeline_line"></div>
+	<div id="time" class="time tiny_circle"></div>
+      </div><!-- end timeline div -->
+    </div><!-- end timeline row -->
+  </div>  
+
+  <div class="video-button-container">
+    <div class="button-container">
+      <div class="image-button" onclick="">
+	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/sun.png">	  
+	{% trans "Sun" %}
+      </div>  
+      <div class="image-button" onclick="">
+	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/cloud.png">	  
+	{% trans "Shade" %}
+      </div>  
+      <div class="image-button" onclick="">
+	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/night.png">	  
+	{% trans "Night" %}
+      </div>  
+    </div>
+    
+    <div class="button-container">
+      <div class="image-button" onclick="">
+	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/in.png">	  
+	{% trans "In" %}
+      </div>  
+      <div class="image-button" onclick="">
+	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/mid.png">	  
+	{% trans "Mid" %}
+      </div>  
+      <div class="image-button" onclick="">
+	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/out.png">	  
+	{% trans "Out" %}
+      </div>  
+    </div>
+
+    <div class="centred-block">
+      <div class="button-container">
+	<div class="image-button" onclick="">
+	  <img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/sing.png">	  
+	  {% trans "Singing" %}
+	</div>  
+	<div class="image-button" onclick="">
+	  <img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/eat.png">	  
+	  {% trans "Eating" %}
+	</div>  
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="button-container" style="clear:left; padding-top:0em;">
+  <div class="small-button"
+       onclick="window.location.href='/'">
+    {% trans "Quit" %}
+  </div>  
+  <div class="small-button"
+       onclick="window.location.href='/'">
+    {% trans "Skip" %}
+  </div>  
+</div>
+
+<script>video_setup(1, 1, 1, 1, 1, 1, 1);</script>
+
+{% endblock %}

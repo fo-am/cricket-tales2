@@ -1,3 +1,4 @@
 *.dblite
 *.*~
 *.pyc
+media/movies/

@@ -11,3 +11,12 @@ def index(request):
     context['num_events'] = Event.objects.all().count()
     context['num_videos'] = Movie.objects.all().count()
     return render(request, 'crickets/index.html', context)
+
+def about(request):
+    return render(request, 'crickets/about.html', {})
+
+def check(request):
+    return render(request, 'crickets/check.html', {})
+
+def training(request):
+    return render(request, 'crickets/training.html', {})

@@ -3,6 +3,28 @@
 
 {% block crickets_stuff %}
 
-hello
+<div class="centred-block">
+<h1>{% trans "Cricket Tales" %}</h1>
+</div>
+
+<div class="centred-block">
+{% trans "Some of us are morning people, others like evenings better. Are insects the same as us?" %}
+</div>
+
+<div class="centred-block">
+{% trans "Help find out by playing this game!" %}
+</div>
+
+<div class="button-row">
+  <div class="button"
+       onclick="window.location.href='/check/'">
+    {% trans "PLAY!" %}
+  </div>
+  
+  <div class="button"
+       onclick="window.location.href='/about/'">
+    {% trans "ABOUT THE PROJECT" %}
+  </div>
+</div>
 
 {% endblock %}

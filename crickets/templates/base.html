@@ -9,17 +9,21 @@
     </header>
     <script src="{{ MEDIA_URL }}js/jquery-1.11.1.min.js"></script>
     <script src="{{ MEDIA_URL }}js/jquery-ui.min.js"></script>
-    <script src="{{ MEDIA_URL }}js/slick.min.js"></script>
+<!--    <script src="{{ MEDIA_URL }}js/slick.min.js"></script> -->
     <script src="{{ MEDIA_URL }}js/popcorn-complete.min.js"></script>
-    <link rel="stylesheet" href="{{ MEDIA_URL }}css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ MEDIA_URL }}css/bootstrap-theme.min.css">
-    <script src="{{ MEDIA_URL }}js/bootstrap.min.js"></script>
+<!--    <link rel="stylesheet" href="{{ MEDIA_URL }}css/bootstrap.min.css"> -->
+<!--    <link rel="stylesheet" href="{{ MEDIA_URL }}css/bootstrap-theme.min.css"> -->
+<!--    <script src="{{ MEDIA_URL }}js/bootstrap.min.js"></script> -->
     <!-- loading last for overrides... -->
     <link rel="stylesheet" href="/media/css/style.css" />
-<!--    <script src="/media/js/base.js"></script> -->
+    <script src="/media/js/base.js"></script>
 
-    <div class="container">
-      {% block crickets_stuff %}{% endblock %}  
+    <div class="force-aspect">
+      <div class="stretchy-wrapper" >
+	<div>
+	  {% block crickets_stuff %}{% endblock %}  
+	</div>
+      </div>
     </div>
   </body>
 </html>

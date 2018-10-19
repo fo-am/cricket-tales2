@@ -1,0 +1,46 @@
+@font-face {
+  font-family: 'Love Ya Like A Sister';
+  src: local('Love Ya Like A Sister'),
+        url('../fonts/LoveYaLikeASister.ttf');
+}
+
+@font-face {
+  font-family: 'Vidaloka';
+  src: local('Vidaloka'),
+        url('../fonts/Vidaloka-Regular.ttf');
+}
+
+h1 {
+    font-family: 'Love Ya Like A Sister', sans-serif;
+    text-transform: uppercase;
+    font-size: 300%;
+    margin: 0em;
+}
+h2 {
+    font-family: 'Love Ya Like A Sister', sans-serif;
+    text-transform: uppercase;
+    font-size: 150%;
+}
+
+body {
+    background: url('../images/background.png');
+    background-repeat: repeat;
+/*    width:100%;
+    height:100%;
+    min-height:100%;*/
+    font-family: 'Vidaloka', sans-serif;
+    font-size: 25px;
+    padding: 0px;
+}
+
+.button {
+    float: left;
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-size: 200%;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: rgba(202,231,121,0.75);
+    border: 0px solid #fff !important;
+    border-radius: 0.5em;
+    white-space: nowrap;
+}

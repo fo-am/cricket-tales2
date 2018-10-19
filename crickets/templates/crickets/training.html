@@ -29,45 +29,45 @@
 
   <div class="video-button-container">
     <div class="button-container">
-      <div class="image-button" onclick="">
+      <button class="image" onclick="">
 	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/sun.png">	  
 	{% trans "Sun" %}
-      </div>  
-      <div class="image-button" onclick="">
+      </button>  
+      <button class="image" onclick="">
 	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/cloud.png">	  
 	{% trans "Shade" %}
-      </div>  
-      <div class="image-button" onclick="">
+      </button>  
+      <button class="image" onclick="">
 	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/night.png">	  
 	{% trans "Night" %}
-      </div>  
+      </button>  
     </div>
     
     <div class="button-container">
-      <div class="image-button" onclick="">
+      <button class="image" onclick="">
 	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/in.png">	  
 	{% trans "In" %}
-      </div>  
-      <div class="image-button" onclick="">
+      </button>  
+      <button class="image" onclick="">
 	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/mid.png">	  
 	{% trans "Mid" %}
-      </div>  
-      <div class="image-button" onclick="">
+      </button>  
+      <button class="image" onclick="">
 	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/out.png">	  
 	{% trans "Out" %}
-      </div>  
+      </button>  
     </div>
 
     <div class="centred-block">
       <div class="button-container">
-	<div class="image-button" onclick="">
+	<button class="image" onclick="">
 	  <img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/sing.png">	  
 	  {% trans "Singing" %}
-	</div>  
-	<div class="image-button" onclick="">
+	</button>  
+	<button class="image" onclick="">
 	  <img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/eat.png">	  
 	  {% trans "Eating" %}
-	</div>  
+	</button>  
       </div>
     </div>
 
@@ -75,14 +75,14 @@
 </div>
 
 <div class="button-container" style="clear:left; padding-top:0em;">
-  <div class="small-button"
-       onclick="window.location.href='/'">
+  <button class="small"
+	  onclick="window.location.href='/'">
     {% trans "Quit" %}
-  </div>  
-  <div class="small-button"
-       onclick="window.location.href='/'">
+  </button>  
+  <button class="small"
+	  onclick="window.location.href='/'">
     {% trans "Skip" %}
-  </div>  
+  </button>  
 </div>
 
 <script>video_setup(1, 1, 1, 1, 1, 1, 1);</script>

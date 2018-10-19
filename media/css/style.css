@@ -77,12 +77,12 @@ div.stretchy-wrapper > div {
     text-align: center;    
 }
 
-.button {
+button {
     font-family: 'Love Ya Like A Sister', cursive;
     font-size: 5vw;
     text-transform: uppercase;
     cursor: pointer;
-    background: rgba(202,231,121,0.75);
+    background: rgba(202,241,131,0.6);
     border: 0px solid #fff !important;
     border-radius: 0.2em;
     white-space: nowrap;
@@ -94,12 +94,12 @@ div.stretchy-wrapper > div {
     display: inline-block;
 }
 
-.small-button {
+button.small {
     font-family: 'Love Ya Like A Sister', cursive;
     font-size: 3vw;
     text-transform: uppercase;
     cursor: pointer;
-    background: rgba(202,231,121,0.75);
+    background: rgba(202,241,131,0.6);
     border: 0px solid #fff !important;
     border-radius: 0.2em;
     white-space: nowrap;
@@ -111,12 +111,12 @@ div.stretchy-wrapper > div {
     display: inline-block;
 }
 
-.image-button {
+button.image {
     font-family: 'Love Ya Like A Sister', cursive;
     font-size: 2vw;
     text-transform: uppercase;
     cursor: pointer;
-    background: rgba(202,231,121,0.75);
+    background: rgba(202,241,131,0.6);
     border: 0px solid #fff !important;
     border-radius: 0.2em;
     white-space: nowrap;
@@ -127,6 +127,14 @@ div.stretchy-wrapper > div {
     padding-bottom: 0.2em;
     display: inline-block;
     text-align: center;
+}
+
+button:active { 
+    background-color: white; 
+}
+
+button:focus { 
+    outline: none;
 }
 
 .image-button-image {
@@ -166,6 +174,8 @@ video {
 
 button.play,
 button.pause {
+    margin: 0em;
+    padding: 0em;
     width: 7vw;
     height: 7vw;
     border: 0px;

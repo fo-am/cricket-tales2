@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% load i18n %}
-
 {% block crickets_stuff %}
 
-<div class="centred-block">
-  <h3>{% trans "Training video - watch the cricket!" %}</h3>
+<div class="full-width-centred-block">
+  <h3>{% trans "You are watching cricket xxx: video: 1/5" %}</h3>
 </div>
 
 <div class="video-top">
@@ -76,12 +75,12 @@
 
 <div class="button-container" style="clear:left; padding-top:0em;">
   <button class="small"
-	  onclick="window.location.href='/'">
+	  onclick="window.location.href='/keyboard/'">
     {% trans "Quit" %}
   </button>  
   <button class="small"
-	  onclick="window.location.href='/choose/'">
-    {% trans "Skip" %}
+	  onclick="window.location.href='/training/'">
+    {% trans "Retrain" %}
   </button>  
 </div>
 

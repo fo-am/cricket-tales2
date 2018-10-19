@@ -14,6 +14,9 @@ urlpatterns = patterns('',
     url(r'^about/', views.about, name='about'),
     url(r'^check/', views.check, name='check'),
     url(r'^training/', views.training, name='training'),
+    url(r'^choose/', views.choose, name='choose'),
+    url(r'^play/', views.play, name='play'),
+    url(r'^keyboard/', views.keyboard, name='keyboard'),
 )
 
 urlpatterns += patterns('',

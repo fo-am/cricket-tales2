@@ -68,6 +68,14 @@ div.stretchy-wrapper > div {
     text-align: center;    
 }
 
+.full-width-centred-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;    
+}
+
 /* container row for buttons */
 
 .button-row {

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block crickets_stuff %}
+
+<div class="centred-block">
+<h2>{% trans "Well done" %}</h2>
+</div>
+
+<div class="centred-block">
+{% trans "You have contributed data for XX videos." %}
+</div>
+
+<div class="centred-block">
+{% trans "Enter your name to appear on the leaderboard:" %}
+</div>
+
+<div class="button-row">
+  <button class="small">Q</button> 
+  <button class="small">W</button>
+  <button class="small">E</button> 
+  <button class="small">R</button>
+  <button class="small">T</button> 
+  <button class="small">Y</button>
+  <button class="small">U</button> 
+  <button class="small">I</button>
+  <button class="small">O</button>
+  <button class="small">P</button>  
+</div>
+<div class="button-row">
+  <button class="small">A</button> 
+  <button class="small">S</button>
+  <button class="small">D</button> 
+  <button class="small">F</button>
+  <button class="small">G</button> 
+  <button class="small">H</button>
+  <button class="small">J</button> 
+  <button class="small">K</button>
+  <button class="small">L</button>
+</div>
+<div class="button-row">
+  <button class="small">Z</button> 
+  <button class="small">X</button>
+  <button class="small">C</button> 
+  <button class="small">V</button>
+  <button class="small">B</button> 
+  <button class="small">N</button>
+  <button class="small">M</button> 
+</div>
+
+<div class="button-row">
+  <button class="small"
+	  onclick="window.location.href='/personality/'">
+    {% trans "Continue" %}
+  </button>  
+
+</div>
+{% endblock %}

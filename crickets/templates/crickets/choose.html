@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block crickets_stuff %}
+
+<div class="centred-block">
+<h2>{% trans "Choose your cricket" %}</h2>
+</div>
+
+<div class="button-row">
+  <button onclick="window.location.href='/play/'">
+    {% trans "Play" %}
+  </button>  
+</div>
+
+<div class="centred-block">
+{% trans "You will see 5 different 30 second videos of your cricket." %}
+</div>
+
+<div class="centred-block">
+{% trans "The data you generate will tell you about your cricket's personality." %}
+</div>
+
+<div class="centred-block">
+{% trans "Don't worry if they are hiding in their burrow, this is valuable data too!" %}
+</div>
+
+<div class="button-row">
+  <button class="small" onclick="window.location.href='/'">
+    {% trans "Quit" %}
+  </button>  
+</div>
+
+{% endblock %}

@@ -20,3 +20,12 @@ def check(request):
 
 def training(request):
     return render(request, 'crickets/training.html', {})
+
+def choose(request):
+    return render(request, 'crickets/choose.html', {})
+
+def play(request):
+    return render(request, 'crickets/play.html', {})
+
+def keyboard(request):
+    return render(request, 'crickets/keyboard.html', {})

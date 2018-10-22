@@ -104,7 +104,7 @@ def get_exact_frame_time(exi_frames,frame_num):
 data_location = "data/fake_synology/2012/"
 
 # chop arbitrary length into videos of the same length
-def add_movies(season,camera,start_time,end_time,cricket_id,video_length_secs,fps):
+def add_movies(season,camera,start_time,end_time,cricket_id,video_length_secs,fps,tag,gender):
     exi_index_file = data_location+"IP"+camera+"/Videos/"+start_time.strftime('%Y%m%d')+".index"
 
     frames = find_frames_from_index_file(exi_index_file,start_time,end_time)
@@ -115,6 +115,9 @@ def add_movies(season,camera,start_time,end_time,cricket_id,video_length_secs,fp
     # now we need to chop into short videos
     frames_per_video = video_length_secs*fps
     if start_frame!=-1:
+        # only bother adding a cricket if there is a video to go with it...
+        add_cricket(season,cricket_id,tag,gender)
+
         # reload the frames in so we can find out the precice times
         exi_frames = robot.exicatcher.read_index(exi_index_file)
         print("start_frame: "+str(start_frame))
@@ -157,7 +160,6 @@ def import_crickets(filename,video_length,fps):
                 print(row[5])
                 print(row[6])
                 
-                add_cricket(season,cricket_id,tag,gender)
                 add_movies(season,camera,start,end,cricket_id,video_length,fps)
 
 

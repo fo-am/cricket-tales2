@@ -191,6 +191,18 @@ button.pause {
     outline: 0;
 }
 
+.video-popup {
+    pointer-events: none;
+    position: absolute;
+    background: yellow; 
+    top: 30vw;
+    height: 5vw;
+    width: 49vw;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 0.2em;
+}
+
 /* square things */
 
 .bar {

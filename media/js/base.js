@@ -4,7 +4,7 @@ var events = [];
 function percentage(x, y) {
     var container_w = $('#ourvideo').width();
     var container_h = $('#ourvideo').height();
-
+    
     var percent_x = (x / container_w) * 100;
     var percent_y = (y / container_h) * 100;
 
@@ -16,6 +16,107 @@ function mouse_pos(e, context) {
     return percentage(e.pageX - parentOffset.left, e.pageY - parentOffset.top);
 }
 
+function change_video(basename) {
+    pop.pause();
+    $($('video').children()[0]).attr('src','/media/movies/tutorial/'+basename+'.webm');
+    $($('video').children()[1]).attr('src','/media/movies/tutorial/'+basename+'.mp4');
+    $($('video').children()[2]).attr('src','/media/movies/tutorial/'+basename+'.ogg');
+    pop.load();
+    pop.play();
+}
+
+
+
+function update_training() {
+    switch(state) {
+    case "training_start":
+        $('.video-popup').html("This cricket is singing, notice it's wings fluttering - click on the right button.");
+        break;	
+    case "training_sing_click":
+        $('.video-popup').html("Well done!");
+	change_video('fight');
+	setTimeout(function() { state="training_fight"; update_training(); }, 2000);
+        break;	
+    case "training_fight":
+        $('.video-popup').html("These crickets are fighting - click on the right button.");
+        break;	
+    }
+}
+
+function training_click(button) {
+    switch(state) {
+	case "training_start":
+	if (button==="sing") {
+	    state = "training_sing_click";
+	    update_training();
+	}
+    }
+}
+
+
+var state = "training_start";
+
+function training_video_setup() {
+    document.addEventListener("DOMContentLoaded", function () {
+	pop = Popcorn("#ourvideo");
+
+        pop.code({
+            start: 0,
+            end: 0.01,
+            onStart: function() {
+                update_training();
+            }});
+
+	// pop.footnote({
+        //     start: 2,
+        //     end: 5,
+        //     target: "footnote",
+        //     text: "Pop!"
+        // });
+
+        pop.on("ended", function() {
+            pop.currentTime(0);
+	    pop.play();
+	});
+
+
+        // scrubbing
+        $("#time").draggable({
+	    axis:"x",
+	    drag: function( event, ui ) {
+                var pos = pop.duration() * parseFloat($('#time').css('left')) /
+		    parseFloat($('#time').parent().css('width'));
+                pop.currentTime(pos);
+	    }
+        });
+
+
+        // click on timeline
+        $("#timeline").click(function(e) {
+	    var offset = $(this).offset();
+	    var x = e.clientX - offset.left;
+	    var pos = pop.duration() * x / parseFloat($('#timeline').css('width'));
+	    pop.currentTime(pos);
+        });
+
+        pop.on("timeupdate", function() {
+	    var percentage = Math.floor((100 / pop.duration()) *
+                                        pop.currentTime());
+	    $("#time").css({left: percentage*timeline_fudge+"%"});
+
+        });
+
+	pop.play();
+
+
+    });
+    
+}
+
+
+
+/////////////////////////////////////////////////////
+ 
 function video_setup(cricket_start_id, burrow_start_id, cricket_id_id, cricket_end_id, something_else_id, movie_id, user_id) {
     // Create a popcorn instance by calling Popcorn("#id-of-my-video")
     document.addEventListener("DOMContentLoaded", function () {
@@ -25,12 +126,12 @@ function video_setup(cricket_start_id, burrow_start_id, cricket_id_id, cricket_e
         play_state = "";
         popvid = document.getElementById("ourvideo");
         popvid.addEventListener( "playing", function( e ) {
-          play_state = true;
+            play_state = true;
         }, false );
         popvid.addEventListener( "pause", function( e ) {
-          play_state = false;
+            play_state = false;
         }, false );
-
+	
         pop.code({
             start: 0,
             end: 0.01,
@@ -38,7 +139,7 @@ function video_setup(cricket_start_id, burrow_start_id, cricket_id_id, cricket_e
                 $('.top_layer').css({'z-index' : '-1', 'display' : 'none'});
 
                 //update_infotext();
-
+		
                 $("#ourvideo").click(function(e) {
                     var cricketStartPercent = mouse_pos(e, this);
                     add_event(cricket_start_id,movie_id,user_id, cricketStartPercent['x'], cricketStartPercent['y'], null);
@@ -92,7 +193,7 @@ function video_setup(cricket_start_id, burrow_start_id, cricket_id_id, cricket_e
             axis:"x",
             drag: function( event, ui ) {
                 var pos = pop.duration() * parseFloat($('#time').css('left')) /
-                        parseFloat($('#time').parent().css('width'));
+                    parseFloat($('#time').parent().css('width'));
                 pop.currentTime(pos);
             }
         });
@@ -126,6 +227,34 @@ function video_setup(cricket_start_id, burrow_start_id, cricket_id_id, cricket_e
 };
 
 var timeline_fudge = 0.96;
+
+function play_state_toggle() {
+    if (play_state === true) {
+        pause_movie();
+    } else {
+        play_movie();
+    }
+}
+
+function pause_movie() {
+    if (state === 'movie-playing') {
+        pop.pause();
+        $('.toggle-button').css({
+            "background": "url(/media/images/movie_buttons/play.png)",
+            "background-size": "100% 100%"
+        });
+    }
+}
+
+function play_movie() {
+    if (state === 'movie-playing') {
+        pop.play();
+        $('.toggle-button').css({
+            "background": "url(/media/images/movie_buttons/pause.png)",
+            "background-size": "100% 100%"
+        });
+    }
+}
 
 // actually render the event
 function inner_render_my_event(start_time) {

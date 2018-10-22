@@ -23,13 +23,20 @@ class Player(models.Model):
     videos_watched = models.IntegerField(default=0)
 
 class Cricket(models.Model):
+    season = models.IntegerField(default=0)
+    cricket_id = models.CharField(max_length=200)
+    tag = models.CharField(max_length=200)
+    gender = models.CharField(max_length=200)
     eating_score = models.IntegerField(default=0)
     singing_score = models.IntegerField(default=0)
     moving_score = models.IntegerField(default=0)
     daynight_score = models.IntegerField(default=0)
+    def __unicode__(self):
+        return self.tag+" "+self.cricket_id
 
 class Movie(models.Model):
     cricket = models.ForeignKey(Cricket)
+    season = models.IntegerField(default=0)
     name = models.CharField(max_length=200)
     views = models.IntegerField(default=0)
     created_date = models.DateTimeField('date created')

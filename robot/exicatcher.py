@@ -100,7 +100,7 @@ def read_index(file, verbose=False):
     if (len(data) - 4) % 32 != 0:
         print 'Index file %s not multiple of 32 (+4)!' % file
 
-    print 'There should be ', (len(data)-4)//32, 'frames'
+    #print 'There should be ', (len(data)-4)//32, 'frames'
     
     frames = []
     for n in range((len(data)-4)//32):

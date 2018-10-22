@@ -1,6 +1,11 @@
 var pop = false;
 var events = [];
 
+// in order to sort out translations...
+var translated_text = { training_start: "This cricket is singing, notice it's wings fluttering - click on the right button.",
+			training_fight: "Whatever...",			
+		      }
+
 function percentage(x, y) {
     var container_w = $('#ourvideo').width();
     var container_h = $('#ourvideo').height();
@@ -25,12 +30,10 @@ function change_video(basename) {
     pop.play();
 }
 
-
-
 function update_training() {
     switch(state) {
     case "training_start":
-        $('.video-popup').html("This cricket is singing, notice it's wings fluttering - click on the right button.");
+        $('.video-popup').html(translated_text["training_start"]);
         break;	
     case "training_sing_click":
         $('.video-popup').html("Well done!");
@@ -38,7 +41,7 @@ function update_training() {
 	setTimeout(function() { state="training_fight"; update_training(); }, 2000);
         break;	
     case "training_fight":
-        $('.video-popup').html("These crickets are fighting - click on the right button.");
+        $('.video-popup').html(translated_text["training_fight"]);
         break;	
     }
 }

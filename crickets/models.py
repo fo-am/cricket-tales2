@@ -31,6 +31,7 @@ class Cricket(models.Model):
     singing_score = models.IntegerField(default=0)
     moving_score = models.IntegerField(default=0)
     daynight_score = models.IntegerField(default=0)
+    activity = models.IntegerField(default=0)
     def __unicode__(self):
         return self.tag+" "+self.cricket_id
 
@@ -52,15 +53,9 @@ class Movie(models.Model):
     def __unicode__(self):
         return str(self.name);
 
-class EventType(models.Model):
-    name = models.CharField(max_length=200)
-    es_name = models.CharField(max_length=200)
-    def __unicode__(self):
-        return str(self.name);
-
 class Event(models.Model):
     movie = models.ForeignKey(Movie)
-    type = models.ForeignKey(EventType)
+    event_type = models.CharField(max_length=200)
     user = models.ForeignKey(Player, null=True, blank=True, default = None)
     start_time = models.FloatField(default=0)
     end_time = models.FloatField(default=0)
@@ -69,6 +64,6 @@ class Event(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     other = models.CharField(max_length=200, null=True, blank=True, default=None)
     def __unicode__(self):
-        return self.type.name+" "+str(self.start_time)+" : "+str(self.movie);
+        return self.type.type+" "+str(self.start_time)+" : "+str(self.movie);
 
     

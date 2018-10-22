@@ -92,6 +92,8 @@ def find_frames_from_index_file(exi_index_file,start_time,end_time):
             if t>end_time and state=="inside":
                 end = num
                 state = "done"
+        # over the end of the video
+        if end==-1: end=len(frames)-1
         return (start,end)
     else:
         return (-1, -1)
@@ -100,7 +102,6 @@ def get_exact_frame_time(exi_frames,frame_num):
     return conv_time(exi_frames[frame_num]['time'])
 
 data_location = "data/fake_synology/2012/"
-
 
 # chop arbitrary length into videos of the same length
 def add_movies(season,camera,start_time,end_time,cricket_id,video_length_secs,fps):
@@ -152,9 +153,17 @@ def import_crickets(filename,video_length,fps):
                 start = timezone.utc.localize(datetime.strptime(row[5],"%d/%m/%Y %H:%M"))
                 end = timezone.utc.localize(datetime.strptime(row[6],"%d/%m/%Y %H:%M"))
 
+                print(end-start)
+                print(row[5])
+                print(row[6])
+                
                 add_cricket(season,cricket_id,tag,gender)
                 add_movies(season,camera,start,end,cricket_id,video_length,fps)
 
 
 
 import_crickets("data/VideosSingleCricketsKnownID.csv",30,10)
+
+
+# process crickets : activity
+# (update scores immediately so players see new results)

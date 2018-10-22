@@ -5,7 +5,6 @@ from crickets.models import *
 admin.site.register(Player)
 admin.site.register(Cricket)
 admin.site.register(Movie)
-admin.site.register(EventType)
 
 class EventAdmin(admin.ModelAdmin):
     def get_readonly_fields(self, request, obj=None):

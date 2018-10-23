@@ -21,10 +21,11 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from crickets.models import *
 import csv
-
+import time
 import robot.exicatcher
 import robot.process
 import robot.settings
+import crickets.common
 
 django.setup()
 
@@ -63,7 +64,7 @@ def add_cricket(season,cricket_id,tag,gender):
 
 # need to be already split up into chunks
 def add_movie(season,camera,index_filename,start_frame,fps,length_frames,start_time,end_time,cricket_id):
-    name = str(season)+"-"+camera+"-"+str(start_time);
+    name = start_time.strftime('%Y%m%d')+"-"+str(start_frame);
 
     existing = Movie.objects.filter(name=name)
     if len(existing)!=0:
@@ -99,27 +100,26 @@ def make_video(movie,instance_name):
     print("making "+movie.name)
     frames = robot.exicatcher.read_index(movie.src_index_file)
     frames = frames[movie.start_frame:movie.start_frame+movie.length_frames]
-    moviename = os.path.splitext(movie.src_index_file)[0]+".generic.sfs"
-    outname = movie.name
-    camera_name = movie.camera
+    orig_moviename = os.path.splitext(movie.src_index_file)[0]+".generic.sfs"
 
+    path = str(movie.season)+"/"+movie.camera+"/"
     # check django record exists
 
     # check subdirectory exists and create it if not
-    if not os.path.exists(robot.settings.dest_root+camera_name):
-        os.makedirs(robot.settings.dest_root+camera_name)
+    if not os.path.exists(robot.settings.dest_root+path):
+        os.makedirs(robot.settings.dest_root+path)
 
     # trust the status, so will overwrite existing files
     if movie.status==0:
-        robot.exicatcher.extract(moviename, frames, instance_name+"/frame", False)
+        robot.exicatcher.extract(orig_moviename, frames, instance_name+"/frame", False)
         robot.process.renamer(movie.start_frame,movie.length_frames,instance_name)
-        robot.process.create_thumb(movie.name,instance_name)
-        robot.process.run_converter(movie.name,movie.fps,instance_name)
+        robot.process.create_thumb(path+movie.name,instance_name)
+        robot.process.run_converter(path+movie.name,movie.fps,instance_name)
         robot.process.delete_frames(instance_name)
         movie.status = 1
         movie.save()
     else:
-        print(outname+": status is 1 - is already done")
+        print(movie.name+": status is 1 - is already done")
         # status is 1 so check files actually exist..
         if not robot.process.check_done(movie.name):
             print("status is 1 but no files, setting status to 0, will get next time")
@@ -128,7 +128,7 @@ def make_video(movie,instance_name):
 
 def process_random_video(instance_name):
     # pick a random one, also checks already processed ones
-    make_video(random_one(Movie),instance_name)
+    make_video(crickets.common.random_one(Movie),instance_name)
 
 def process_loop(instance_name):
     while True:
@@ -155,7 +155,7 @@ def update_video_status():
             set_movie_status(movie.name,0)
 
         # is this movie complete?
-        if movie.status<2 and movie.views>settings.min_complete_views:
+        if movie.status<2 and movie.views>robot.settings.min_complete_views:
             print(movie.name+" is complete with "+str(movie.views)+" views")
             set_movie_status(movie,2)
             # spawn a video process
@@ -207,7 +207,7 @@ def get_exact_frame_time(exi_frames,frame_num):
 
 # chop arbitrary length into videos of the same length
 def add_movies(season,camera,start_time,end_time,cricket_id,video_length_secs,fps,tag,gender):
-    exi_index_file = settings.season_to_data_location[season]+"IP"+camera+"/Videos/"+start_time.strftime('%Y%m%d')+".index"
+    exi_index_file = robot.settings.season_to_data_location[season]+"IP"+camera+"/Videos/"+start_time.strftime('%Y%m%d')+".index"
 
     frames = find_frames_from_index_file(exi_index_file,start_time,end_time)
     start_frame = frames[0]
@@ -257,7 +257,7 @@ def import_crickets(filename,video_length,fps):
                 gender = row[4]
                 start = timezone.utc.localize(datetime.strptime(row[5],"%d/%m/%Y %H:%M"))
                 end = timezone.utc.localize(datetime.strptime(row[6],"%d/%m/%Y %H:%M"))
-                
+
                 add_movies(season,camera,start,end,cricket_id,video_length,fps,tag,gender)
 
 def disk_state():

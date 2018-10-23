@@ -26,7 +26,6 @@ import robot.settings
 import robot.import_data
 import time
 from threading import Thread
-import map.generate
 
 report_recipients = ["dave@fo.am",
 #                     "amber@fo.am",
@@ -50,13 +49,15 @@ else:
         robot_django2.import_crickets(robot.settings.srccsv,
                                       robot.settings.video_length,
                                       robot.settings.video_fps)
+    if sys.argv[1]=="process-one-video":
+        robot_django2.process_random_video("thread-0")
     if sys.argv[1]=="video-process":
-        Thread(target = robot_django.process_loop, args = ("thread-0", )).start()
-        Thread(target = robot_django.process_loop, args = ("thread-1", )).start()
-        Thread(target = robot_django.process_loop, args = ("thread-2", )).start()
-        Thread(target = robot_django.process_loop, args = ("thread-3", )).start()
-        Thread(target = robot_django.process_loop, args = ("thread-4", )).start()
-        Thread(target = robot_django.process_loop, args = ("thread-5", )).start()
+        Thread(target = robot_django2.process_loop, args = ("thread-0", )).start()
+        Thread(target = robot_django2.process_loop, args = ("thread-1", )).start()
+        Thread(target = robot_django2.process_loop, args = ("thread-2", )).start()
+        Thread(target = robot_django2.process_loop, args = ("thread-3", )).start()
+        Thread(target = robot_django2.process_loop, args = ("thread-4", )).start()
+        Thread(target = robot_django2.process_loop, args = ("thread-5", )).start()
 
     if sys.argv[1]=="check-videos":
         robot_django.update_video_status()

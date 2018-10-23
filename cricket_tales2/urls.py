@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^check/', views.check, name='check'),
     url(r'^training/', views.training, name='training'),
     url(r'^choose/', views.choose, name='choose'),
-    url(r'^play/', views.play, name='play'),
+    url(r'^play/(?P<pk>\d+)/$', views.CricketView.as_view(), name='play'),
     url(r'^keyboard/', views.keyboard, name='keyboard'),
 )
 

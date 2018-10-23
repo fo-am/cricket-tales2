@@ -18,10 +18,12 @@ import os,sys
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cricket_tales2.settings")
 import django
 from django.utils import timezone
+from django.db.models import Max, Count, Sum
 from datetime import datetime, timedelta
 from crickets.models import *
 import csv
 import time
+import subprocess
 import robot.exicatcher
 import robot.process
 import robot.settings
@@ -41,8 +43,14 @@ def conv_time(t):
 # 2 : video has been viewed by min_complete_views people (contains this
 #     many 'cricket_end's) but the files still exist
 # 3 : files have been deleted
-#
+
+video_status_unprocessed = 0
+video_status_active = 1
+video_status_ready = 2
+video_status_finished = 3
+
 #######################################################################
+
 
 
 ##################################################################
@@ -92,6 +100,22 @@ def add_movie(season,camera,index_filename,start_frame,fps,length_frames,start_t
     else:
         print("add movie error, could not find cricket: "+cricket_id)
 
+def set_movie_status(moviename,status):
+    try:
+        existing = Movie.objects.get(name=moviename)
+        existing.status = status
+        existing.save()
+        return True
+    except Movie.DoesNotExist:
+        return False
+
+def get_movie_status(moviename):
+    try:
+        existing = Movie.objects.get(name=moviename)
+        return existing.status
+    except Movie.DoesNotExist:
+        return -1
+
 ####################################################################
 ## video processing
 
@@ -121,7 +145,7 @@ def make_video(movie,instance_name):
     else:
         print(movie.name+": status is 1 - is already done")
         # status is 1 so check files actually exist..
-        if not robot.process.check_done(movie.name):
+        if not robot.process.check_done(path+movie.name):
             print("status is 1 but no files, setting status to 0, will get next time")
             movie.status = 0
             movie.save()
@@ -137,7 +161,8 @@ def process_loop(instance_name):
 
 def update_video_status():
     for movie in Movie.objects.all():
-        if robot.process.check_done(movie.name):
+        path = str(movie.season)+"/"+movie.camera+"/"
+        if robot.process.check_done(path+movie.name):
             #if not robot.process.check_video_lengths(movie.name):
             #    print("movies too short: "+movie.name)#
             #    print(robot.process.get_video_length(robot.settings.dest_root+movie.name+".mp4"))
@@ -150,7 +175,7 @@ def update_video_status():
                 print("found a movie turned off good files, turning on: "+movie.name)
                 set_movie_status(movie.name,1)
 
-        if not robot.process.check_done(movie.name) and movie.status == 1:
+        if not robot.process.check_done(path+movie.name) and movie.status == 1:
             print("!!! found a movie turned ON without files, turning off: "+movie.name)
             set_movie_status(movie.name,0)
 
@@ -161,6 +186,19 @@ def update_video_status():
             # spawn a video process
             #Thread(target = process_loop, args = ("thread-0", )).start()
             # delete files separately
+
+def update_cricket_status():
+    # todo: random selection
+    for cricket in Cricket.objects.all():
+        print(cricket)
+        videos_ready=0
+        # search for active videos
+        for movie in Movie.objects.filter(cricket=cricket,
+                                          status=video_status_active):
+            videos_ready+=1
+        cricket.videos_ready=videos_ready
+        cricket.save()
+
 
 def video_clearup():
     for movie in Movie.objects.filter(status=2):
@@ -267,8 +305,6 @@ def disk_state():
     return used+" used, "+available+" available, "+percent+" full"
 
 def generate_report():
-    cricket_end = EventType.objects.filter(name="Cricket End").first()
-
     score_text = ""
 #    for i,player in enumerate(PlayerBurrowScore.objects.values('player__username').order_by('player').annotate(total=Sum('movies_finished')).order_by('-total')[:10]):
 #        score_text += str(i)+" "+player['player__username']+": "+str(player['total'])+"\n"
@@ -279,6 +315,7 @@ def generate_report():
     "-------------------------------------------\n"+\
     "\n"+\
     "players: "+str(Player.objects.all().count())+"\n"+\
+    "crickets with videos ready: "+str(Cricket.objects.exclude(videos_ready=0).count())+"\n"+\
     "movies watched: "+str(Movie.objects.all().aggregate(Sum('views'))['views__sum'])+"\n"+\
     "events recorded: "+str(Event.objects.all().count())+"\n"+\
     "\n"+\
@@ -295,14 +332,14 @@ def generate_report():
     "server load average: "+str(load[0])+" "+str(load[1])+" "+str(load[2])+"\n"+\
     "(eight cpus, so only in trouble with MD if > 8)\n"+\
     """
-                     ___ --.
-                   .`   '.  \
-              ,_          | |
-       .""""""|\'.""""""-./-;
-      |__.----| \ '.      |0 \
-   __/ /  /  /|  \  '.____|__|
-   `""""""""`"|`""'---'|  \
-          .---'        /_  |_"""
+                     ___ --.   
+                   .`   '.  \  
+              ,_          | |  
+       .''''''|\'.''''''-./-;  
+      |__.----| \ '.      |0 \ 
+   __/ /  /  /|  \  '.____|__| 
+   `''''''''`'|`'''---'|  \    
+          .---'        /_  |_  """ 
 
 
 # process crickets : videos ready

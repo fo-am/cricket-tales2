@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from crickets.models import *
 from django.db.models import Count, Sum
+from django.views import generic
 
 # Create your views here.
 
@@ -22,10 +23,19 @@ def training(request):
     return render(request, 'crickets/training.html', {})
 
 def choose(request):
-    return render(request, 'crickets/choose.html', {})
+    context = {}
+    context['crickets'] = Cricket.objects.exclude(videos_ready=0).order_by('?')
+    return render(request, 'crickets/choose.html', context)
 
-def play(request):
-    return render(request, 'crickets/play.html', {})
+class CricketView(generic.DetailView):
+    model = Cricket
+    template_name = 'crickets/play.html'
+    def get_context_data(self, **kwargs):
+        context = super(CricketView, self).get_context_data(**kwargs)
+        # just a random movie for the moment...
+        context['movie'] = Movie.objects.filter(cricket=context['cricket']).exclude(status=0).order_by('?')[1]
+        context['path'] = str(context['movie'].season)+"/"+context['movie'].camera
+        return context 
 
 def keyboard(request):
     return render(request, 'crickets/keyboard.html', {})

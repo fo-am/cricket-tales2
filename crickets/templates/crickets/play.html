@@ -3,16 +3,14 @@
 {% block crickets_stuff %}
 
 <div class="full-width-centred-block">
-  <h3>{% trans "You are watching cricket xxx: video: 1/5" %}</h3>
+  <h3>{% trans "You are watching cricket: " %} {{ cricket.tag }}  {% trans " video: 1/5" %}</h3>
 </div>
-
 <div class="video-top">
   <div class="video-container">
-    <video nocontrols poster="{{ MEDIA_URL }}movies/tutorial/arriving.jpg" id="ourvideo" class="video-start {% if ipad %}ipad{% endif %}" webkit-playsinline playsinline>
-      <source src="{{ MEDIA_URL }}movies/tutorial/arriving.webm">
-	<source src="{{ MEDIA_URL }}movies/tutorial/arriving.mp4" type="video/mp4">
-	  <source src="{{ MEDIA_URL }}movies/tutorial/arriving.ogg" type="video/ogg">
-            {% trans "I'm sorry; your browser doesn't support HTML5 video in WebM with VP8 or MP4 with H.264." %}
+    <video nocontrols poster="{{ MEDIA_URL }}movies/{{ path }}/{{ movie.name }}.jpg" id="ourvideo" class="video-start {% if ipad %}ipad{% endif %}" webkit-playsinline playsinline>
+      <source src="{{ MEDIA_URL }}movies/{{ path }}/{{ movie.name }}.mp4" type="video/mp4"/>
+      <source src="{{ MEDIA_URL }}movies/{{ path }}/{{ movie.name }}.ogv" type="video/ogg"/>
+      {% trans "I'm sorry; your browser doesn't support HTML5 video in WebM with VP8 or MP4 with H.264." %}
     </video>
     
     <div class="timeline-container"><!-- timeline row -->
@@ -82,8 +80,11 @@
 	  onclick="window.location.href='/training/'">
     {% trans "Retrain" %}
   </button>  
+
+<small>{{ path }}/{{ movie.name }}</small>
+
 </div>
 
-<script>video_setup(1, 1, 1, 1, 1, 1, 1);</script>
+<script>video_setup(1, {{ movie.id }});</script>
 
 {% endblock %}

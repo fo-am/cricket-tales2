@@ -2,9 +2,18 @@ var pop = false;
 var events = [];
 
 // in order to sort out translations...
-var translated_text = { training_start: "This cricket is singing, notice it's wings fluttering - click on the right button.",
-			training_fight: "Whatever...",			
-		      }
+var translated_text = { 
+    training_singing: "This cricket is singing, notice it's wings fluttering - click on the right button.",
+    training_eating: "The cricket is eating – click the right button",			
+    training_in: "The cricket is completely inside its burrow – click the right button",
+    training_mid: "The cricket is midway in/out of its burrow – click the right button",
+    training_out: "The cricket is completely outside its burrow – click the right button",
+    training_sun: "It is sunny – the image is full colour and bright – click the right button",
+    training_shade: "It is shady – the image is in colour but it’s a bit dark – click the right button",
+    training_night: "It is night time – the infra red cameras are on so the image is black and white – click the right button",
+    training_congrats: "Well done!",
+    training_finished: "Your training is complete.",
+}
 
 function percentage(x, y) {
     var container_w = $('#ourvideo').width();
@@ -23,41 +32,104 @@ function mouse_pos(e, context) {
 
 function change_video(basename) {
     pop.pause();
-    $($('video').children()[0]).attr('src','/media/movies/tutorial/'+basename+'.webm');
-    $($('video').children()[1]).attr('src','/media/movies/tutorial/'+basename+'.mp4');
-    $($('video').children()[2]).attr('src','/media/movies/tutorial/'+basename+'.ogg');
+    $($('video').children()[0]).attr('src','/media/movies/'+basename+'.mp4');
+    $($('video').children()[0]).attr('src','/media/movies/'+basename+'.ogv');
     pop.load();
     pop.play();
 }
 
 function update_training() {
     switch(state) {
-    case "training_start":
-        $('.video-popup').html(translated_text["training_start"]);
+    case "training_singing":
+        $('.video-popup').html(translated_text["training_singing"]);
         break;	
     case "training_sing_click":
-        $('.video-popup').html("Well done!");
-	change_video('fight');
-	setTimeout(function() { state="training_fight"; update_training(); }, 2000);
+        $('.video-popup').html(translated_text["training_congrats"]);
+	change_video('tutorial/eating');
+	setTimeout(function() { state="training_eating"; update_training(); }, 2000);
         break;	
-    case "training_fight":
-        $('.video-popup').html(translated_text["training_fight"]);
+
+    case "training_eating":
+        $('.video-popup').html(translated_text["training_eating"]);
         break;	
+    case "training_eating_click":
+        $('.video-popup').html(translated_text["training_congrats"]);
+	change_video('tutorial/in');
+	setTimeout(function() { state="training_in"; update_training(); }, 2000);
+        break;	
+
+    case "training_in":
+        $('.video-popup').html(translated_text["training_in"]);
+        break;	
+    case "training_in_click":
+        $('.video-popup').html(translated_text["training_congrats"]);
+	change_video('tutorial/in');
+	setTimeout(function() { state="training_mid"; update_training(); }, 2000);
+        break;	
+
+    case "training_mid":
+        $('.video-popup').html(translated_text["training_mid"]);
+        break;	
+    case "training_mid_click":
+        $('.video-popup').html(translated_text["training_congrats"]);
+	change_video('tutorial/out');
+	setTimeout(function() { state="training_out"; update_training(); }, 2000);
+        break;	
+
+    case "training_out":
+        $('.video-popup').html(translated_text["training_out"]);
+        break;	
+    case "training_out_click":
+        $('.video-popup').html(translated_text["training_congrats"]);
+	change_video('tutorial/sun');
+	setTimeout(function() { state="training_sun"; update_training(); }, 2000);
+        break;	
+
+    case "training_sun":
+        $('.video-popup').html(translated_text["training_sun"]);
+        break;	
+    case "training_sun_click":
+        $('.video-popup').html(translated_text["training_congrats"]);
+	change_video('tutorial/night');
+	setTimeout(function() { state="training_night"; update_training(); }, 2000);
+        break;	
+
+    case "training_finished":
+        $('.video-popup').html(translated_text["training_finished"]);
+        break;	
+
     }
 }
 
 function training_click(button) {
+    console.log(button);
     switch(state) {
-	case "training_start":
-	if (button==="sing") {
-	    state = "training_sing_click";
-	    update_training();
-	}
+	case "training_singing":
+	if (button==="singing") { state = "training_sing_click"; update_training(); }
+	break;
+	case "training_eating":
+	if (button==="eating") { state = "training_eating_click"; update_training(); }
+	break;
+	case "training_in":
+	if (button==="in") { state = "training_in_click"; update_training(); }
+	break;
+	case "training_mid":
+	if (button==="mid") { state = "training_mid_click"; update_training(); }
+	break;
+	case "training_out":
+	if (button==="out") { state = "training_out_click"; update_training(); }
+	break;
+	case "training_sun":
+	if (button==="sun") { state = "training_sun_click"; update_training(); }
+	break;
+	case "training_night":
+	if (button==="night") { state = "training_finished"; update_training(); }
+	break;
     }
 }
 
 
-var state = "training_start";
+var state = "training_singing";
 
 function training_video_setup() {
     document.addEventListener("DOMContentLoaded", function () {
@@ -119,8 +191,49 @@ function training_video_setup() {
 
 
 /////////////////////////////////////////////////////
+
+function video_setup(user_id,movie_id) {
+    document.addEventListener("DOMContentLoaded", function () {
+	pop = Popcorn("#ourvideo");
+
+        pop.code({
+            start: 0,
+            end: 0.01,
+            onStart: function() {
+                //update_training();
+            }});
+
+        // scrubbing
+        $("#time").draggable({
+	    axis:"x",
+	    drag: function( event, ui ) {
+                var pos = pop.duration() * parseFloat($('#time').css('left')) /
+		    parseFloat($('#time').parent().css('width'));
+                pop.currentTime(pos);
+	    }
+        });
+
+        // click on timeline
+        $("#timeline").click(function(e) {
+	    var offset = $(this).offset();
+	    var x = e.clientX - offset.left;
+	    var pos = pop.duration() * x / parseFloat($('#timeline').css('width'));
+	    pop.currentTime(pos);
+        });
+
+        pop.on("timeupdate", function() {
+	    var percentage = Math.floor((100 / pop.duration()) *
+                                        pop.currentTime());
+	    $("#time").css({left: percentage*timeline_fudge+"%"});
+
+        });
+
+	pop.play();
+    });
+    
+}
  
-function video_setup(cricket_start_id, burrow_start_id, cricket_id_id, cricket_end_id, something_else_id, movie_id, user_id) {
+function old_video_setup(cricket_start_id, burrow_start_id, cricket_id_id, cricket_end_id, something_else_id, movie_id, user_id) {
     // Create a popcorn instance by calling Popcorn("#id-of-my-video")
     document.addEventListener("DOMContentLoaded", function () {
         state = "wait-cricket";

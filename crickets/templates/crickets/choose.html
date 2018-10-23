@@ -8,9 +8,13 @@
 </div>
 
 <div class="button-row">
-  <button onclick="window.location.href='/play/'">
-    {% trans "Play" %}
+
+  {% for c in crickets %}
+  <button onclick="window.location.href='/play/{{c.id}}'">
+    {{ c.tag }}
   </button>  
+  {% endfor %}
+
 </div>
 
 <div class="centred-block">

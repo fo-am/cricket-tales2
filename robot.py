@@ -58,10 +58,10 @@ else:
         Thread(target = robot_django2.process_loop, args = ("thread-3", )).start()
         Thread(target = robot_django2.process_loop, args = ("thread-4", )).start()
         Thread(target = robot_django2.process_loop, args = ("thread-5", )).start()
-
-    if sys.argv[1]=="check-videos":
-        robot_django.update_video_status()
-
+    if sys.argv[1]=="update":
+        robot_django2.update_cricket_status()
+        robot_django2.update_video_status()
+        
     if sys.argv[1]=="video-clearup":
         robot_django.video_clearup()
 
@@ -69,12 +69,12 @@ else:
     #     robot_django.update_all_activity()
     # if sys.argv[1]=="movie-update":
     #     robot_django.update_movies()
-    # if sys.argv[1]=="print-report":
-    #     print(robot_django.generate_report())
-    # if sys.argv[1]=="report":
-    #     report = robot_django.generate_report()
-    #     send_email("robot@cricket-tales.ex.ac.uk",
-    #                report_recipients,"cricket tales report",
-    #                report)
+    if sys.argv[1]=="print-report":
+         print(robot_django2.generate_report())
+    if sys.argv[1]=="report":
+        report = robot_django2.generate_report()
+        send_email("robot@cricket-tales.ex.ac.uk",
+                   report_recipients,"cricket tales report",
+                   report)
     if sys.argv[1]=="overwrite-thumbnails":
         robot_django.update_video_thumbs()

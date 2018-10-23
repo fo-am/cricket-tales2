@@ -32,6 +32,7 @@ class Cricket(models.Model):
     moving_score = models.IntegerField(default=0)
     daynight_score = models.IntegerField(default=0)
     activity = models.IntegerField(default=0)
+    videos_ready = models.IntegerField(default=0)
     def __unicode__(self):
         return self.tag+" "+self.cricket_id
 
@@ -39,6 +40,7 @@ class Movie(models.Model):
     cricket = models.ForeignKey(Cricket)
     season = models.IntegerField(default=0)
     name = models.CharField(max_length=200)
+    camera = models.CharField(max_length=200)
     views = models.IntegerField(default=0)
     created_date = models.DateTimeField('date created')
     status = models.IntegerField(default=0)

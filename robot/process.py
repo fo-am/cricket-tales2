@@ -15,6 +15,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # using avconv to make and inspect video data
+# removed webm as it seems to not be required any more 
+# (see table on HTML5 video)
+# https://en.wikipedia.org/wiki/HTML5_video#Supported_video_and_audio_formats
 
 import os
 import time
@@ -28,9 +31,9 @@ def run(cmd):
 def run_converter(f,r,instance_name):
     f = settings.dest_root+f
     cmd = "avconv -y -loglevel error -r "+str(r)+" -i "+instance_name+"/frame-%05d.jpg -vf vflip"
-    run(cmd+" -c:v libx264 -threads 1 "+f+".mp4")
-    run(cmd+" "+f+".ogg")
-    run(cmd+" "+f+".webm")
+    run(cmd+" -c:v libx264 -preset veryslow -threads 1 "+f+".mp4")
+    run(cmd+" -c:v libtheora -qscale:v 7 -c:a libvorbis -qscale:a 7 "+f+".ogv")
+    #run(cmd+" "+f+".webm")
 
 def delete_frames(instance_name):
     run("rm "+instance_name+"/*.jpg")
@@ -51,14 +54,14 @@ def create_thumb_from_movie(fn):
 def check_done(fn):
     return (os.path.isfile(settings.dest_root+fn+".jpg") and
             os.path.isfile(settings.dest_root+fn+".mp4") and
-            os.path.isfile(settings.dest_root+fn+".ogg") and
-            os.path.isfile(settings.dest_root+fn+".webm"))
+            os.path.isfile(settings.dest_root+fn+".ogv"))
+            # and os.path.isfile(settings.dest_root+fn+".webm"))
 
 def delete_videos(fn):
     run("rm "+settings.dest_root+fn+".jpg")
     run("rm "+settings.dest_root+fn+".mp4")
-    run("rm "+settings.dest_root+fn+".ogg")
-    run("rm "+settings.dest_root+fn+".webm")
+    run("rm "+settings.dest_root+fn+".ogv")
+    #run("rm "+settings.dest_root+fn+".webm")
 
 def get_video_length(filename):
     cmd = "avconv -i "+filename+" 2>&1 | grep 'Duration' | awk '{print $2}' | sed s/,//"
@@ -70,5 +73,5 @@ def get_video_length(filename):
 
 def check_video_lengths(fn):
     return (get_video_length(settings.dest_root+fn+".mp4")>=settings.video_length and
-            get_video_length(settings.dest_root+fn+".ogg")>=settings.video_length and
-            get_video_length(settings.dest_root+fn+".webm")>=settings.video_length)
+            get_video_length(settings.dest_root+fn+".ogv")>=settings.video_length)
+            # get_video_length(settings.dest_root+fn+".webm")>=settings.video_length)

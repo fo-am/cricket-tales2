@@ -4,6 +4,7 @@ from django.db.models import Count, Sum
 from django.views import generic
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect, HttpResponse
+import datetime
 
 # Create your views here.
 
@@ -57,13 +58,38 @@ def record_event(request):
         form = EventForm(request.POST)
         # probably not even needed, but who knows where these may
         # be coming from eventually...?
-        print(form)
+
         if form.is_valid():
             form.save()
-            # update the stats for this player
-            # too much here???
-            # either this or a laggy continual robot.py process
-            #data = form.cleaned_data
+            data = form.cleaned_data
+            movie = data["movie"]
+            # get the the cricket 
+            cricket = Cricket.objects.get(pk=movie.cricket.id)
+            
+            # daynight_score?
+            if movie.start_time.time()<datetime.time(6,0,0) or \
+               movie.start_time.time()>datetime.time(18,0,0):
+                print("nighttime")
+                if data["event_type"]=="eating": cricket.eating_score+=1
+                if data["event_type"]=="singing": cricket.singing_score+=1
+                if data["event_type"]=="in": cricket.moving_score+=1
+                if data["event_type"]=="mid": cricket.moving_score+=1
+                if data["event_type"]=="out": cricket.moving_score+=1
+            else:
+                print("daytime")
+                if data["event_type"]=="eating": cricket.eating_score+=1
+                if data["event_type"]=="singing": cricket.singing_score+=1
+                if data["event_type"]=="in": cricket.moving_score+=1
+                if data["event_type"]=="mid": cricket.moving_score+=1
+                if data["event_type"]=="out": cricket.moving_score+=1
+                
+            if data["event_type"]=="burrow_start":
+                # on burrow_start update player videos watched
+                cricket.activity+=1
+                movie.views+=1
+                movie.save()
+
+            cricket.save()
 
             # # if we're not anonymous
             # if data["user"]:

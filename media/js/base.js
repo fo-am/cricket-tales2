@@ -1,3 +1,5 @@
+
+
 var pop = false;
 var current_user_id = 0;
 var current_movie_id = 0;
@@ -175,7 +177,6 @@ function update_training() {
 }
 
 function training_click(button) {
-    console.log(button);
     switch(state) {
     case "training_singing":
 	if (button==="singing") { state = "training_sing_click"; update_training(); }
@@ -249,7 +250,6 @@ function training_video_setup() {
 /////////////////////////////////////////////////////
 
 function update_watching() {
-    console.log(state);
     switch(state) {
     case "watching_burrow_start":
         $('#popup-text').html(translated_text[state]);
@@ -290,6 +290,7 @@ function update_watching() {
 }
 
 function restart_click() {
+    add_event("video_restart", 0, 0, null);
     state = "watching_burrow_start";
     update_watching();    
 }
@@ -310,7 +311,6 @@ function no_cricket_click() {
 }
 
 function watching_click(button,e) {
-    console.log(button);
     switch(state) {
     case "watching_burrow_start":
 	if (button=="video") {
@@ -350,7 +350,7 @@ function register_movie(movie_id,name,path) {
 function video_setup(user_id, csrf) {
     csrftoken=csrf;
     current_user_id = user_id;
-    current_movie_id = movies[0].name;
+    current_movie_id = movies[0].movie_id;
     current_movie = 0;
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -400,14 +400,9 @@ function video_setup(user_id, csrf) {
 
 // sends the event to the server and renders it
 function add_event(event_type, xpos, ypos, other) {
-    //console.log([event_type_id, movie_id,user_id, xpos, ypos, other]);
     // only works if we have a video running of course...
     if (pop!=false) {
         t = pop.currentTime();
-
-        // todo: user_id now comes in as -1 if the player is anonymous
-        // not sure what circumstances it can be None now
-
         // save to django ->
         $.post("/event/", {
             movie: current_movie_id,
@@ -418,7 +413,7 @@ function add_event(event_type, xpos, ypos, other) {
             x_pos : xpos,
             y_pos: ypos,
             other: other,
-	    'csrfmiddlewaretoken': csrftoken
+	    csrfmiddlewaretoken: csrftoken
         });
     }
 

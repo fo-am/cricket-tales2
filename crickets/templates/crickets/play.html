@@ -89,7 +89,9 @@
 </div>
 
 {% for m in movies %}
-<script>register_movie("{{ m.id }}","{{ m.name }}","{{ m.season }}/{{ m.camera }}");</script>
+<script>
+  register_movie("{{ m.id }}","{{ m.name }}","{{ m.season }}/{{ m.camera }}");
+</script>
 {% endfor %}
 
 <script>video_setup(1,"{{ csrf_token }}");</script>

@@ -21,6 +21,8 @@ class Player(models.Model):
     unique_id = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     videos_watched = models.IntegerField(default=0)
+    def __unicode__(self):
+        return self.name+" "+self.unique_id
 
 class Cricket(models.Model):
     season = models.IntegerField(default=0)
@@ -66,6 +68,6 @@ class Event(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     other = models.CharField(max_length=200, null=True, blank=True, default=None)
     def __unicode__(self):
-        return self.type.type+" "+str(self.start_time)+" : "+str(self.movie);
+        return self.event_type+" "+str(self.start_time)+" : "+str(self.movie);
 
     

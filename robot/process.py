@@ -27,7 +27,7 @@ import settings
 def run(cmd):
     #print(cmd)
     os.system(cmd)
-
+    
 def run_converter(f,r,instance_name):
     f = settings.dest_root+f
     cmd = "avconv -y -loglevel error -r "+str(r)+" -i "+instance_name+"/frame-%05d.jpg -vf vflip"
@@ -54,8 +54,9 @@ def create_thumb_from_movie(fn):
 def check_done(fn):
     return (os.path.isfile(settings.dest_root+fn+".jpg") and
             os.path.isfile(settings.dest_root+fn+".mp4") and
-            os.path.isfile(settings.dest_root+fn+".ogv"))
-            # and os.path.isfile(settings.dest_root+fn+".webm"))
+            os.path.isfile(settings.dest_root+fn+".ogv") and
+            check_video_lengths(fn))
+    # and os.path.isfile(settings.dest_root+fn+".webm"))
 
 def delete_videos(fn):
     run("rm "+settings.dest_root+fn+".jpg")

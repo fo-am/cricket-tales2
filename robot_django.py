@@ -26,6 +26,7 @@ from django.utils.translation import ugettext_lazy as _
 import subprocess
 import random
 from threading import Thread
+import numpy as np
 
 import robot.process
 import robot.exicatcher
@@ -459,3 +460,5 @@ def update_movies():
 
 def test_random_movie():
     print random_burrow_one_check_status(Movie,1,1)
+
+    

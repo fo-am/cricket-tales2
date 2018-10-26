@@ -17,22 +17,25 @@
 from django.db import models
 from datetime import datetime
 
+# for caching externally calculated values... 
+class Value(models.Model):
+    name = models.CharField(max_length=200)
+    value = models.FloatField(default=0)
+    def __unicode__(self):
+        return self.name
+    
 class Player(models.Model):
     unique_id = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     videos_watched = models.IntegerField(default=0)
     def __unicode__(self):
         return self.name+" "+self.unique_id
-
+    
 class Cricket(models.Model):
     season = models.IntegerField(default=0)
     cricket_id = models.CharField(max_length=200)
     tag = models.CharField(max_length=200)
-    gender = models.CharField(max_length=200)
-    eating_score = models.IntegerField(default=0)
-    singing_score = models.IntegerField(default=0)
-    moving_score = models.IntegerField(default=0)
-    daynight_score = models.IntegerField(default=0)
+    sex = models.CharField(max_length=200)
     activity = models.IntegerField(default=0)
     videos_ready = models.IntegerField(default=0)
     def __unicode__(self):
@@ -61,13 +64,13 @@ class Event(models.Model):
     movie = models.ForeignKey(Movie)
     event_type = models.CharField(max_length=200)
     user = models.ForeignKey(Player, null=True, blank=True, default = None)
-    start_time = models.FloatField(default=0)
-    end_time = models.FloatField(default=0)
+    video_time = models.FloatField(default=0)
+    estimated_real_time = models.DateTimeField(auto_now_add=True)
     x_pos = models.FloatField(null=True, blank=True, default=None)
     y_pos = models.FloatField(null=True, blank=True, default=None)
     timestamp = models.DateTimeField(auto_now_add=True)
     other = models.CharField(max_length=200, null=True, blank=True, default=None)
     def __unicode__(self):
-        return self.event_type+" "+str(self.start_time)+" : "+str(self.movie);
+        return self.event_type+" "+str(self.video_time)+" : "+str(self.movie);
 
     

@@ -58,56 +58,41 @@ def record_event(request):
         form = EventForm(request.POST)
         # probably not even needed, but who knows where these may
         # be coming from eventually...?
-
         if form.is_valid():
-            form.save()
-            data = form.cleaned_data
-            movie = data["movie"]
-            # get the the cricket 
-            cricket = Cricket.objects.get(pk=movie.cricket.id)
+
+            obj = Event() #gets new object
+            obj.movie = form.cleaned_data['movie']
+            obj.event_type = form.cleaned_data['event_type']
+            obj.user = form.cleaned_data['user']
+            obj.video_time = form.cleaned_data['video_time']
+            obj.x_pos = form.cleaned_data['x_pos']
+            obj.y_pos = form.cleaned_data['y_pos']
+            obj.other = form.cleaned_data['other']
+
+            # calculate dodgy time estimation based on proportion
+            # through screen video and move start/end time            
+            movie = obj.movie            
+            screen_length_secs = 30
+            t = obj.video_time/screen_length_secs
+            diff = movie.end_time-movie.start_time            
+            realtime = movie.start_time+datetime.timedelta(seconds=diff.total_seconds()*t)
+            obj.save()
+            # for some reason need to re-save this
+            obj.estimated_real_time = realtime
+            obj.save()
             
-            # daynight_score?
-            if movie.start_time.time()<datetime.time(6,0,0) or \
-               movie.start_time.time()>datetime.time(18,0,0):
-                print("nighttime")
-                if data["event_type"]=="eating": cricket.eating_score+=1
-                if data["event_type"]=="singing": cricket.singing_score+=1
-                if data["event_type"]=="in": cricket.moving_score+=1
-                if data["event_type"]=="mid": cricket.moving_score+=1
-                if data["event_type"]=="out": cricket.moving_score+=1
-            else:
-                print("daytime")
-                if data["event_type"]=="eating": cricket.eating_score+=1
-                if data["event_type"]=="singing": cricket.singing_score+=1
-                if data["event_type"]=="in": cricket.moving_score+=1
-                if data["event_type"]=="mid": cricket.moving_score+=1
-                if data["event_type"]=="out": cricket.moving_score+=1
+            # get the the cricket 
+            cricket = Cricket.objects.get(pk=movie.cricket.id)            
                 
-            if data["event_type"]=="burrow_start":
+            if obj.event_type=="burrow_start":
                 # on burrow_start update player videos watched
                 cricket.activity+=1
                 movie.views+=1
                 movie.save()
-
+                
             cricket.save()
-
-            # # if we're not anonymous
-            # if data["user"]:
-            #     profile = data["user"].profile
-            #     profile.num_events+=1
-            #     profile.save()
-
-            #     user = data["user"]
-            #     movie = data["movie"]
-
-            #     # update the score for this user if it's the last
-            #     # event (we can also calculate these by counting the
-            #     # cricket end's in the event table if we need to)
-            #     if data["type"].name == "Cricket End":
-            #         update_score(user,movie.burrow)
-
-            #     update_stories(user,data)
             return HttpResponse('')
+        print(form.errors)
         return HttpResponse('request is invalid: '+str(form))
     else:
         form = EventForm()

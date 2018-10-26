@@ -61,6 +61,10 @@ else:
     if sys.argv[1]=="update":
         robot_django2.update_cricket_status()
         robot_django2.update_video_status()
+        robot_django2.test_plot()
+        robot_django2.plot_activity("singing")
+        robot_django2.plot_activity("eating")
+        robot_django2.plot_moving_activity()
         
     if sys.argv[1]=="video-clearup":
         robot_django.video_clearup()
@@ -78,3 +82,7 @@ else:
                    report)
     if sys.argv[1]=="overwrite-thumbnails":
         robot_django.update_video_thumbs()
+    if sys.argv[1]=="test":
+        robot_django2.calculate_minmax_events("singing")
+        robot_django2.calculate_minmax_events("eating")
+        robot_django2.calculate_minmax_moving()

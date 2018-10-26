@@ -18,16 +18,19 @@ import os,sys
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cricket_tales2.settings")
 import django
 from django.utils import timezone
-from django.db.models import Max, Count, Sum
-from datetime import datetime, timedelta
+from django.db.models import Max, Count, Sum, Q
+from datetime import datetime, timedelta, date, time
 from crickets.models import *
 import csv
 import time
 import subprocess
+import numpy as np
 import robot.exicatcher
 import robot.process
 import robot.settings
+import robot.plot
 import crickets.common
+import random
 
 django.setup()
 
@@ -56,7 +59,7 @@ video_status_finished = 3
 ##################################################################
 # adding things to the database
 
-def add_cricket(season,cricket_id,tag,gender):
+def add_cricket(season,cricket_id,tag,sex):
     existing = Cricket.objects.filter(cricket_id=cricket_id)
     if len(existing)!=0:
         print("not adding, found cricket "+cricket_id)
@@ -66,7 +69,7 @@ def add_cricket(season,cricket_id,tag,gender):
     m = Cricket(cricket_id = cricket_id,
                 season = season,
                 tag = tag,
-                gender = gender)
+                sex = sex)
                 
     m.save()
 
@@ -244,7 +247,7 @@ def get_exact_frame_time(exi_frames,frame_num):
     return conv_time(exi_frames[frame_num]['time'])
 
 # chop arbitrary length into videos of the same length
-def add_movies(season,camera,start_time,end_time,cricket_id,video_length_secs,fps,tag,gender):
+def add_movies(season,camera,start_time,end_time,cricket_id,video_length_secs,fps,tag,sex):
     exi_index_file = robot.settings.season_to_data_location[season]+"IP"+camera+"/Videos/"+start_time.strftime('%Y%m%d')+".index"
 
     frames = find_frames_from_index_file(exi_index_file,start_time,end_time)
@@ -256,7 +259,7 @@ def add_movies(season,camera,start_time,end_time,cricket_id,video_length_secs,fp
     frames_per_video = video_length_secs*fps
     if start_frame!=-1:
         # only bother adding a cricket if there is a video to go with it...
-        add_cricket(season,cricket_id,tag,gender)
+        add_cricket(season,cricket_id,tag,sex)
 
         # reload the frames in so we can find out the precice times
         exi_frames = robot.exicatcher.read_index(exi_index_file)
@@ -292,11 +295,11 @@ def import_crickets(filename,video_length,fps):
                 camera = row[1]
                 cricket_id = row[2]
                 tag = row[3]
-                gender = row[4]
+                sex = row[4]
                 start = timezone.utc.localize(datetime.strptime(row[5],"%d/%m/%Y %H:%M"))
                 end = timezone.utc.localize(datetime.strptime(row[6],"%d/%m/%Y %H:%M"))
 
-                add_movies(season,camera,start,end,cricket_id,video_length,fps,tag,gender)
+                add_movies(season,camera,start,end,cricket_id,video_length,fps,tag,sex)
 
 def disk_state():
     df = subprocess.Popen(["df", "-h", "/"], stdout=subprocess.PIPE)
@@ -340,6 +343,101 @@ def generate_report():
    __/ /  /  /|  \  '.____|__| 
    `''''''''`'|`'''---'|  \    
           .---'        /_  |_  """ 
+
+
+def avg_time(datetimes):
+    total = sum(dt.hour * 3600 + dt.minute * 60 + dt.second for dt in datetimes)
+    return total / len(datetimes)
+
+def plot_activity(event_type):
+    arr=[]
+    for cricket in Cricket.objects.all():
+        print(str(cricket))
+        times = []
+        for event in Event.objects.filter(movie__cricket=cricket,event_type=event_type):
+            print("found "+str(event.estimated_real_time))
+            times.append(event.estimated_real_time)
+        if len(times)>0:
+            a = avg_time(times)
+            print(a)
+            arr.append(a/(60.0*60.0))
+    if len(arr)>1:
+        print("plotting "+event_type)
+        print(arr[0])
+        print(arr[1])
+        print(len(arr))
+        robot.plot.create_plot(np.array(arr),"media/images/autoplots/"+event_type+".png")
+    else:
+        print("not enough crickets have "+event_type+" to plot")
+
+def plot_moving_activity():
+    arr=[]
+    for cricket in Cricket.objects.all():
+        print(str(cricket))
+        times = []
+        for event in Event.objects.filter(movie__cricket=cricket).filter(Q(event_type="in")|Q(event_type="mid")|Q(event_type="out")):
+            print("found "+str(event.estimated_real_time))
+            times.append(event.estimated_real_time)
+        if len(times)>0:
+            a = avg_time(times)
+            print(a)
+            arr.append(a/(60.0*60.0))
+    if len(arr)>1:
+        print(arr[0])
+        print(arr[1])
+        print(len(arr))
+        robot.plot.create_plot(np.array(arr),"media/images/autoplots/moving.png")
+    else:
+        print("not enough crickets have "+event_type+" to plot")
+
+def test_plot():
+    arr=[]
+    for i in range(0,1000):
+        arr.append(random.uniform(0,4))
+    for i in range(0,1000):
+        arr.append(random.uniform(18,20))
+    robot.plot.create_plot(np.array(arr),"media/images/autoplots/test.png")
+    
+def calculate_minmax_events(event_type):
+    min_events=99999999
+    max_events=0
+    for cricket in Cricket.objects.all():
+        count = len(Event.objects.filter(movie__cricket=cricket,event_type=event_type))
+        if count>max_events: max_events=count
+        if count<min_events: min_events=count
+
+    existing = Value.objects.filter(name=event_type+"_min")
+    if len(existing)!=0:
+        existing[0].value = min_events
+    else:
+        Value.objects.create(name=event_type+"_min",value=min_events)
+    existing = Value.objects.filter(name=event_type+"_max")
+    if len(existing)!=0:
+        existing[0].value = max_events
+    else:
+        Value.objects.create(name=event_type+"_max",value=max_events)
+    
+def calculate_minmax_moving():
+    min_events=99999999
+    max_events=0
+    for cricket in Cricket.objects.all():
+        count = len(Event.objects.filter(movie__cricket=cricket).filter(Q(event_type="in")|Q(event_type="mid")|Q(event_type="out")))
+        if count>max_events: max_events=count
+        if count<min_events: min_events=count
+
+    existing = Value.objects.filter(name="moving_min")
+    if len(existing)!=0:
+        existing[0].value = min_events
+        existing[0].save()
+    else:
+        Value.objects.create(name="moving_min",value=min_events)
+    existing = Value.objects.filter(name="moving_max")
+    if len(existing)!=0:
+        existing[0].value = max_events
+        existing[0].save()
+    else:
+        Value.objects.create(name="moving_max",value=max_events)
+    
 
 
 # process crickets : videos ready

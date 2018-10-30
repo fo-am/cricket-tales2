@@ -178,6 +178,12 @@ def player_name(request):
             player.save()
     return HttpResponse('')
 
+class LeaderboardView(generic.ListView):
+    model = Player
+    template_name = 'crickets/leaderboard.html'
+    def get_queryset(self):
+        return Player.objects.exclude(name="???").exclude(videos_watched=0).order_by('-videos_watched')[:20]
+
 class EventForm(ModelForm):
      class Meta:
          model = Event

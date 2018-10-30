@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^results_eating/(?P<pk>\d+)/$', views.ResultsEatingView.as_view(), name='results_eating'),
     url(r'^results_singing/(?P<pk>\d+)/$', views.ResultsSingingView.as_view(), name='results_singing'),
     url(r'^player_name/', csrf_exempt(views.player_name), name='player_name'),
+    url(r'^leaderboard/', views.LeaderboardView.as_view(), name='leaderboard'),
 )
 
 urlpatterns += patterns('',

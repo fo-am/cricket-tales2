@@ -4,92 +4,36 @@
 {% block crickets_stuff %}
 
 <div class="centred-block">
-  <h3>{% trans "Training video - watch the cricket!" %}</h3>
+  <h3>{% trans "Leaderboard" %}</h3>
 </div>
 
-<!-- -->
+{% if player_list %}
 
-<div class="video-top">
-  <div class="video-container">
-    <video nocontrols  poster="{{ MEDIA_URL }}movies/tutorial/arriving.jpg" id="ourvideo" class="video-start {% if ipad %}ipad{% endif %}" webkit-playsinline playsinline>
-      <source src="{{ MEDIA_URL }}movies/tutorial/singing.mp4"/>
-      <source src="{{ MEDIA_URL }}movies/tutorial/singing.ogv"/>
-      {% trans "I'm sorry; your browser doesn't support HTML5 video in WebM with VP8 or MP4 with H.264." %}
-    </video>
-    
-    <div class="video-popup">
-      <span id="popup-text"></span>
-    </div>
-    
-    <div class="timeline-container"><!-- timeline row -->
-      <button class="toggle-button play" style="background: url(/media/images/movie_buttons/play.png); background-size: 100% 100%;" onclick='play_state_toggle()'></button>
-      <button class="play" style="background: url(/media/images/movie_buttons/redo.png); background-size: 100% 100%;"
-              onclick="play_state_redo({{redo.id}},{{movie.id}},'{{user.id}}');"></button>
-      <div id="timeline" class="timeline bar"><!-- timeline div -->
-	<div class="timeline_line"></div>
-	<div id="time" class="time tiny_circle"></div>
-      </div><!-- end timeline div -->
-    </div><!-- end timeline row -->
-  </div>  
-
-  <div class="video-button-container">
-    <div class="button-container">
-      <button class="image" onclick="training_click('sun');">
-	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/sun.png">	  
-	{% trans "Sun" %}
-      </button>  
-      <button class="image" onclick="training_click('shade');">
-	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/cloud.png">	  
-	{% trans "Shade" %}
-      </button>  
-      <button class="image" onclick="training_click('night');">
-	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/night.png">	  
-	{% trans "Night" %}
-      </button>  
-    </div>
-    
-    <div class="button-container">
-      <button class="image" onclick="training_click('in');">
-	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/in.png">	  
-	{% trans "In" %}
-      </button>  
-      <button class="image" onclick="training_click('mid');">
-	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/mid.png">	  
-	{% trans "Mid" %}
-      </button>  
-      <button class="image" onclick="training_click('out');">
-	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/out.png">	  
-	{% trans "Out" %}
-      </button>  
-    </div>
-
-    <div class="centred-block">
-      <div class="button-container">
-	<button class="image" onclick="training_click('singing');">
-	  <img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/sing.png">	  
-	  {% trans "Singing" %}
-	</button>  
-	<button class="image" onclick="training_click('eating');">
-	  <img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/eat.png">	  
-	  {% trans "Eating" %}
-	</button>  
-      </div>
-    </div>
-
-  </div>
+{% for player in player_list %}
+<div class="centred-block">
+  {{ player.name }} : {{ player.videos_watched }}
 </div>
+{% endfor %}
 
-<div class="button-container" style="clear:left; padding-top:0em;">
-  <button class="small"
-	  onclick="window.location.href='/'">
-    {% trans "Quit" %}
-  </button>  
-  <button class="small"
-	  onclick="window.location.href='/choose/'">
-    {% trans "Skip" %}
-  </button>  
+{% endif %}
+
+<div class="button-row">
+    <button class="small"
+      onclick="window.location.href='/leaderboard/'"> 
+      {% trans "Leaderboard" %}
+    </button>
+    <button class="small"
+	    onclick="window.location.href='/personality/{{ cricket.id }}'">
+      {% trans "My Cricket" %}
+    </button>
+    <button class="small"
+	    onclick="window.location.href='/choose/'">
+      {% trans "Play again" %}
+    </button>
+    <button class="small"
+	    onclick="window.location.href='/'">
+	{% trans "Quit" %}
+    </button>
 </div>
-
-<script>training_video_setup();</script>
 
 {% endblock %}

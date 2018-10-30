@@ -25,12 +25,11 @@ class Value(models.Model):
         return self.name
     
 class Player(models.Model):
-    unique_id = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     videos_watched = models.IntegerField(default=0)
     def __unicode__(self):
-        return self.name+" "+self.unique_id
-    
+        return str(self.id)+" "+self.name
+
 class Cricket(models.Model):
     season = models.IntegerField(default=0)
     cricket_id = models.CharField(max_length=200)

@@ -398,6 +398,35 @@ function video_setup(user_id, csrf) {
     });    
 }
 
+var kb_pos=0;
+var kb_txt="???";
+
+String.prototype.replaceAt=function(index, replacement) {
+    return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+}
+
+// keyboard stuff
+function kb(pressed) {
+    if (kb_pos<3) {
+	kb_txt=kb_txt.replaceAt(kb_pos++,pressed);
+	$("#kb-text").html(kb_txt);
+    }
+}
+
+function kb_delete() {
+    if (kb_pos>0) {
+	kb_pos--;
+	kb_txt=kb_txt.replaceAt(kb_pos,"?");
+	$("#kb-text").html(kb_txt);
+    }
+}
+
+function kb_send() {
+    $.post("/player_name/", {
+        name: kb_txt,
+    });
+}
+
 // sends the event to the server and renders it
 function add_event(event_type, xpos, ypos, other) {
     // only works if we have a video running of course...

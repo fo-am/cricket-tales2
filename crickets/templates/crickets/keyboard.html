@@ -8,49 +8,54 @@
 </div>
 
 <div class="centred-block">
-{% trans "You have contributed data for XX videos." %}
+{% trans "You have contributed data for" %} {{ num_videos }} {% trans "videos." %}
 </div>
 
 <div class="centred-block">
 {% trans "Enter your name to appear on the leaderboard:" %}
 </div>
 
+<div class="centred-block">
+<h2><span id="kb-text" style="background: white;">???</span></h2>
+</div>
+
 <div class="button-row">
-  <button class="small">Q</button> 
-  <button class="small">W</button>
-  <button class="small">E</button> 
-  <button class="small">R</button>
-  <button class="small">T</button> 
-  <button class="small">Y</button>
-  <button class="small">U</button> 
-  <button class="small">I</button>
-  <button class="small">O</button>
-  <button class="small">P</button>  
+  <button class="small" onclick="kb('Q');">Q</button> 
+  <button class="small" onclick="kb('W');">W</button>
+  <button class="small" onclick="kb('E');">E</button> 
+  <button class="small" onclick="kb('R');">R</button>
+  <button class="small" onclick="kb('T');">T</button> 
+  <button class="small" onclick="kb('Y');">Y</button>
+  <button class="small" onclick="kb('U');">U</button> 
+  <button class="small" onclick="kb('I');">I</button>
+  <button class="small" onclick="kb('O');">O</button>
+  <button class="small" onclick="kb('P');">P</button>  
+  <button class="small" onclick="kb_delete();">Del</button> 
 </div>
 <div class="button-row">
-  <button class="small">A</button> 
-  <button class="small">S</button>
-  <button class="small">D</button> 
-  <button class="small">F</button>
-  <button class="small">G</button> 
-  <button class="small">H</button>
-  <button class="small">J</button> 
-  <button class="small">K</button>
-  <button class="small">L</button>
+  <button class="small" onclick="kb('A');">A</button> 
+  <button class="small" onclick="kb('S');">S</button>
+  <button class="small" onclick="kb('D');">D</button> 
+  <button class="small" onclick="kb('F');">F</button>
+  <button class="small" onclick="kb('G');">G</button> 
+  <button class="small" onclick="kb('H');">H</button>
+  <button class="small" onclick="kb('J');">J</button> 
+  <button class="small" onclick="kb('K');">K</button>
+  <button class="small" onclick="kb('L');">L</button>
 </div>
 <div class="button-row">
-  <button class="small">Z</button> 
-  <button class="small">X</button>
-  <button class="small">C</button> 
-  <button class="small">V</button>
-  <button class="small">B</button> 
-  <button class="small">N</button>
-  <button class="small">M</button> 
+  <button class="small" onclick="kb('Z');">Z</button> 
+  <button class="small" onclick="kb('X');">X</button>
+  <button class="small" onclick="kb('C');">C</button> 
+  <button class="small" onclick="kb('V');">V</button>
+  <button class="small" onclick="kb('B');">B</button> 
+  <button class="small" onclick="kb('N');">N</button>
+  <button class="small" onclick="kb('M');">M</button> 
 </div>
 
 <div class="button-row">
   <button class="small"
-	  onclick="window.location.href='/personality/{{ cricket.id }}'">
+	  onclick="kb_send(); window.location.href='/personality/{{ cricket.id }}';"> 
     {% trans "Continue" %}
   </button>  
 

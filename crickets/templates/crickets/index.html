@@ -20,7 +20,11 @@
 </div>
 
 <div class="button-row">
+  {% if done_training %}
+  <button onclick="window.location.href='/choose/'">
+  {% else %}
   <button onclick="window.location.href='/check/'">
+  {% endif %}
     {% trans "PLAY!" %}
   </button>
   <button onclick="window.location.href='/about/'">

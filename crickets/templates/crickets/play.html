@@ -77,8 +77,13 @@
 </div>
 
 <div class="button-container" style="clear:left; padding-top:0em;">
+  {% if done_keyboard %}
+  <button class="small"
+	  onclick="window.location.href='/personality/{{ cricket.id }}'">
+  {% else %}
   <button class="small"
 	  onclick="window.location.href='/keyboard/{{ cricket.id }}'">
+  {% endif %}
     {% trans "Quit" %}
   </button>  
   <button class="small"

@@ -9,11 +9,15 @@ import datetime
 # Create your views here.
 
 def index(request):
-    context = {}
-    context['hide_menu'] = True
-    context['num_videos_watched'] = Movie.objects.all().aggregate(Sum('views'))['views__sum']
-    context['num_events'] = Event.objects.all().count()
-    context['num_videos'] = Movie.objects.all().count()
+    # on installation versio - clear the session stuff here...
+    #request.session.flush()
+    context={}
+    context['done_training'] = False
+    # don't add anything to session till player has passed check
+    if 'done_training' in request.session:
+        print(request.session["done_training"])
+        context['done_training'] = request.session["done_training"]
+        
     return render(request, 'crickets/index.html', context)
 
 def about(request):
@@ -26,6 +30,15 @@ def training(request):
     return render(request, 'crickets/training.html', {})
 
 def choose(request):
+    # can only have got here via training or already done with check passed...
+
+    request.session["done_training"]=True
+
+    if 'player_number' not in request.session:
+        player = Player(name = "???", videos_watched = 0)
+        player.save()
+        request.session["player_number"]=player.id
+
     context = {}
     context['crickets'] = Cricket.objects.exclude(videos_ready=0).order_by('activity')[:5]
     return render(request, 'crickets/choose.html', context)
@@ -38,6 +51,16 @@ class CricketView(generic.DetailView):
         # just a random movie for the moment...
         context['movies'] = Movie.objects.filter(cricket=context['cricket']).exclude(status=0).order_by('?')[:5]
         context['path'] = str(context['movies'][0].season)+"/"+context['movies'][0].camera
+
+        # check using the session to see where we need to go
+        # after this - keyboard or personality
+        context['done_keyboard']=False
+        if 'player_number' in self.request.session:
+            player = Player.objects.get(pk=self.request.session["player_number"])
+            print(player.name)
+            if player.name != "???":
+                context['done_keyboard']=True
+
         return context 
 
 def avg_time(datetimes):
@@ -45,7 +68,10 @@ def avg_time(datetimes):
     return total / len(datetimes)
 
 def score(score, min_score, max_score):
-    return ((score-min_score)/(max_score-min_score))*100
+    ret = ((score-min_score)/(max_score-min_score))*100
+    if ret>100: return 100
+    if ret<0: return 0
+    return ret
 
 class PersonalityView(generic.DetailView):
     model = Cricket
@@ -134,6 +160,23 @@ class ResultsSingingView(generic.DetailView):
 class KeyboardView(generic.DetailView):
     model = Cricket
     template_name = 'crickets/keyboard.html'
+    def get_context_data(self, **kwargs):
+        context = super(KeyboardView, self).get_context_data(**kwargs)
+        
+        context['num_videos']=0
+        if 'player_number' in self.request.session:
+            player = Player.objects.get(pk=self.request.session["player_number"])
+            context['num_videos']=player.videos_watched
+
+        return context 
+
+def player_name(request):
+    if request.method == 'POST':
+        if 'player_number' in request.session:
+            player = Player.objects.get(pk=request.session["player_number"])
+            player.name=request.POST['name']
+            player.save()
+    return HttpResponse('')
 
 class EventForm(ModelForm):
      class Meta:
@@ -178,6 +221,11 @@ def record_event(request):
                 
             if obj.event_type=="burrow_start":
                 # on burrow_start update player videos watched
+                print(request.session["player_number"])
+                if "player_number" in request.session:
+                    player = Player.objects.get(pk=request.session["player_number"])
+                    player.videos_watched+=1
+                    player.save()
                 cricket.activity+=1
                 movie.views+=1
                 movie.save()

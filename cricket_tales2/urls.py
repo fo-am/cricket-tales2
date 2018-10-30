@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from crickets import views
+from django.views.decorators.csrf import csrf_exempt
 
 import settings
 
@@ -22,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^results_movement/(?P<pk>\d+)/$', views.ResultsMovementView.as_view(), name='results_movement'),
     url(r'^results_eating/(?P<pk>\d+)/$', views.ResultsEatingView.as_view(), name='results_eating'),
     url(r'^results_singing/(?P<pk>\d+)/$', views.ResultsSingingView.as_view(), name='results_singing'),
+    url(r'^player_name/', csrf_exempt(views.player_name), name='player_name'),
 )
 
 urlpatterns += patterns('',

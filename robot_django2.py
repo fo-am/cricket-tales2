@@ -352,20 +352,14 @@ def avg_time(datetimes):
 def plot_activity(event_type):
     arr=[]
     for cricket in Cricket.objects.all():
-        print(str(cricket))
         times = []
         for event in Event.objects.filter(movie__cricket=cricket,event_type=event_type):
             print("found "+str(event.estimated_real_time))
             times.append(event.estimated_real_time)
         if len(times)>0:
             a = avg_time(times)
-            print(a)
             arr.append(a/(60.0*60.0))
     if len(arr)>1:
-        print("plotting "+event_type)
-        print(arr[0])
-        print(arr[1])
-        print(len(arr))
         robot.plot.create_plot(np.array(arr),"media/images/autoplots/"+event_type+".png")
     else:
         print("not enough crickets have "+event_type+" to plot")
@@ -373,19 +367,14 @@ def plot_activity(event_type):
 def plot_moving_activity():
     arr=[]
     for cricket in Cricket.objects.all():
-        print(str(cricket))
         times = []
         for event in Event.objects.filter(movie__cricket=cricket).filter(Q(event_type="in")|Q(event_type="mid")|Q(event_type="out")):
-            print("found "+str(event.estimated_real_time))
             times.append(event.estimated_real_time)
         if len(times)>0:
             a = avg_time(times)
             print(a)
             arr.append(a/(60.0*60.0))
     if len(arr)>1:
-        print(arr[0])
-        print(arr[1])
-        print(len(arr))
         robot.plot.create_plot(np.array(arr),"media/images/autoplots/moving.png")
     else:
         print("not enough crickets have "+event_type+" to plot")
@@ -438,6 +427,15 @@ def calculate_minmax_moving():
     else:
         Value.objects.create(name="moving_max",value=max_events)
     
+def calc_daynight_scores():
+    for cricket in Cricket.objects.all():
+        times = []
+        for event in Event.objects.filter(movie__cricket=cricket):
+            times.append(event.estimated_real_time)
+        if len(times)>0:
+            a = avg_time(times)
+            cricket.daynight_score=a/(60.0*60.0)
+            cricket.save()
 
 
 # process crickets : videos ready

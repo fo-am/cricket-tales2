@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block crickets_stuff %}
+
+<div class="centred-block">
+  <h3>{% trans "Your crickets personality:" %}</h3>
+</div>
+
+<!-- -->
+<div class="results-block">
+  <div class="left" style="width:25%">
+    {{ cricket.tag }}
+  </div>
+  <div class="right">
+    <div class="results-tab">
+      <div class="results-pointer" style="left: {{ eating_score }}%"></div> {% trans "Eating" %}
+    </div>
+    <div class="results-tab">
+      <div class="results-pointer" style="left: {{ singing_score }}%"></div> {% trans "Singing" %}
+    </div>
+    <div class="results-tab">
+      <div class="results-pointer" style="left: {{ moving_score }}%"></div> {% trans "Moving" %}
+    </div>
+    <div class="results-tab daynight">
+      <div class="results-pointer" style="left: {{ daynight_score }}%"></div>
+      <div class="left">
+	{% trans "Early" %}
+      </div>
+      <div class="right">
+	{% trans "Late" %}
+      </div>
+    </div>
+  </div>
+
+  {% trans "Your data shows that" %} {{ cricket.tag }}
+  {% if eating_score < 30 %} 
+    {% trans "eats less than normal," %}
+  {% elif eating_score > 30 %} 
+    {% trans "eats less than normal," %}
+  {% else %} 
+    {% trans "eats an average amount," %} 
+  {% endif %}
+
+  {% if singing_score < 30 %} 
+    {% trans "doesn't sing much" %}
+  {% elif singing_score > 30 %} 
+    {% trans "sings more than others" %}
+  {% else %} 
+    {% trans "sings an average amount" %}
+  {% endif %}
+
+  {% trans "and" %}
+
+  {% if moving_score < 30 %} 
+    {% trans "moves less than most crickets" %}
+  {% elif moving_score > 30 %} 
+    {% trans "moves more than most crickets" %}
+  {% else %} 
+    {% trans "moves about an average amount" %}
+  {% endif %}
+			 
+</div>
+
+<div class="button-row">
+  <button class="small"
+	  onclick="window.location.href='/leaderboard/'"> 
+    {% trans "Leaderboard" %}
+  </button>
+  <button class="small"
+	  onclick="window.location.href='/results_movement/{{ cricket.id }}'">
+    {% trans "More results" %}
+  </button>
+  <button class="small"
+	  onclick="window.location.href='/choose/'">
+    {% trans "Play again" %}
+  </button>
+  <button class="small"
+	  onclick="window.location.href='/'">
+    {% trans "Quit" %}
+  </button>
+</div>
+
+{% endblock %}

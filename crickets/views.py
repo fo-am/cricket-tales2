@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from crickets.models import *
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Q
 from django.views import generic
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect, HttpResponse
@@ -40,8 +40,100 @@ class CricketView(generic.DetailView):
         context['path'] = str(context['movies'][0].season)+"/"+context['movies'][0].camera
         return context 
 
-def keyboard(request):
-    return render(request, 'crickets/keyboard.html', {})
+def avg_time(datetimes):
+    total = sum(dt.hour * 3600 + dt.minute * 60 + dt.second for dt in datetimes)
+    return total / len(datetimes)
+
+def score(score, min_score, max_score):
+    return ((score-min_score)/(max_score-min_score))*100
+
+class PersonalityView(generic.DetailView):
+    model = Cricket
+    template_name = 'crickets/personality.html'
+    def get_context_data(self, **kwargs):
+        context = super(PersonalityView, self).get_context_data(**kwargs)
+        # need to calculate the cricket data *here* as 
+        # these need to include the player's data just
+        # saved - not rely on the robot update
+        cricket = context['cricket']
+        context['eating_score'] = score(Event.objects.filter(movie__cricket=cricket,event_type='eating').count(),
+                                        Value.objects.filter(name='eating_min')[0].value,
+                                        Value.objects.filter(name='eating_max')[0].value)
+        context['singing_score'] = score(Event.objects.filter(movie__cricket=cricket,event_type='singing').count(),
+                                         Value.objects.filter(name='singing_min')[0].value,
+                                         Value.objects.filter(name='singing_max')[0].value)
+        context['moving_score'] = score(Event.objects.filter(movie__cricket=cricket).filter(Q(event_type="in")|Q(event_type="mid")|Q(event_type="out")).count(),
+                                        Value.objects.filter(name='moving_min')[0].value,
+                                        Value.objects.filter(name='moving_max')[0].value)
+        
+        # keeping cricket.daynight_score just in case this
+        # becomes too slow...
+        times = []
+        for event in Event.objects.filter(movie__cricket=cricket):
+            times.append(event.estimated_real_time)
+        if len(times)>0:
+            a = avg_time(times)
+            context['daynight_score']=(a/(60.0*60.0*24))*100
+
+        return context 
+
+class ResultsMovementView(generic.DetailView):
+    model = Cricket
+    template_name = 'crickets/results_movement.html'
+    def get_context_data(self, **kwargs):
+        context = super(ResultsMovementView, self).get_context_data(**kwargs)
+        cricket = context['cricket']
+
+        times = []
+        for event in Event.objects.filter(movie__cricket=cricket).filter(Q(event_type="in")|Q(event_type="mid")|Q(event_type="out")):
+            times.append(event.estimated_real_time)
+        if len(times)>0:
+            a = avg_time(times)
+            context['moving_score']=(a/(60.0*60.0*24))*100
+        else:
+            context['moving_score']=0
+
+        return context 
+
+class ResultsEatingView(generic.DetailView):
+    model = Cricket
+    template_name = 'crickets/results_eating.html'
+    def get_context_data(self, **kwargs):
+        context = super(ResultsEatingView, self).get_context_data(**kwargs)
+        cricket = context['cricket']
+        
+        times = []
+        for event in Event.objects.filter(movie__cricket=cricket,event_type="eating"):
+            times.append(event.estimated_real_time)
+        if len(times)>0:
+            a = avg_time(times)
+            context['eating_score']=(a/(60.0*60.0*24))*100
+        else:
+            context['eating_score']=0
+
+        return context 
+
+class ResultsSingingView(generic.DetailView):
+    model = Cricket
+    template_name = 'crickets/results_singing.html'
+    def get_context_data(self, **kwargs):
+        context = super(ResultsSingingView, self).get_context_data(**kwargs)
+        cricket = context['cricket']
+
+        times = []
+        for event in Event.objects.filter(movie__cricket=cricket,event_type="singing"):
+            times.append(event.estimated_real_time)
+        if len(times)>0:
+            a = avg_time(times)
+            context['singing_score']=(a/(60.0*60.0*24))*100
+        else:
+            context['singing_score']=0
+
+        return context 
+
+class KeyboardView(generic.DetailView):
+    model = Cricket
+    template_name = 'crickets/keyboard.html'
 
 class EventForm(ModelForm):
      class Meta:

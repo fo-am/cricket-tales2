@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block crickets_stuff %}
+
+<div class="centred-block">
+  <h3>{% trans "Research results" %}</h3>
+</div>
+
+<div class="centred-block">
+  {% trans "These are the live combined results from all players, including you." %}
+</div>
+<div class="centred-block">
+  {% trans "Click the arrows to see all the different research results." %}
+</div>
+
+<div class="results-block" style="position: relative;  margin-top: 1vw;">
+  <h4>{% trans "Singing at different times of the day" %}</h4>
+
+  <div class="left" style="position: relative; margin: 2vw; width: 40%;">
+    <div class="results-pointer" style="top: 1vw; left: {{ singing_score }}%"></div> 
+    <img class="results-image" src="/media/images/autoplots/moving.png">
+  </div>
+  <div class="right results-text">
+    <p>{% trans "Do crickets sing all day, or only at certain times?" %}</p>
+    <p>{% trans "Crickets usually sing to attract mates. If they only sing at certain times, this might be linked to the temperature or light levels." %}</p>
+  </div>			 
+
+  <button class="results" 
+	  style="left:-8%"
+	  onclick="window.location.href='/results_eating/{{ cricket.id }}'">
+    left
+  </button>
+  <button class="results" 
+	  style="left:93%"
+	  onclick="window.location.href='/results_movement/{{ cricket.id }}'">
+    right
+  </button>
+</div>
+
+<div class="button-row">
+    <button class="small"
+      onclick="window.location.href='/leaderboard/'"> 
+      {% trans "Leaderboard" %}
+    </button>
+    <button class="small"
+	    onclick="window.location.href='/personality/{{ cricket.id }}'">
+      {% trans "My Cricket" %}
+    </button>
+    <button class="small"
+	    onclick="window.location.href='/choose/'">
+      {% trans "Play again" %}
+    </button>
+    <button class="small"
+	    onclick="window.location.href='/'">
+	{% trans "Quit" %}
+    </button>
+</div>
+
+{% endblock %}

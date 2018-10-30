@@ -32,11 +32,19 @@ h3 {
     font-weight: 500;
 }
 
+h4 {
+    margin: 0em;
+    font-family: 'Love Ya Like A Sister', sans-serif;
+    text-transform: uppercase;
+    font-size: 3vw;
+    font-weight: 500;
+}
+
 body {
     background: url('../images/background.png');
     background-repeat: repeat;
     font-family: 'Vidaloka', sans-serif;
-    font-size: 2.2vw;
+    font-size: 2.5vw;
     padding: 0px;
 }
 
@@ -45,7 +53,6 @@ body {
 .force-aspect {
     width: 100%; 
     padding-bottom: 56.25%; 
-    border: 5px solid black;
 }
 
 div.stretchy-wrapper {
@@ -76,6 +83,89 @@ div.stretchy-wrapper > div {
     text-align: center;    
 }
 
+/* results stuff */
+
+.results-block {
+    margin-left: 10%;
+    width: 80%;
+    justify-content: center;
+    text-align: center;    
+    background: rgba(202,241,131,0.6);
+}
+
+.results-block.p {
+    text-align: left;    
+}
+
+
+.left {
+    float: left;
+    width: 50%;
+    overflow: hidden;
+}
+
+.right {
+    overflow: hidden;
+}
+
+/* sigh */
+.results-text {
+    padding-right: 4vw;
+}
+
+.results-image {
+    width: 100%;
+    height: auto;
+}
+
+.results-tab {
+    font-family: 'Love Ya Like A Sister', sans-serif;
+    text-transform: uppercase;
+    margin-left: 10%;
+    width: 80%;
+    justify-content: center;
+    text-align: center;    
+    background: yellow;
+    border: 5px solid black;
+    margin: 3vw;
+    position: relative;
+}
+
+.daynight {
+    background-image: linear-gradient(to right, yellow, #93d9cc);
+}
+
+.results-pointer {
+    position: absolute;
+    top: -1vw;
+    margin-left: -0.75vw;
+    width: 1vw;
+    height: 1vw;
+    background: yellow;
+    border: 5px solid black;
+    z-index: 100;
+}
+
+button.results {
+    position: absolute;
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-size: 3vw;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: rgba(202,241,131,0.6);
+    border: 0px solid #fff !important;
+    border-radius: 0.2em;
+    white-space: nowrap;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    display: inline-block;
+    top: 40%;
+    left: 0%;
+}
+
+
 /* container row for buttons */
 
 .button-row {
@@ -83,6 +173,7 @@ div.stretchy-wrapper > div {
     display: block;
     justify-content: center;
     text-align: center;    
+    clear:both;
 }
 
 button {
@@ -209,13 +300,14 @@ button.pause {
 
 .video-popup {
     position: absolute;
-   // pointer-events: none;
+   /* pointer-events: none; */
     background: rgba(255,255,0,0.75); 
     top: 36.7vw;
     height: 5vw;
     line-height: 5vw;
     width: 59.2%;
     padding: 0.2em;
+    font-size: 2.2vw;    
 }
 
 #popup-text {

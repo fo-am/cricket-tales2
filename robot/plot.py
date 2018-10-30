@@ -10,6 +10,6 @@ def create_plot(data,filename):
     #_, x, _ = plt.hist(data, bins=np.linspace(start, end, 100), 
     #                   histtype=u'step', normed=True)  
     x = np.arange(start, end, 0.001)
-    plt.fill_between(x, 0, density(x), facecolor='green')
+    plt.fill_between(x, 0, density(x), facecolor='yellow')
     plt.savefig(filename)
     plt.close()

@@ -38,6 +38,7 @@ class Cricket(models.Model):
     sex = models.CharField(max_length=200)
     activity = models.IntegerField(default=0)
     videos_ready = models.IntegerField(default=0)
+    daynight_score = models.FloatField(default=0)
     def __unicode__(self):
         return self.tag+" "+self.cricket_id
 

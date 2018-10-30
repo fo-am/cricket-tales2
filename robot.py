@@ -65,6 +65,7 @@ else:
         robot_django2.plot_activity("singing")
         robot_django2.plot_activity("eating")
         robot_django2.plot_moving_activity()
+        robot_django2.calc_daynight_scores()
         
     if sys.argv[1]=="video-clearup":
         robot_django.video_clearup()

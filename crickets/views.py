@@ -8,6 +8,9 @@ import datetime
 
 # Create your views here.
 
+def holding(request):
+    return render(request, 'crickets/holding.html', {})
+
 def index(request):
     # on installation version - clear the session stuff here...
     request.session.flush()

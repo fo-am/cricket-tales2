@@ -1,0 +1,360 @@
+@font-face {
+  font-family: 'Love Ya Like A Sister';
+  src: local('Love Ya Like A Sister'),
+        url('.LoveYaLikeASister.ttf');
+}
+
+@font-face {
+  font-family: 'Vidaloka';
+  src: local('Vidaloka'),
+        url('../fonts/Vidaloka-Regular.ttf');
+}
+
+h1 {
+    font-family: 'Love Ya Like A Sister', sans-serif;
+    text-transform: uppercase;
+    font-size: 10vw;
+    font-weight: 500;
+}
+
+h2 {
+    font-family: 'Love Ya Like A Sister', sans-serif;
+    text-transform: uppercase;
+    font-size: 5vw;
+    font-weight: 500;
+}
+
+h3 {
+    margin: 0em;
+    font-family: 'Love Ya Like A Sister', sans-serif;
+    text-transform: uppercase;
+    font-size: 4.5vw;
+    font-weight: 500;
+}
+
+h4 {
+    margin: 0em;
+    font-family: 'Love Ya Like A Sister', sans-serif;
+    text-transform: uppercase;
+    font-size: 3vw;
+    font-weight: 500;
+}
+
+body {
+    background: url('background.png');
+    background-repeat: repeat;
+    font-family: 'Vidaloka', sans-serif;
+    font-size: 2.5vw;
+    padding: 0px;
+}
+
+/* forcing everything into 16:9 aspect ratio all the time */
+
+.force-aspect {
+    width: 100%; 
+    padding-bottom: 56.25%; 
+}
+
+div.stretchy-wrapper {
+  position: relative;
+}
+
+div.stretchy-wrapper > div {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+}
+
+/* for text mainly */
+
+.centred-block {
+    margin-left: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;    
+}
+
+.full-width-centred-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;    
+}
+
+/* results stuff */
+
+.results-block {
+    margin-left: 10%;
+    width: 80%;
+    justify-content: center;
+    text-align: center;    
+    background: rgba(202,241,131,0.6);
+}
+
+.results-block.p {
+    text-align: left;    
+}
+
+
+.left {
+    float: left;
+    width: 50%;
+    overflow: hidden;
+}
+
+.right {
+    overflow: hidden;
+}
+
+/* sigh */
+.results-text {
+    padding-right: 4vw;
+}
+
+.results-image {
+    width: 100%;
+    height: auto;
+}
+
+.results-tab {
+    font-family: 'Love Ya Like A Sister', sans-serif;
+    text-transform: uppercase;
+    margin-left: 10%;
+    width: 80%;
+    justify-content: center;
+    text-align: center;    
+    background: yellow;
+    border: 5px solid black;
+    margin: 3vw;
+    position: relative;
+}
+
+.daynight {
+    background-image: linear-gradient(to right, yellow, #93d9cc);
+}
+
+.results-pointer {
+    position: absolute;
+    top: -1vw;
+    margin-left: -0.75vw;
+    width: 1vw;
+    height: 1vw;
+    background: yellow;
+    border: 5px solid black;
+    z-index: 100;
+}
+
+button.results {
+    position: absolute;
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-size: 3vw;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: rgba(202,241,131,0.6);
+    border: 0px solid #fff !important;
+    border-radius: 0.2em;
+    white-space: nowrap;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    display: inline-block;
+    top: 40%;
+    left: 0%;
+}
+
+
+/* container row for buttons */
+
+.button-row {
+    width: 100%;
+    display: block;
+    justify-content: center;
+    text-align: center;    
+    clear:both;
+}
+
+button {
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-size: 5vw;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: rgba(202,241,131,0.6);
+    border: 0px solid #fff !important;
+    border-radius: 0.2em;
+    white-space: nowrap;
+    margin: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    display: inline-block;
+}
+
+button.small {
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-size: 3vw;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: rgba(202,241,131,0.6);
+    border: 0px solid #fff !important;
+    border-radius: 0.2em;
+    white-space: nowrap;
+    margin: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    display: inline-block;
+}
+
+button.micro {
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-size: 2vw;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: rgba(202,241,131,0.6);
+    border: 0px solid #fff !important;
+    border-radius: 0.2em;
+    white-space: nowrap;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    display: inline-block;
+}
+
+button.image {
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-size: 2vw;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: rgba(202,241,131,0.6);
+    border: 0px solid #fff !important;
+    border-radius: 0.2em;
+    white-space: nowrap;
+    margin: 0.5em;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    display: inline-block;
+    text-align: center;
+}
+
+button:active { 
+    background-color: white; 
+}
+
+button:focus { 
+    outline: none;
+}
+
+.image-button-image {
+    width: 9.5vw;
+    height: auto;
+    display: block;
+    padding-bottom: 1vw;
+    padding-top: 1vw;
+}
+
+/* video shenanigans */
+
+.video-top { 
+    width: 100%; 
+}
+
+.video-container {
+    float: left;
+    width: 60%;
+}
+
+.video-button-container {
+    float: left;
+    width: 40%;
+    height: 100%;
+}
+
+video {
+    width: 100%;
+    height: auto;
+}
+
+.timeline-container {
+    width: 100%;
+    display: block;
+}
+
+button.play,
+button.pause {
+    margin: 0em;
+    padding: 0em;
+    width: 7vw;
+    height: 7vw;
+    border: 0px;
+    margin-top:-0.4em;
+    outline: 0;
+}
+
+.video-popup {
+    position: absolute;
+   /* pointer-events: none; */
+    background: rgba(255,255,0,0.75); 
+    top: 36.7vw;
+    height: 5vw;
+    line-height: 5vw;
+    width: 59.2%;
+    padding: 0.2em;
+    font-size: 2.2vw;    
+}
+
+#popup-text {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+/* square things */
+
+.bar {
+    background-size: 100% 100%;
+    text-align: center;
+    display: inline-block;
+    overflow: visible;
+    font-size: 130%;
+}
+
+.timeline {
+    height: 1vw;
+    overflow: visible;
+    width: 42vw; 
+}
+
+.timeline_line {
+    margin-top:-3.5vw;
+    margin-left: 0.1vw;
+    width: 99%;
+    background-color: black;
+    height: 2px;
+    position: relative;
+    top: 50%;
+}
+
+.time {
+    margin-left: 0.1vw;
+    background-color: #000;
+    /*-webkit-transition: left 1.5s linear;
+    -moz-transition: left 1.5s linear;*/
+    z-index: 100;
+}
+
+.tiny_circle {
+    border-radius: 1vw;
+	width: 2vw;
+	height: 2vw;
+    text-align: center;
+    position: relative;
+    top: -0.46vw;
+}

@@ -19,7 +19,7 @@
 
   <div class="left" style="position: relative; margin: 2vw; width: 40%;">
     <div class="results-pointer" style="top: 1vw; left: {{ singing_score }}%"></div> 
-    <img class="results-image" src="/media/images/autoplots/moving.png">
+    <img class="results-image" src="/media/images/autoplots/singing.png">
   </div>
   <div class="right results-text">
     <p>{% trans "Do crickets sing all day, or only at certain times?" %}</p>
@@ -40,7 +40,7 @@
 
 <div class="button-row">
     <button class="small"
-      onclick="window.location.href='/leaderboard/'"> 
+      onclick="window.location.href='/leaderboard/{{ cricket.id }}'"> 
       {% trans "Leaderboard" %}
     </button>
     <button class="small"

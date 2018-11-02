@@ -9,8 +9,8 @@ import datetime
 # Create your views here.
 
 def index(request):
-    # on installation versio - clear the session stuff here...
-    #request.session.flush()
+    # on installation version - clear the session stuff here...
+    request.session.flush()
     context={}
     context['done_training'] = False
     # don't add anything to session till player has passed check
@@ -174,15 +174,17 @@ def player_name(request):
     if request.method == 'POST':
         if 'player_number' in request.session:
             player = Player.objects.get(pk=request.session["player_number"])
-            player.name=request.POST['name']
+            player.name=request.POST['name'][:3]
             player.save()
     return HttpResponse('')
 
-class LeaderboardView(generic.ListView):
-    model = Player
+class LeaderboardView(generic.DetailView):
+    model = Cricket
     template_name = 'crickets/leaderboard.html'
-    def get_queryset(self):
-        return Player.objects.exclude(name="???").exclude(videos_watched=0).order_by('-videos_watched')[:20]
+    def get_context_data(self, **kwargs):
+        context = super(LeaderboardView, self).get_context_data(**kwargs)
+        context["player_list"]=Player.objects.exclude(name="???").exclude(videos_watched=0).order_by('-videos_watched')[:20]
+        return context
 
 class EventForm(ModelForm):
      class Meta:
@@ -226,15 +228,16 @@ def record_event(request):
             cricket = Cricket.objects.get(pk=movie.cricket.id)            
                 
             if obj.event_type=="burrow_start":
+                cricket.activity+=1
+                movie.views+=1
+                movie.save()
+
+            if obj.event_type=="burrow_end":
                 # on burrow_start update player videos watched
-                print(request.session["player_number"])
                 if "player_number" in request.session:
                     player = Player.objects.get(pk=request.session["player_number"])
                     player.videos_watched+=1
                     player.save()
-                cricket.activity+=1
-                movie.views+=1
-                movie.save()
                 
             cricket.save()
             return HttpResponse('')

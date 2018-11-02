@@ -4,7 +4,7 @@
 {% block crickets_stuff %}
 
 <div class="centred-block">
-  <h3>{% trans "Leaderboard" %}</h3>
+  <h3>{% trans "Leaderboard of videos watched" %}</h3>
 </div>
 
 {% if player_list %}
@@ -18,10 +18,6 @@
 {% endif %}
 
 <div class="button-row">
-    <button class="small"
-      onclick="window.location.href='/leaderboard/'"> 
-      {% trans "Leaderboard" %}
-    </button>
     <button class="small"
 	    onclick="window.location.href='/personality/{{ cricket.id }}'">
       {% trans "My Cricket" %}

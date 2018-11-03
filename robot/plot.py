@@ -1,9 +1,10 @@
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.stats as stats
 
 def create_plot(data,filename):
-    for d in data: print(d)
     density = stats.gaussian_kde(data)
     start = 0
     end = 24

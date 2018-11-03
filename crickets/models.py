@@ -58,7 +58,7 @@ class Movie(models.Model):
     # stuff updated from periodic update.py
     num_events = models.IntegerField(default=0)
     def __unicode__(self):
-        return str(self.name);
+        return str(self.name)+" "+str(self.camera);
 
 class Event(models.Model):
     movie = models.ForeignKey(Movie)

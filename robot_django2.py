@@ -38,6 +38,9 @@ django.setup()
 def conv_time(t):
     return timezone.utc.localize(datetime(t[0],t[1],t[3],t[4],t[5],t[6],t[7]/1000))
 
+def trunc_time(t):
+    return timezone.utc.localize(datetime(t.year,t.month,t.day,0,0,0,0))
+
 #######################################################################
 # a note on movie status flag:
 #
@@ -53,16 +56,12 @@ video_status_ready = 2
 video_status_finished = 3
 
 #######################################################################
-
-
-
-##################################################################
 # adding things to the database
 
 def add_cricket(season,cricket_id,tag,sex):
     existing = Cricket.objects.filter(cricket_id=cricket_id)
     if len(existing)!=0:
-        print("not adding, found cricket "+cricket_id)
+        #print("not adding, found cricket "+cricket_id)
         return
 
     print("adding cricket "+cricket_id)
@@ -79,7 +78,7 @@ def add_movie(season,camera,index_filename,start_frame,fps,length_frames,start_t
 
     existing = Movie.objects.filter(name=name)
     if len(existing)!=0:
-        print("not adding, found movie "+name)
+        #print("not adding, found movie "+name)
         return
 
 
@@ -193,7 +192,6 @@ def update_video_status():
 def update_cricket_status():
     # todo: random selection
     for cricket in Cricket.objects.all():
-        print(cricket)
         videos_ready=0
         # search for active videos
         for movie in Movie.objects.filter(cricket=cricket,
@@ -229,14 +227,18 @@ def find_frames_from_index_file(exi_index_file,start_time,end_time):
         state = "searching"
         start = -1
         end = -1
-        for num,f in enumerate(frames):
-            t = conv_time(f['time'])            
-            if t>start_time and state=="searching":
-                start = num 
-                state = "inside"
-            if t>end_time and state=="inside":
-                end = num
-                state = "done"
+        try:
+            for num,f in enumerate(frames):
+                t = conv_time(f['time'])            
+                if t>start_time and state=="searching":
+                    start = num 
+                    state = "inside"
+                if t>end_time and state=="inside":
+                    end = num
+                    state = "done"
+        except:
+            print("error in exi file: "+exi_index_file)
+
         # over the end of the video
         if end==-1: end=len(frames)-1
         return (start,end)
@@ -248,41 +250,45 @@ def get_exact_frame_time(exi_frames,frame_num):
 
 # chop arbitrary length into videos of the same length
 def add_movies(season,camera,start_time,end_time,cricket_id,video_length_secs,fps,tag,sex):
-    exi_index_file = robot.settings.season_to_data_location[season]+"IP"+camera+"/Videos/"+start_time.strftime('%Y%m%d')+".index"
+    current_start_time = start_time
+    loops = 0
+    while current_start_time<end_time:
+        exi_index_file = robot.settings.season_to_data_location[season]+"IP"+camera+"/Videos/"+current_start_time.strftime('%Y%m%d')+".index"
 
-    frames = find_frames_from_index_file(exi_index_file,start_time,end_time)
-    start_frame = frames[0]
-    end_frame = frames[1]
-    total_length_frames = end_frame-start_frame
+        #print("searching for "+exi_index_file)
+        frames = find_frames_from_index_file(exi_index_file,current_start_time,end_time)
+        start_frame = frames[0]
+        end_frame = frames[1]
+        total_length_frames = end_frame-start_frame
 
-    # now we need to chop into short videos
-    frames_per_video = video_length_secs*fps
-    if start_frame!=-1:
-        # only bother adding a cricket if there is a video to go with it...
-        add_cricket(season,cricket_id,tag,sex)
-
-        # reload the frames in so we can find out the precice times
-        exi_frames = robot.exicatcher.read_index(exi_index_file)
-        print("start_frame: "+str(start_frame))
-        print("end_frame: "+str(end_frame))
-        print("total_length_frames: "+str(total_length_frames))
-        print("frames_per_video: "+str(frames_per_video))
-        if total_length_frames>frames_per_video:
-            for i in range(0,total_length_frames/frames_per_video):
-                chop_start_frame = start_frame+i*frames_per_video
-                chop_end_frame = chop_start_frame+frames_per_video
-                # make sure we don't make shorter videos
-                if chop_end_frame<end_frame:
-                    add_movie(season,camera,exi_index_file,
-                              chop_start_frame,fps,frames_per_video,
-                              get_exact_frame_time(exi_frames,chop_start_frame),
-                              get_exact_frame_time(exi_frames,chop_end_frame),
-                              cricket_id)        
+        # now we need to chop into short videos
+        frames_per_video = video_length_secs*fps
+        if start_frame!=-1:
+            # only bother adding a cricket if there is a video to go with it...
+            add_cricket(season,cricket_id,tag,sex)
+            
+            # reload the frames in so we can find out the precice times
+            exi_frames = robot.exicatcher.read_index(exi_index_file)
+            if total_length_frames>frames_per_video:
+                for i in range(0,total_length_frames/frames_per_video):
+                    chop_start_frame = start_frame+i*frames_per_video
+                    chop_end_frame = chop_start_frame+frames_per_video
+                    # make sure we don't make shorter videos
+                    if chop_end_frame<end_frame:
+                        add_movie(season,camera,exi_index_file,
+                                  chop_start_frame,fps,frames_per_video,
+                                  get_exact_frame_time(exi_frames,chop_start_frame),
+                                  get_exact_frame_time(exi_frames,chop_end_frame),
+                                  cricket_id)        
 
 
-        else:
-            print("not enough frames for video for cricket:"+str(cricket_id))
-        
+            else:
+                print("not enough frames for video for cricket:"+str(cricket_id))
+
+        tomorrow = trunc_time(current_start_time.date()+timedelta(days=1))
+        current_start_time=tomorrow
+        loops+=1
+
 # this operates in the reverse of version 1, where the videos were 
 # constructed using the source times - here we start with the crickets
 # and need to go look up the videos and split them into sections
@@ -299,6 +305,10 @@ def import_crickets(filename,video_length,fps):
                 start = timezone.utc.localize(datetime.strptime(row[5],"%d/%m/%Y %H:%M"))
                 end = timezone.utc.localize(datetime.strptime(row[6],"%d/%m/%Y %H:%M"))
 
+                # skip first and last minute
+                start += timedelta(minutes=1)
+                end -= timedelta(minutes=1)
+               
                 add_movies(season,camera,start,end,cricket_id,video_length,fps,tag,sex)
 
 def disk_state():
@@ -354,7 +364,7 @@ def plot_activity(event_type):
     for cricket in Cricket.objects.all():
         times = []
         for event in Event.objects.filter(movie__cricket=cricket,event_type=event_type):
-            print("found "+str(event.estimated_real_time))
+            #print("found "+str(event.estimated_real_time))
             times.append(event.estimated_real_time)
         if len(times)>0:
             a = avg_time(times)
@@ -372,7 +382,6 @@ def plot_moving_activity():
             times.append(event.estimated_real_time)
         if len(times)>0:
             a = avg_time(times)
-            print(a)
             arr.append(a/(60.0*60.0))
     if len(arr)>1:
         robot.plot.create_plot(np.array(arr),"media/images/autoplots/moving.png")

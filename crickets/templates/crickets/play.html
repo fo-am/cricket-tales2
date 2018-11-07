@@ -10,7 +10,7 @@
     <!-- start with first movie, then register the rest at the bottom -->
     <video nocontrols id="ourvideo">
       <source src="{{ MEDIA_URL }}movies/{{ path }}/{{ movies.0.name }}.mp4" type="video/mp4"/>
-      <source src="{{ MEDIA_URL }}movies/{{ path }}/{{ movies.0.name }}.ogv" type="video/ogg"/>
+      <source src="{{ MEDIA_URL }}movies/{{ path }}/{{ movies.0.name }}.ogv" type="video/ogv"/>
       {% trans "I'm sorry; your browser doesn't support HTML5 video in WebM with VP8 or MP4 with H.264." %}
     </video>
 

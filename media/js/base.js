@@ -50,7 +50,9 @@ function change_video(basename) {
     pop.pause();
     $('video').attr('poster','/media/movies/'+basename+'.jpg');
     $($('video').children()[0]).attr('src','/media/movies/'+basename+'.mp4');
-    $($('video').children()[0]).attr('src','/media/movies/'+basename+'.ogv');
+    $($('video').children()[1]).attr('src','/media/movies/'+basename+'.ogv');
+
+    console.log(basename);
     pop.load();
     pop.play();
 }
@@ -270,13 +272,15 @@ function update_watching() {
 	$("#popup").show();
         break;	
     case "watching_finished":
-        $('#popup-text').html(translated_text[state]+" "+(current_movie+2)+"/5");
+	if (current_movie<4) {
+            $('#popup-text').html(translated_text[state]+" "+(current_movie+2)+"/5");
+	}
 	$("#popup").show();
 	setTimeout(function() {
 	    current_movie+=1; 
 	    if (current_movie>4) {
 		// finished finished...
-		window.location.href='/keyboard/'
+		window.location.href='/keyboard/{{ cricket.id }}'
 	    }
 	    change_video(movies[current_movie].path+"/"+movies[current_movie].name)
 	    current_movie_id = movies[current_movie].movie_id;
@@ -343,6 +347,7 @@ function watching_click(button,e) {
 }
 
 var movies = [];
+
 function register_movie(movie_id,name,path) {
     movies.push({ movie_id: movie_id, name: name, path: path });
 }
@@ -356,6 +361,7 @@ function video_setup(user_id, csrf) {
     document.addEventListener("DOMContentLoaded", function () {
 	pop = Popcorn("#ourvideo");
 	state = "watching_burrow_start";
+	change_video(movies[current_movie].path+"/"+movies[current_movie].name);
 
 	// loop
         pop.on("ended", function() {

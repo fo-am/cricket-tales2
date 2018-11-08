@@ -26,6 +26,7 @@ import robot.settings
 import robot.import_data
 import time
 from threading import Thread
+import robot.flock
 
 report_recipients = ["dave@fo.am",
 #                     "amber@fo.am",
@@ -49,15 +50,23 @@ else:
         robot_django2.import_crickets(robot.settings.srccsv,
                                       robot.settings.video_length,
                                       robot.settings.video_fps)
-    if sys.argv[1]=="process-one-video":
-        robot_django2.process_random_video("thread-0")
-    if sys.argv[1]=="video-process":
-        Thread(target = robot_django2.process_loop, args = ("thread-0", )).start()
-        Thread(target = robot_django2.process_loop, args = ("thread-1", )).start()
-        Thread(target = robot_django2.process_loop, args = ("thread-2", )).start()
-        Thread(target = robot_django2.process_loop, args = ("thread-3", )).start()
-        Thread(target = robot_django2.process_loop, args = ("thread-4", )).start()
-        Thread(target = robot_django2.process_loop, args = ("thread-5", )).start()
+
+    # designed to be called repeatedly every few minutes
+    if sys.argv[1]=="process-some-videos":
+        lock = robot.flock.flock('robot-video-process.lock', True).acquire()
+        if lock:
+            Thread(target = robot_django2.process_cricket_video, args = ("thread-0", )).start()
+            Thread(target = robot_django2.process_cricket_video, args = ("thread-1", )).start()
+            Thread(target = robot_django2.process_cricket_video, args = ("thread-2", )).start()
+            Thread(target = robot_django2.process_cricket_video, args = ("thread-3", )).start()
+            Thread(target = robot_django2.process_cricket_video, args = ("thread-4", )).start()
+            Thread(target = robot_django2.process_cricket_video, args = ("thread-5", )).start()
+        else:
+            print("robot is already processing videos")
+
+    if sys.argv[1]=="update-videos":
+        robot_django2.update_video_status()
+
     if sys.argv[1]=="update":
         robot_django2.update_cricket_status()
         robot_django2.update_video_status()
@@ -70,10 +79,6 @@ else:
     if sys.argv[1]=="video-clearup":
         robot_django.video_clearup()
 
-    # if sys.argv[1]=="activity-update":
-    #     robot_django.update_all_activity()
-    # if sys.argv[1]=="movie-update":
-    #     robot_django.update_movies()
     if sys.argv[1]=="print-report":
          print(robot_django2.generate_report())
     if sys.argv[1]=="report":
@@ -83,7 +88,3 @@ else:
                    report)
     if sys.argv[1]=="overwrite-thumbnails":
         robot_django.update_video_thumbs()
-    if sys.argv[1]=="test":
-        robot_django2.calculate_minmax_events("singing")
-        robot_django2.calculate_minmax_events("eating")
-        robot_django2.calculate_minmax_moving()

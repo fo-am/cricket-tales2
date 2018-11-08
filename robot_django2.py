@@ -152,27 +152,20 @@ def make_video(movie,instance_name):
             movie.status = 0
             movie.save()
 
-def process_random_video(instance_name):
-    # pick a random one, also checks already processed ones
-    make_video(crickets.common.random_one(Movie),instance_name)
-
-def process_loop(instance_name):
-    while True:
-        process_random_video(instance_name)
-        time.sleep(20)
-
+# new approach to processing, try and keep videos_per_cricket amount of 
+# videos always availible - this doesn't delete finished ones though
+def process_cricket_video(instance_name):
+    cricket = crickets.common.random_one(Cricket)
+    #cricket = Cricket.objects.filter(tag="NA")[0]
+    # count videos active for this cricket
+    videos_ready = Movie.objects.filter(cricket=cricket,status=1).count()
+    if videos_ready<robot.settings.videos_per_cricket:
+        make_video(Movie.objects.filter(cricket=cricket,status=0).order_by('?')[0],instance_name)
+    
 def update_video_status():
     for movie in Movie.objects.all():
         path = str(movie.season)+"/"+movie.camera+"/"
         if robot.process.check_done(path+movie.name):
-            #if not robot.process.check_video_lengths(movie.name):
-            #    print("movies too short: "+movie.name)#
-            #    print(robot.process.get_video_length(robot.settings.dest_root+movie.name+".mp4"))
-            #    print(robot.process.get_video_length(robot.settings.dest_root+movie.name+".ogg"))
-            #    print(robot.process.get_video_length(robot.settings.dest_root+movie.name+".webm"))
-            #    force redo
-            #    set_movie_status(movie.name,0)
-
             if movie.status == 0:
                 print("found a movie turned off good files, turning on: "+movie.name)
                 set_movie_status(movie.name,1)
@@ -185,8 +178,6 @@ def update_video_status():
         if movie.status<2 and movie.views>robot.settings.min_complete_views:
             print(movie.name+" is complete with "+str(movie.views)+" views")
             set_movie_status(movie,2)
-            # spawn a video process
-            #Thread(target = process_loop, args = ("thread-0", )).start()
             # delete files separately
 
 def update_cricket_status():
@@ -322,13 +313,23 @@ def generate_report():
 #    for i,player in enumerate(PlayerBurrowScore.objects.values('player__username').order_by('player').annotate(total=Sum('movies_finished')).order_by('-total')[:10]):
 #        score_text += str(i)+" "+player['player__username']+": "+str(player['total'])+"\n"
 
+    crickvid_text = ""
+    for cricket in Cricket.objects.all():
+        if cricket.videos_ready>0: crickvid_text+=str(cricket.tag)+":"+str(cricket.videos_ready)+" "
+
+    #for m in Movie.objects.filter(cricket__tag="NA",status=1):
+    #    crickvid_text+="\n"+m.name+" "+m.camera
+
+    crickvid_text +="\n"
+
     load = os.getloadavg()
 
     return "it's yer daily cricket tales 2 robot report\n"+\
     "-------------------------------------------\n"+\
     "\n"+\
     "players: "+str(Player.objects.all().count())+"\n"+\
-    "crickets with videos ready: "+str(Cricket.objects.exclude(videos_ready=0).count())+"\n"+\
+    "crickets with enough videos ready: "+str(Cricket.objects.exclude(videos_ready__lt=robot.settings.videos_needed_per_cricket).count())+"\n"+\
+    "\n"+crickvid_text+"\n"+\
     "movies watched: "+str(Movie.objects.all().aggregate(Sum('views'))['views__sum'])+"\n"+\
     "events recorded: "+str(Event.objects.all().count())+"\n"+\
     "\n"+\
@@ -372,7 +373,7 @@ def plot_activity(event_type):
     if len(arr)>1:
         robot.plot.create_plot(np.array(arr),"media/images/autoplots/"+event_type+".png")
     else:
-        print("not enough crickets have "+event_type+" to plot")
+        pass #print("not enough crickets have "+event_type+" to plot")
 
 def plot_moving_activity():
     arr=[]
@@ -386,7 +387,7 @@ def plot_moving_activity():
     if len(arr)>1:
         robot.plot.create_plot(np.array(arr),"media/images/autoplots/moving.png")
     else:
-        print("not enough crickets have "+event_type+" to plot")
+        pass #print("not enough crickets have moving events to plot")
 
 def test_plot():
     arr=[]

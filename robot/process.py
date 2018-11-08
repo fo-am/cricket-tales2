@@ -31,8 +31,8 @@ def run(cmd):
 def run_converter(f,r,instance_name):
     f = settings.dest_root+f
     cmd = "avconv -y -loglevel error -r "+str(r)+" -i "+instance_name+"/frame-%05d.jpg -vf vflip"
-    run(cmd+" -c:v libx264 -preset veryslow -threads 1 "+f+".mp4")
-    run(cmd+" -c:v libtheora -qscale:v 7 -c:a libvorbis -qscale:a 7 "+f+".ogv")
+    run(cmd+" -c:v libx264 -crf 32 -preset medium -threads 1 "+f+".mp4")
+    run(cmd+" -c:v libtheora -qscale:v 5 "+f+".ogv")
     #run(cmd+" "+f+".webm")
 
 def delete_frames(instance_name):

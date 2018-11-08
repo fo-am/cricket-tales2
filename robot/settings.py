@@ -1,4 +1,5 @@
 dest_root = "media/movies/"
+outputcsv = "media/data/events.csv"
 video_length = 30
 video_fps = 10
 videos_per_cricket = 10 # less than this kicks off a generate

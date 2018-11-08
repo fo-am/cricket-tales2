@@ -461,16 +461,40 @@ def calc_daynight_scores():
 ###################################################################
 ## event processing for data reporting
 
+## look up the real time in the exi files - rather slooooow
 def update_events_actual_real_times():
-    for event in Event.objects.filter(actual_real_time__isnull==True):
-        frame = event.video_time*robot.settings.video_fps
+    for event in Event.objects.filter(actual_real_time=None):
+        print(event)
+        frame = int(event.video_time*event.movie.fps)
         frames = robot.exicatcher.read_index(event.movie.src_index_file)
-        event.actual_real_time=conv_time(frames[frame]['time'])
+        event.actual_real_time=conv_time(frames[frame+event.movie.start_frame]['time'])
         event.save()
 
 def generate_data_report():
+    # check all events are up to date
     update_events_actual_real_times()
-    return ""
+    with open(robot.settings.outputcsv, 'wb') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(["Event ID",
+                         "Cricket tag",
+                         "Cricket ID",
+                         "Event type",
+                         "Player ID",
+                         "Time",
+                         "X","Y",
+                         "Movie index file",
+                         "Frame",
+                         "Camera"])
+        for event in Event.objects.all():
+            writer.writerow([event.id,
+                             event.movie.cricket.tag,
+                             event.movie.cricket.cricket_id,
+                             event.event_type,
+                             event.user.id,
+                             event.actual_real_time,
+                             event.x_pos,
+                             event.y_pos,
+                             event.movie.src_index_file,
+                             int(event.video_time*event.movie.fps+event.movie.start_frame),
+                             event.movie.camera])
 
-# process crickets : videos ready
-# (update scores/activity immediately so players see new results)

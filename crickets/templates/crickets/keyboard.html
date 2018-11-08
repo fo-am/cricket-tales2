@@ -5,6 +5,7 @@
 
 <div class="centred-block">
 <h2>{% trans "Well done" %}</h2>
+{{ player_id }}
 </div>
 
 <div class="centred-block">
@@ -55,9 +56,11 @@
 
 <div class="button-row">
   <button class="small"
-	  onclick="kb_send(); window.location.href='/personality/{{ cricket.id }}';"> 
+	  onclick="kb_send({{ cricket.id }});">
     {% trans "Continue" %}
   </button>  
 
 </div>
+
+<script>register_csrf("{{ csrf_token }}");</script>
 {% endblock %}

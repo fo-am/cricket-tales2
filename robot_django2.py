@@ -356,6 +356,9 @@ def generate_report():
           .---'        /_  |_  """ 
 
 
+##############################################################
+## event processing
+
 def avg_time(datetimes):
     total = sum(dt.hour * 3600 + dt.minute * 60 + dt.second for dt in datetimes)
     return total / len(datetimes)
@@ -447,6 +450,19 @@ def calc_daynight_scores():
             cricket.daynight_score=a/(60.0*60.0)
             cricket.save()
 
+###################################################################
+## event processing for data reporting
+
+def update_events_actual_real_times():
+    for event in Event.objects.filter(actual_real_time__isnull==True):
+        frame = event.video_time*robot.settings.video_fps
+        frames = robot.exicatcher.read_index(event.movie.src_index_file)
+        event.actual_real_time=conv_time(frames[frame]['time'])
+        event.save()
+
+def generate_data_report():
+    update_events_actual_real_times()
+    return ""
 
 # process crickets : videos ready
 # (update scores/activity immediately so players see new results)

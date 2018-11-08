@@ -66,6 +66,7 @@ class Event(models.Model):
     user = models.ForeignKey(Player, null=True, blank=True, default = None)
     video_time = models.FloatField(default=0)
     estimated_real_time = models.DateTimeField(auto_now_add=True)
+    actual_real_time = models.DateTimeField(null=True, blank=True, default=None)
     x_pos = models.FloatField(null=True, blank=True, default=None)
     y_pos = models.FloatField(null=True, blank=True, default=None)
     timestamp = models.DateTimeField(auto_now_add=True)

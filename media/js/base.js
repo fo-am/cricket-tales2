@@ -352,8 +352,11 @@ function register_movie(movie_id,name,path) {
     movies.push({ movie_id: movie_id, name: name, path: path });
 }
 
-function video_setup(user_id, csrf) {
-    csrftoken=csrf;
+function register_csrf(token) {
+    csrftoken=token;
+}
+
+function video_setup(user_id) {
     current_user_id = user_id;
     current_movie_id = movies[0].movie_id;
     current_movie = 0;
@@ -427,9 +430,12 @@ function kb_delete() {
     }
 }
 
-function kb_send() {
+function kb_send(cricket_id) {
     $.post("/player_name/", {
         name: kb_txt,
+	csrfmiddlewaretoken: csrftoken
+    }, function(result) {
+	window.location.href='/personality/'+cricket_id;
     });
 }
 

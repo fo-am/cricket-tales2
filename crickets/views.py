@@ -13,7 +13,7 @@ def holding(request):
 
 def index(request):
     # on installation version - clear the session stuff here...
-    request.session.flush()
+    #request.session.flush()
     context={}
     context['done_training'] = False
     # don't add anything to session till player has passed check
@@ -170,6 +170,7 @@ class KeyboardView(generic.DetailView):
         if 'player_number' in self.request.session:
             player = Player.objects.get(pk=self.request.session["player_number"])
             context['num_videos']=player.videos_watched
+            context["player_id"]=player.id
 
         return context 
 

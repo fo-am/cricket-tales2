@@ -86,5 +86,8 @@ else:
         send_email("robot@cricket-tales.ex.ac.uk",
                    report_recipients,"cricket tales report",
                    report)
+    if sys.argv[1]=="data-report":
+        report = robot_django2.generate_data_report()
+        print(report)
     if sys.argv[1]=="overwrite-thumbnails":
         robot_django.update_video_thumbs()

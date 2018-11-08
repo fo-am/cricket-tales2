@@ -62,20 +62,23 @@ else:
             Thread(target = robot_django2.process_cricket_video, args = ("thread-4", )).start()
             Thread(target = robot_django2.process_cricket_video, args = ("thread-5", )).start()
         else:
-            print("robot is already processing videos")
+            pass #print("robot is already processing videos")
 
     if sys.argv[1]=="update-videos":
         robot_django2.update_video_status()
 
     if sys.argv[1]=="update":
         robot_django2.update_cricket_status()
-        robot_django2.update_video_status()
+        robot_django2.update_video_complete()
         robot_django2.test_plot()
         robot_django2.plot_activity("singing")
         robot_django2.plot_activity("eating")
         robot_django2.plot_moving_activity()
         robot_django2.calc_daynight_scores()
-        
+        robot_django2.calculate_minmax_events("singing")
+        robot_django2.calculate_minmax_events("eating")
+        robot_django2.calculate_minmax_moving()
+              
     if sys.argv[1]=="video-clearup":
         robot_django.video_clearup()
 

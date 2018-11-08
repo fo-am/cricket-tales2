@@ -4,6 +4,7 @@ var pop = false;
 var current_user_id = 0;
 var current_movie_id = 0;
 var current_cricket_id = 0;
+var needs_keyboard = 0;
 var timeline_fudge = 0.96;
 var state = "none";
 var csrftoken = "none";
@@ -280,7 +281,11 @@ function update_watching() {
 	    current_movie+=1; 
 	    if (current_movie>4) {
 		// finished finished...
-		window.location.href='/keyboard/{{ cricket.id }}'
+		if (needs_keyboard) {
+		    window.location.href='/keyboard/'+current_cricket_id;
+		} else {
+		    window.location.href='/personality/'+current_cricket_id;
+		}
 	    }
 	    change_video(movies[current_movie].path+"/"+movies[current_movie].name)
 	    current_movie_id = movies[current_movie].movie_id;
@@ -352,11 +357,16 @@ function register_movie(movie_id,name,path) {
     movies.push({ movie_id: movie_id, name: name, path: path });
 }
 
-function video_setup(user_id, csrf) {
+function video_setup(user_id, csrf, cricket_id, done_keyboard) {
+    console.log("player id:"+user_id);
+
     csrftoken=csrf;
     current_user_id = user_id;
+    current_cricket_id = cricket_id;
     current_movie_id = movies[0].movie_id;
     current_movie = 0;
+    needs_keyboard = 0;
+    if (done_keyboard=="False") needs_keyboard=1;
 
     document.addEventListener("DOMContentLoaded", function () {
 	pop = Popcorn("#ourvideo");
@@ -442,7 +452,7 @@ function add_event(event_type, xpos, ypos, other) {
         $.post("/event/", {
             movie: current_movie_id,
             event_type: event_type,
-            user: 1,
+            user: current_user_id,
             video_time: t,
             x_pos : xpos,
             y_pos: ypos,

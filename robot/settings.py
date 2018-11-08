@@ -1,7 +1,7 @@
 dest_root = "media/movies/"
 video_length = 30
 video_fps = 10
-videos_per_cricket = 20 # less than this kicks off a generate
+videos_per_cricket = 10 # less than this kicks off a generate
 videos_needed_per_cricket = 5 # minumum for registering as ready
 srccsv = "data/VideosSingleCricketsKnownID.csv"
 # controls the video file recycling

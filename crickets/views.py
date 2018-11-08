@@ -58,9 +58,10 @@ class CricketView(generic.DetailView):
         # check using the session to see where we need to go
         # after this - keyboard or personality
         context['done_keyboard']=False
+        context['player_number']=-1
         if 'player_number' in self.request.session:
             player = Player.objects.get(pk=self.request.session["player_number"])
-            print(player.name)
+            context["player_id"]=self.request.session["player_number"]
             if player.name != "???":
                 context['done_keyboard']=True
 
@@ -236,7 +237,7 @@ def record_event(request):
                 movie.views+=1
                 movie.save()
 
-            if obj.event_type=="burrow_end":
+            if obj.event_type=="cricket_end" or obj.event_type=="no_cricket_end":
                 # on burrow_start update player videos watched
                 if "player_number" in request.session:
                     player = Player.objects.get(pk=request.session["player_number"])

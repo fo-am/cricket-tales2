@@ -123,7 +123,7 @@ def get_movie_status(moviename):
 
 # calculate frames and actually do the work, set movie state
 def make_video(movie,instance_name):
-    print("making "+movie.name)
+    #print("making "+movie.name)
     frames = robot.exicatcher.read_index(movie.src_index_file)
     frames = frames[movie.start_frame:movie.start_frame+movie.length_frames]
     orig_moviename = os.path.splitext(movie.src_index_file)[0]+".generic.sfs"
@@ -155,12 +155,17 @@ def make_video(movie,instance_name):
 # new approach to processing, try and keep videos_per_cricket amount of 
 # videos always availible - this doesn't delete finished ones though
 def process_cricket_video(instance_name):
-    cricket = crickets.common.random_one(Cricket)
-    #cricket = Cricket.objects.filter(tag="NA")[0]
-    # count videos active for this cricket
-    videos_ready = Movie.objects.filter(cricket=cricket,status=1).count()
-    if videos_ready<robot.settings.videos_per_cricket:
-        make_video(Movie.objects.filter(cricket=cricket,status=0).order_by('?')[0],instance_name)
+    #cricket = crickets.common.random_one(Cricket)
+    # cricket = Cricket.objects.filter(tag="NA")[0]
+    crickets = Cricket.objects.filter(videos_ready__lt=robot.settings.videos_per_cricket).order_by('?')
+    if len(crickets)>0:
+        cricket=crickets[0]
+        # double check the actual videos - count videos active for this cricket
+        videos_ready = Movie.objects.filter(cricket=cricket,status=1).count()
+        if videos_ready<robot.settings.videos_per_cricket:
+            videos_to_process = Movie.objects.filter(cricket=cricket,status=0).order_by('?')
+            if len(videos_to_process)>0:
+                make_video(videos_to_process[0],instance_name)
     
 def update_video_status():
     for movie in Movie.objects.all():
@@ -174,6 +179,9 @@ def update_video_status():
             print("!!! found a movie turned ON without files, turning off: "+movie.name)
             set_movie_status(movie.name,0)
 
+
+def update_video_complete():
+    for movie in Movie.objects.all():
         # is this movie complete?
         if movie.status<2 and movie.views>robot.settings.min_complete_views:
             print(movie.name+" is complete with "+str(movie.views)+" views")

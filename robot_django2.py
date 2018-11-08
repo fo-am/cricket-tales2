@@ -464,7 +464,6 @@ def calc_daynight_scores():
 ## look up the real time in the exi files - rather slooooow
 def update_events_actual_real_times():
     for event in Event.objects.filter(actual_real_time=None):
-        print(event)
         frame = int(event.video_time*event.movie.fps)
         frames = robot.exicatcher.read_index(event.movie.src_index_file)
         event.actual_real_time=conv_time(frames[frame+event.movie.start_frame]['time'])

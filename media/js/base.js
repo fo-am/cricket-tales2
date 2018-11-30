@@ -15,7 +15,7 @@ var translated_text = {
     training_singing: "This cricket is singing, notice it's wings fluttering - click on the right button.",
     training_eating: "The cricket is eating – click the right button",			
     training_in: "The cricket is completely inside its burrow – click the right button",
-    training_mid: "The cricket is midway in/out of its burrow – click the right button",
+    training_mid: "The cricket has stopped midway in/out of its burrow – click the right button",
     training_out: "The cricket is completely outside its burrow – click the right button",
     training_sun: "It is sunny – the image is full colour and bright – click the right button",
     training_shade: "It is cloudy – the image is in colour but shadows aren't distinct – click the right button",

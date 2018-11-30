@@ -30,7 +30,7 @@ var translated_text = {
     watching_cricket_start: "Now click on the cricket if it's visible, or click: ",
     watching_video: "Video playing...",
     watching_cricket_end: "Click on the cricket one more time, or click: ",    
-    watching_no_cricket: "No cricket",
+    watching_no_cricket: "In burrow",
     watching_finished: "Thank you for your help! Loading video ",
 }
 
@@ -53,7 +53,6 @@ function change_video(basename) {
     $($('video').children()[0]).attr('src','/media/movies/'+basename+'.mp4');
     $($('video').children()[1]).attr('src','/media/movies/'+basename+'.ogv');
 
-    console.log(basename);
     pop.load();
     pop.play();
 }
@@ -424,6 +423,7 @@ function video_setup(user_id, cricket_id, done_keyboard) {
 	    $("#time").css({left: percentage*timeline_fudge+"%"});
         });
 
+	
 	$("#ourvideo").click(function(e) {
 	    // click on burrow/cricket
 	    // pass through same thing as buttons

@@ -338,7 +338,7 @@ button.pause {
 .video-popup {
     position: absolute;
    /* pointer-events: none; */
-    background: rgba(255,255,0,1.0); 
+    background: #e5ff1e; 
     top: 38.4vw;
     height: 5vw;
     line-height: 5vw;

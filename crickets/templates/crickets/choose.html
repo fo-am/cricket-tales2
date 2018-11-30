@@ -10,9 +10,8 @@
 <div class="button-row">
 
   {% for c in crickets %}
-  <button onclick="window.location.href='/play/{{c.id}}'">
-    {{ c.tag }}
-  </button>  
+  <a href="/play/{{c.id}}">
+    <img src="/media/images/2013-Wings/{{ c.tag }}.JPG" width="200vw"></a>  
   {% endfor %}
 
 </div>

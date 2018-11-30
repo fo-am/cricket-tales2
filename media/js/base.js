@@ -18,7 +18,7 @@ var translated_text = {
     training_mid: "The cricket is midway in/out of its burrow – click the right button",
     training_out: "The cricket is completely outside its burrow – click the right button",
     training_sun: "It is sunny – the image is full colour and bright – click the right button",
-    training_shade: "It is shady – the image is in colour but it’s a bit dark – click the right button",
+    training_shade: "It is cloudy – the image is in colour but shadows aren't distinct – click the right button",
     training_night: "It is night time – the infra red cameras are on so the image is black and white – click the right button",
     training_pause: "Click the pause button if you need time to think, and the play button when you’re ready to start again",
     training_pause: "Click the pause button if you need time to think, and the play button when you’re ready to start again",

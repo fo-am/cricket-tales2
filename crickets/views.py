@@ -43,7 +43,7 @@ def choose(request):
         request.session["player_number"]=player.id
 
     context = {}
-    context['crickets'] = Cricket.objects.exclude(videos_ready__lt=5).order_by('activity')[:5]
+    context['crickets'] = Cricket.objects.exclude(videos_ready__lt=5).order_by('activity')[:6]
     return render(request, 'crickets/choose.html', context)
 
 class CricketView(generic.DetailView):

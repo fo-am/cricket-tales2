@@ -349,6 +349,24 @@ function watching_click(button,e) {
 	}
 	break;
     }
+
+    if (["eating","singing"].indexOf(button)<0) {
+	do_radio_buttons(button);
+    }
+}
+
+function do_radio_buttons(button) {
+    if (["sun","shade","night"].indexOf(button)>=0) {
+	$("#sun").css("background-color","");
+	$("#shade").css("background-color","");
+	$("#night").css("background-color","");
+    }
+    if (["in","mid","out"].indexOf(button)>=0) {
+	$("#in").css("background-color","");
+	$("#mid").css("background-color","");
+	$("#out").css("background-color","");
+    }
+    $("#"+button).css("background-color","white");
 }
 
 var movies = [];

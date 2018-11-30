@@ -48,6 +48,27 @@ body {
     padding: 0px;
 }
 
+.frame0 { position: absolute; top: 0; left: 0%; }
+.frame1 { position: absolute; top: 10vw; left: 20vw; }
+.frame2 { position: absolute; top: 0; left: 35vw; }
+.frame3 { position: absolute; top: 17vw; left: 45vw; }
+.frame4 { position: absolute; top: 0; left: 65vw; }
+.frame5 { position: absolute; top: 10vw; left: 81vw; }
+
+.portrait0 { position: absolute; top: 4vw; left: 4vw; width: 13vw; }
+.portrait1 { position: absolute; top: 4vw; left: 0vw; width: 16vw; transform: rotate(90deg); }
+.portrait2 { position: absolute; top: 2vw; left: 2vw; width: 16vw; }
+.portrait3 { position: absolute; top: 2vw; left: 2vw; width: 16vw; }
+.portrait4 { position: absolute; top: 4vw; left: 0vw; width: 16vw; transform: rotate(90deg); }
+.portrait5 { position: absolute; top: 4vw; left: 0vw; width: 16vw; transform: rotate(90deg); }
+
+.cframe0 { position: absolute; top: 0; left: 0%;  width: 20vw;}
+.cframe1 { position: absolute; top: 0; left: 20%; height: 20vw;}
+.cframe2 { position: absolute; top: 0; left: 40%; width: 20vw;}
+.cframe3 { position: absolute; top: 0; left: 50%; width: 20vw;}
+.cframe4 { position: absolute; top: 0; left: 70%; height: 20vw;}
+.cframe5 { position: absolute; top: 0; left: 90%; height: 20vw;}
+
 /* forcing everything into 16:9 aspect ratio all the time */
 
 .force-aspect {

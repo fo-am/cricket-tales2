@@ -8,15 +8,19 @@
 </div>
 
 <div class="button-row">
-
-  {% for c in crickets %}
-  <a href="/play/{{c.id}}">
-    <img src="/media/images/2013-Wings/{{ c.tag }}.JPG" width="200vw"></a>  
-  {% endfor %}
-
+  <div style="position: relative; margin-top: -4vw;">
+    {% for c in crickets %}
+    <div class="frame{{forloop.counter0}}">
+      <a href="/play/{{c.id}}">
+	<img class="portrait{{forloop.counter0}}" src="/media/images/2013-Wings/{{ c.tag }}.JPG"></a>  
+      <a href="/play/{{c.id}}">
+	<img class="cframe{{forloop.counter0}}" src="/media/images/pictureframes/frame-{{forloop.counter0}}.png"></a>      
+    </div>
+    {% endfor %}
+  </div>
 </div>
 
-<div class="centred-block">
+<div class="centred-block" style="margin-top: 35vw">
 {% trans "You will see 5 different 30 second videos of your cricket." %}
 </div>
 
@@ -31,6 +35,10 @@
 <div class="button-row">
   <button class="small" onclick="window.location.href='/beta/'">
     {% trans "Quit" %}
+  </button>  
+  <button class="small"
+	  onclick="window.location.href='/training/'">
+    {% trans "Retrain" %}
   </button>  
 </div>
 

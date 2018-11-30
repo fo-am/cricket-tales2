@@ -162,6 +162,8 @@ function update_training() {
         break;	
 
     case "training_pause":
+	// move popup out of the way of the pause button
+	$('.video-popup').css("top","19vw");
         $('#popup-text').html(translated_text["training_pause"]);
 	setTimeout(function() { state="training_restart"; update_training(); }, 4000);
         break;	

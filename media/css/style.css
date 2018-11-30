@@ -13,22 +13,24 @@
 h1 {
     font-family: 'Love Ya Like A Sister', sans-serif;
     text-transform: uppercase;
-    font-size: 10vw;
+    font-size: 9vw;
     font-weight: 500;
 }
 
 h2 {
     font-family: 'Love Ya Like A Sister', sans-serif;
     text-transform: uppercase;
-    font-size: 5vw;
+    font-size: 4vw;
     font-weight: 500;
+    margin-top: 0em;
+    margin-bottom: 1em;    
 }
 
 h3 {
     margin: 0em;
     font-family: 'Love Ya Like A Sister', sans-serif;
     text-transform: uppercase;
-    font-size: 4.5vw;
+    font-size: 3.5vw;
     font-weight: 500;
 }
 
@@ -36,7 +38,7 @@ h4 {
     margin: 0em;
     font-family: 'Love Ya Like A Sister', sans-serif;
     text-transform: uppercase;
-    font-size: 3vw;
+    font-size: 2vw;
     font-weight: 500;
 }
 
@@ -44,14 +46,15 @@ body {
     background: url('../images/background.png');
     background-repeat: repeat;
     font-family: 'Vidaloka', sans-serif;
-    font-size: 2.5vw;
+    font-size: 2vw;
     padding: 0px;
+    margin: 0px;
 }
 
 .frame0 { position: absolute; top: 0; left: 0%; }
 .frame1 { position: absolute; top: 10vw; left: 20vw; }
 .frame2 { position: absolute; top: 0; left: 35vw; }
-.frame3 { position: absolute; top: 17vw; left: 45vw; }
+.frame3 { position: absolute; top: 15vw; left: 45vw; }
 .frame4 { position: absolute; top: 0; left: 65vw; }
 .frame5 { position: absolute; top: 10vw; left: 81vw; }
 
@@ -72,17 +75,18 @@ body {
 /* forcing everything into 16:9 aspect ratio all the time */
 
 .force-aspect {
+    position: absolute;
     width: 100%; 
     padding-bottom: 56.25%; 
 }
 
 div.stretchy-wrapper {
-  position: relative;
+    position: relative;
 }
 
 div.stretchy-wrapper > div {
-  position: absolute;
-  top: 0; bottom: 0; left: 0; right: 0;
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
 }
 
 /* for text mainly */
@@ -106,9 +110,20 @@ div.stretchy-wrapper > div {
 
 /* results stuff */
 
+.personality-block {
+    margin-left: 15vw;
+    width: 60vw;
+    height: 30vw;
+    justify-content: center;
+    text-align: center;    
+    background: rgba(202,241,131,0.6);
+    padding: 2em;
+}
+
 .results-block {
-    margin-left: 10%;
-    width: 80%;
+    margin-left: 10vw;
+    width: 80vw;
+    height: 30vw;
     justify-content: center;
     text-align: center;    
     background: rgba(202,241,131,0.6);
@@ -170,7 +185,7 @@ div.stretchy-wrapper > div {
 button.results {
     position: absolute;
     font-family: 'Love Ya Like A Sister', cursive;
-    font-size: 3vw;
+    font-size: 2vw;
     text-transform: uppercase;
     cursor: pointer;
     background: rgba(202,241,131,0.6);
@@ -199,7 +214,7 @@ button.results {
 
 button {
     font-family: 'Love Ya Like A Sister', cursive;
-    font-size: 5vw;
+    font-size: 4vw;
     text-transform: uppercase;
     cursor: pointer;
     background: rgba(202,241,131,0.6);
@@ -216,7 +231,7 @@ button {
 
 button.small {
     font-family: 'Love Ya Like A Sister', cursive;
-    font-size: 3vw;
+    font-size: 2.5vw;
     text-transform: uppercase;
     cursor: pointer;
     background: rgba(202,241,131,0.6);
@@ -233,7 +248,7 @@ button.small {
 
 button.micro {
     font-family: 'Love Ya Like A Sister', cursive;
-    font-size: 2vw;
+    font-size: 1.5vw;
     text-transform: uppercase;
     cursor: pointer;
     background: rgba(202,241,131,0.6);
@@ -249,7 +264,7 @@ button.micro {
 
 button.image {
     font-family: 'Love Ya Like A Sister', cursive;
-    font-size: 2vw;
+    font-size: 1.5vw;
     text-transform: uppercase;
     cursor: pointer;
     background: rgba(202,241,131,0.6);
@@ -289,7 +304,8 @@ button:focus {
 
 .video-container {
     float: left;
-    width: 60%;
+    width: 55%;
+    margin-left: 3%;
 }
 
 .video-button-container {
@@ -322,13 +338,14 @@ button.pause {
 .video-popup {
     position: absolute;
    /* pointer-events: none; */
-    background: rgba(255,255,0,0.75); 
-    top: 36.7vw;
+    background: rgba(255,255,0,1.0); 
+    top: 38.4vw;
     height: 5vw;
     line-height: 5vw;
-    width: 59.2%;
+    width: 53.8vw;
     padding: 0.2em;
-    font-size: 2.2vw;    
+    font-size: 1.8vw;    
+    z-index: 100;
 }
 
 #popup-text {
@@ -350,7 +367,7 @@ button.pause {
 .timeline {
     height: 1vw;
     overflow: visible;
-    width: 42vw; 
+    width: 39vw; 
 }
 
 .timeline_line {
@@ -368,7 +385,6 @@ button.pause {
     background-color: #000;
     /*-webkit-transition: left 1.5s linear;
     -moz-transition: left 1.5s linear;*/
-    z-index: 100;
 }
 
 .tiny_circle {

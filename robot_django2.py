@@ -481,7 +481,10 @@ def generate_data_report():
                          "Player ID",
                          "Time",
                          "X","Y",
-                         "Movie index file",
+                         "Movie ID",
+                         "Movie start time",
+                         "Movie end time",
+                         "Original index file",
                          "Frame",
                          "Camera"])
         for event in Event.objects.all():
@@ -493,6 +496,9 @@ def generate_data_report():
                              event.actual_real_time,
                              event.x_pos,
                              event.y_pos,
+                             event.movie.id,
+                             event.movie.start_time,
+                             event.movie.end_time,
                              event.movie.src_index_file,
                              int(event.video_time*event.movie.fps+event.movie.start_frame),
                              event.movie.camera])

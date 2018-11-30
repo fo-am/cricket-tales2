@@ -12,14 +12,16 @@ var current_movie = 0;
 
 // in order to sort out translations...
 var translated_text = { 
-    training_singing: "This cricket is singing, notice it's wings fluttering - click on the right button.",
-    training_eating: "The cricket is eating – click the right button",			
-    training_in: "The cricket is completely inside its burrow – click the right button",
-    training_mid: "The cricket has stopped midway in/out of its burrow – click the right button",
-    training_out: "The cricket is completely outside its burrow – click the right button",
-    training_sun: "It is sunny – the image is full colour and bright – click the right button",
-    training_shade: "It is cloudy – the image is in colour but shadows aren't distinct – click the right button",
-    training_night: "It is night time – the infra red cameras are on so the image is black and white – click the right button",
+    training_start: "Welcome to the cricket tales training...",
+    training_start2: "These videos provide examples of the behaviour we are looking for and how to record them.",
+    training_singing: "This cricket is singing, notice it's wings fluttering - click on the singing button to record this behaviour.",
+    training_eating: "The cricket is eating – now click the eating button",			
+    training_in: "The cricket is completely inside its burrow – click the 'in' button",
+    training_mid: "The cricket has stopped midway in/out of its burrow – click the 'mid' button",
+    training_out: "The cricket is completely outside its burrow – click the 'out' button",
+    training_sun: "It is sunny – the image is full colour and bright – click the sun button",
+    training_shade: "It is cloudy – the image is in colour but shadows aren't distinct – click the shade button",
+    training_night: "It is night time – the infra red cameras are on so the image is black and white – click the night button",
     training_pause: "Click the pause button if you need time to think, and the play button when you’re ready to start again",
     training_pause: "Click the pause button if you need time to think, and the play button when you’re ready to start again",
     training_restart: "Click the restart button if you make a mistake and want to start the video again",
@@ -89,7 +91,16 @@ function play_movie() {
 
 function update_training() {
     switch(state) {
+    case "training_start":
+        $('#popup-text').html(translated_text["training_start"]);
+	setTimeout(function() { state="training_start2"; update_training(); }, 5000);
+        break;	
+    case "training_start2":
+        $('#popup-text').html(translated_text["training_start2"]);
+	setTimeout(function() { state="training_singing"; update_training(); }, 5000);
+        break;	
     case "training_singing":
+	play_movie();
         $('#popup-text').html(translated_text["training_singing"]);
         break;	
     case "training_sing_click":
@@ -162,7 +173,7 @@ function update_training() {
 
     case "training_pause":
 	// move popup out of the way of the pause button
-	$('.video-popup').css("top","19vw");
+	$('.video-popup').css("top","33vw");
         $('#popup-text').html(translated_text["training_pause"]);
 	setTimeout(function() { state="training_restart"; update_training(); }, 4000);
         break;	
@@ -207,19 +218,23 @@ function training_click(button) {
 	if (button==="night") { state = "training_night_click"; update_training(); }
 	break;
     }
+
+    if (["eating","singing"].indexOf(button)<0) {
+	do_radio_buttons(button);
+    }
+
 }
 
 function training_video_setup() {
     document.addEventListener("DOMContentLoaded", function () {
 	pop = Popcorn("#ourvideo");
-	state = "training_singing";
+	state = "training_start";
 
 	// loop
         pop.on("ended", function() {
             pop.currentTime(0);
 	    pop.play();
 	});
-
 
         // scrubbing
         $("#time").draggable({
@@ -245,9 +260,9 @@ function training_video_setup() {
 	    $("#time").css({left: percentage*timeline_fudge+"%"});
 
         });
-
+ 
         update_training();
-	pop.play();
+	pop.pause();
     });
 }
 

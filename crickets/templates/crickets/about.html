@@ -7,16 +7,20 @@
 <h2>{% trans "About the project" %}</h2>
 </div>
 
-<div class="centred-block">
-{% trans "In a secret field in Northern Spain, hundreds of cricket burrows are monitored using CCTV. This is the first long-term study on the behaviour of wild insects. By tagging events in our videos, you are contributing directly to research which will determine whether crickets have individual personalities." %}
-</div>
+<div class="about-block" style="background-image: url('/media/images/about.jpg');">
 
-<div class="centred-block">
-{% trans "The results will tell us whether some crickets are more active in the morning, while others are more active later in the day. This tells us how flexible their lifestyles are, and how insects might cope as our climate changes. Play the game and you will see the latest results, including the data that you contribute!" %}
+  <div class="about-text">
+    {% trans "In a secret field in Northern Spain, hundreds of cricket burrows are monitored using CCTV. This is the first long-term study on the behaviour of wild insects. By tagging events in our videos, you are contributing directly to research which will determine whether crickets have individual personalities." %}
+    <p>
+    {% trans "The results will tell us whether some crickets are more active in the morning, while others are more active later in the day. This tells us how flexible their lifestyles are, and how insects might cope as our climate changes. Play the game and you will see the latest results, including the data that you contribute!" %}
+    <br/>
+    <a href="http://www.wildcrickets.org/">www.wildcrickets.org</a>
+  </div>
+  
 </div>
 
 <div class="button-row">
-  <button onclick="window.location.href='/beta/'">
+  <button class="small" onclick="window.location.href='/beta/'">
     {% trans "BACK" %}
   </button>  
 </div>

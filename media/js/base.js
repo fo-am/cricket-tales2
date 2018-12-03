@@ -219,10 +219,7 @@ function training_click(button) {
 	break;
     }
 
-    if (["eating","singing"].indexOf(button)<0) {
-	do_radio_buttons(button);
-    }
-
+    do_radio_buttons(button);
 }
 
 function training_video_setup() {
@@ -306,6 +303,7 @@ function update_watching() {
 	    change_video(movies[current_movie].path+"/"+movies[current_movie].name)
 	    current_movie_id = movies[current_movie].movie_id;
 	    state = "watching_burrow_start";
+	    clear_radio_buttons();
 	    $('#video-num').html((current_movie+1)+"/5");
 	    update_watching();	    
 	    pop.pause(); 
@@ -355,6 +353,7 @@ function watching_click(button,e) {
 	break;
     case "watching_video": // normal situation, just pass through
 	add_event(button, 0, 0, null);
+	do_radio_buttons(button);
 	break;
     case "watching_cricket_end":
 	if (button=="video") {
@@ -365,10 +364,17 @@ function watching_click(button,e) {
 	}
 	break;
     }
+}
 
-    if (["eating","singing"].indexOf(button)<0) {
-	do_radio_buttons(button);
-    }
+function clear_radio_buttons() {
+    $("#sun").css("background-color","");
+    $("#shade").css("background-color","");
+    $("#night").css("background-color","");
+    $("#in").css("background-color","");
+    $("#mid").css("background-color","");
+    $("#out").css("background-color","");
+    $("#eating").css("background-color","");
+    $("#singing").css("background-color","");
 }
 
 function do_radio_buttons(button) {
@@ -381,6 +387,10 @@ function do_radio_buttons(button) {
 	$("#in").css("background-color","");
 	$("#mid").css("background-color","");
 	$("#out").css("background-color","");
+    }
+    // turn off eating or singing button after a few seconds
+    if (["eating","singing"].indexOf(button)>=0) {
+	setTimeout(function() {$("#"+button).css("background-color",""); }, 5000);
     }
     $("#"+button).css("background-color","white");
 }

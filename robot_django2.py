@@ -183,8 +183,8 @@ def update_video_status():
 def update_video_complete():
     for movie in Movie.objects.all():
         # is this movie complete?
-        if movie.status<2 and movie.views>robot.settings.min_complete_views:
-            print(movie.name+" is complete with "+str(movie.views)+" views")
+        if movie.status<2 and movie.unique_views>robot.settings.min_complete_views:
+            print(movie.name+" is complete with "+str(movie.unique_views)+" views")
             set_movie_status(movie,2)
             # delete files separately
 
@@ -203,7 +203,7 @@ def update_cricket_status():
 def video_clearup():
     for movie in Movie.objects.filter(status=2):
         print(movie.name)
-        var = raw_input("Ok to delete "+movie.name+", status:"+str(movie.status)+" with "+str(movie.views)+" views? [y/n] ")
+        var = raw_input("Ok to delete "+movie.name+", status:"+str(movie.status)+" with "+str(movie.unique_views)+" views? [y/n] ")
         if var=="y" or var=="Y":
             #print("not deleting "+movie.name)
             robot.process.delete_videos(movie.name)
@@ -318,8 +318,9 @@ def disk_state():
 
 def generate_report():
     score_text = ""
-#    for i,player in enumerate(PlayerBurrowScore.objects.values('player__username').order_by('player').annotate(total=Sum('movies_finished')).order_by('-total')[:10]):
-#        score_text += str(i)+" "+player['player__username']+": "+str(player['total'])+"\n"
+
+    for i,player in enumerate(Player.objects.values('name').order_by('player').annotate(total=Sum('videos_watched')).order_by('-total')[:10]):
+        score_text += str(i)+" "+player['name']+": "+str(player['total'])+"\n"
 
     crickvid_text = ""
     for cricket in Cricket.objects.all():
@@ -339,6 +340,7 @@ def generate_report():
     "crickets with enough videos ready: "+str(Cricket.objects.exclude(videos_ready__lt=robot.settings.videos_needed_per_cricket).count())+"\n"+\
     "\n"+crickvid_text+"\n"+\
     "movies watched: "+str(Movie.objects.all().aggregate(Sum('views'))['views__sum'])+"\n"+\
+    "movies unique watched: "+str(Movie.objects.all().aggregate(Sum('unique_views'))['unique_views__sum'])+"\n"+\
     "events recorded: "+str(Event.objects.all().count())+"\n"+\
     "\n"+\
     "movie info\n"+\

@@ -28,6 +28,7 @@ var translated_text = {
     training_congrats: "Well done!",
     training_finished: "Your training is complete.",
 
+    watching_wait_load: "Loading video, please wait...",
     watching_burrow_start: "Please click on the burrow first.",
     watching_cricket_start: "Now click on the cricket if it's visible, or click: ",
     watching_video: "Video playing...",
@@ -58,6 +59,13 @@ function change_video(basename) {
 
     pop.load();
     pop.play();
+    
+    pop.on("canplay", function() {
+	if (state=="watching_wait_load") {
+	    state="watching_burrow_start";
+	    update_watching();
+	}
+    });
 }
 
 function play_state_toggle() {
@@ -269,6 +277,9 @@ function training_video_setup() {
 
 function update_watching() {
     switch(state) {
+    case "watching_wait_load":
+        $('#popup-text').html(translated_text[state]);
+	break;
     case "watching_burrow_start":
         $('#popup-text').html(translated_text[state]);
 	pop.currentTime(0);
@@ -304,7 +315,7 @@ function update_watching() {
 	    }
 	    change_video(movies[current_movie].path+"/"+movies[current_movie].name)
 	    current_movie_id = movies[current_movie].movie_id;
-	    state = "watching_burrow_start";
+	    state = "watching_wait_load";
 	    clear_radio_buttons();
 	    $('#video-num').html((current_movie+1)+"/5");
 	    update_watching();	    
@@ -417,7 +428,7 @@ function video_setup(user_id, cricket_id, done_keyboard) {
 
     document.addEventListener("DOMContentLoaded", function () {
 	pop = Popcorn("#ourvideo");
-	state = "watching_burrow_start";
+	state = "watching_wait_load";
 	change_video(movies[current_movie].path+"/"+movies[current_movie].name);
 
 	// loop

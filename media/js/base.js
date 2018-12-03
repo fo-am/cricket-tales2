@@ -123,7 +123,7 @@ function update_training() {
         break;	
     case "training_in_click":
         $('#popup-text').html(translated_text["training_congrats"]);
-	change_video('tutorial/in');
+	change_video('tutorial/mid');
 	setTimeout(function() { state="training_mid"; update_training(); }, 1000);
         break;	
 

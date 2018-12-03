@@ -352,7 +352,7 @@ button:focus {
 
 video {
     width: 100%;
-    height: auto;
+    height: 34vw;
 }
 
 button.play,

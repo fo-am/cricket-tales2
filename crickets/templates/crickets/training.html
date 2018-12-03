@@ -20,16 +20,16 @@
     <div class="video-popup">
       <span id="popup-text"></span>
     </div>
-    
-    <div class="timeline-container"><!-- timeline row -->
-      <button class="toggle-button play" style="background: url(/media/images/movie_buttons/play.png); background-size: 100% 100%;" onclick='play_state_toggle()'></button>
-      <button class="play" style="background: url(/media/images/movie_buttons/redo.png); background-size: 100% 100%;"
-              onclick="play_state_redo({{redo.id}},{{movie.id}},'{{user.id}}');"></button>
-      <div id="timeline" class="timeline bar"><!-- timeline div -->
+
+    <div class="timeline-container">
+      <button class="toggle-button play" style="float: left; background: url(/media/images/movie_buttons/pause.png); background-size: 100% 100%;" onclick='play_state_toggle()'></button>
+      <button class="play" style="float:left; background: url(/media/images/movie_buttons/redo.png); background-size: 100% 100%;"
+              onclick="restart_click();"></button>
+      <div id="timeline" class="timeline">
 	<div class="timeline_line"></div>
-	<div id="time" class="time tiny_circle"></div>
-      </div><!-- end timeline div -->
-    </div><!-- end timeline row -->
+	<div id="time" class="time"></div> 
+      </div>
+    </div>
   </div>  
 
   <div class="video-button-container">

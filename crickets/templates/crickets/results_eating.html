@@ -26,16 +26,19 @@
     <p>{% trans "If they only eat at very specific times, then their lifestyles may not be very flexible, and they could face difficulties as our climate changes." %}</p>
   </div>			 
 
-  <button class="results" 
-	  style="left:-8%"
-	  onclick="window.location.href='/results_movement/{{ cricket.id }}'">
-    left
-  </button>
-  <button class="results" 
-	  style="left:93%"
-	  onclick="window.location.href='/results_singing/{{ cricket.id }}'">
-    right
-  </button>
+  <div class="more-results" style="left:-6%">
+    <a href="/results_movement/{{ cricket.id }}">
+      <img src="/media/images/left.png"><br/>
+      {% trans "MORE RESULTS" %}
+    </a>
+  </div>
+
+  <div class="more-results" style="left:97%">
+    <a href="/results_singing/{{ cricket.id }}">
+      <img src="/media/images/right.png"><br/>
+      {% trans "MORE RESULTS" %}
+    </a>
+  </div>
   
 </div>
 

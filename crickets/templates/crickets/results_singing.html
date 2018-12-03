@@ -26,16 +26,20 @@
     <p>{% trans "Crickets usually sing to attract mates. If they only sing at certain times, this might be linked to the temperature or light levels." %}</p>
   </div>			 
 
-  <button class="results" 
-	  style="left:-8%"
-	  onclick="window.location.href='/results_eating/{{ cricket.id }}'">
-    left
-  </button>
-  <button class="results" 
-	  style="left:93%"
-	  onclick="window.location.href='/results_movement/{{ cricket.id }}'">
-    right
-  </button>
+  <div class="more-results" style="left:-6%">
+    <a href="/results_eating/{{ cricket.id }}">
+      <img src="/media/images/left.png"><br/>
+      {% trans "MORE RESULTS" %}
+    </a>
+  </div>
+
+  <div class="more-results" style="left:97%">
+    <a href="/results_movement/{{ cricket.id }}">
+      <img src="/media/images/right.png"><br/>
+      {% trans "MORE RESULTS" %}
+    </a>
+  </div>
+
 </div>
 
 <div class="button-row">

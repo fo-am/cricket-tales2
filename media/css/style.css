@@ -72,6 +72,30 @@ body {
 .cframe4 { position: absolute; top: 0; left: 70%; height: 20vw;}
 .cframe5 { position: absolute; top: 0; left: 90%; height: 20vw;}
 
+.personality-portrait {
+  position: relative;
+  margin-top: 25%;
+  top: 0;
+  left: 0;
+}
+
+.pp-pic {
+    position: relative; 
+    margin-top: 20%; 
+    margin-bottom: 25%; 
+    left: -10%; 
+    width: 110%;
+    transform: rotate(90deg); 
+}
+
+.pp-frame {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%;
+}
+
+
 /* forcing everything into 16:9 aspect ratio all the time */
 
 .force-aspect {
@@ -162,7 +186,7 @@ div.stretchy-wrapper > div {
     justify-content: center;
     text-align: center;    
     background: yellow;
-    border: 5px solid black;
+    border: 2px solid black;
     margin: 3vw;
     position: relative;
 }
@@ -172,35 +196,27 @@ div.stretchy-wrapper > div {
 }
 
 .results-pointer {
+    background-image: url("/media/images/pointer.png");
+    background-size: 100% 100%;
     position: absolute;
     top: -1vw;
     margin-left: -0.75vw;
-    width: 1vw;
-    height: 1vw;
-    background: yellow;
-    border: 5px solid black;
+    width: 2vw;
+    height: 1.5vw;
     z-index: 100;
 }
 
-button.results {
-    position: absolute;
-    font-family: 'Love Ya Like A Sister', cursive;
-    font-size: 2vw;
-    text-transform: uppercase;
-    cursor: pointer;
-    background: rgba(202,241,131,0.6);
-    border: 0px solid #fff !important;
-    border-radius: 0.2em;
-    white-space: nowrap;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    padding-top: 0em;
-    padding-bottom: 0em;
-    display: inline-block;
-    top: 40%;
-    left: 0%;
+.more-results {
+    position: absolute; 
+    top: 35%; 
+    width: 10%;
 }
 
+.more-results a {
+    font-family: 'Love Ya Like A Sister', cursive;
+    text-decoration: none;
+    color: black;
+}
 
 /* container row for buttons */
 

@@ -46,7 +46,7 @@ def choose(request):
     context['crickets'] = Cricket.objects.exclude(videos_ready__lt=5).order_by('activity')[:6]
 
     for cricket in context['crickets']:
-        if cricket.tag="+A": cricket.tag="PlusA"
+        if cricket.tag=="+A": cricket.tag="PlusA"
 
     return render(request, 'crickets/choose.html', context)
 

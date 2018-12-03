@@ -249,6 +249,7 @@ button {
     font-size: 4vw;
     text-transform: uppercase;
     cursor: pointer;
+    color: black;
     background: rgba(202,241,131,0.6);
     border: 0px solid #fff !important;
     border-radius: 0.2em;
@@ -258,7 +259,7 @@ button {
     padding-right: 0.5em;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
-    display: inline-block;
+    display: inline-block; 
 }
 
 button.small {
@@ -266,6 +267,7 @@ button.small {
     font-size: 2.5vw;
     text-transform: uppercase;
     cursor: pointer;
+    color: black;
     background: rgba(202,241,131,0.6);
     border: 0px solid #fff !important;
     border-radius: 0.2em;
@@ -283,6 +285,7 @@ button.micro {
     font-size: 1.5vw;
     text-transform: uppercase;
     cursor: pointer;
+    color: black;
     background: rgba(202,241,131,0.6);
     border: 0px solid #fff !important;
     border-radius: 0.2em;
@@ -299,6 +302,7 @@ button.image {
     font-size: 1.5vw;
     text-transform: uppercase;
     cursor: pointer;
+    color: black;
     background: rgba(202,241,131,0.6);
     border: 0px solid #fff !important;
     border-radius: 0.2em;
@@ -351,11 +355,6 @@ video {
     height: auto;
 }
 
-.timeline-container {
-    width: 100%;
-    display: block;
-}
-
 button.play,
 button.pause {
     margin: 0em;
@@ -386,30 +385,26 @@ button.pause {
     line-height: normal;
 }
 
-/* square things */
-
-.bar {
-    background-size: 100% 100%;
-    text-align: center;
-    display: inline-block;
+.timeline-container {
+    width: 100%;
+    display: block;
     overflow: visible;
-    font-size: 130%;
+    white-space: nowrap;
 }
 
 .timeline {
+    position: relative;
     height: 1vw;
-    overflow: visible;
-    width: 39vw; 
+    width: 39vw;
+    display: block;
+    float: left;
 }
 
 .timeline_line {
-    margin-top:-3.5vw;
-    margin-left: 0.1vw;
-    width: 99%;
+    margin-top: 2vw;
     background-color: black;
     height: 2px;
     position: relative;
-    top: 50%;
 }
 
 .time {
@@ -417,13 +412,10 @@ button.pause {
     background-color: #000;
     /*-webkit-transition: left 1.5s linear;
     -moz-transition: left 1.5s linear;*/
-}
-
-.tiny_circle {
     border-radius: 1vw;
-	width: 2vw;
-	height: 2vw;
+    width: 2vw;
+    height: 2vw;
     text-align: center;
     position: relative;
-    top: -0.46vw;
+    top: -1vw;
 }

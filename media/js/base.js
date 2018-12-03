@@ -5,7 +5,7 @@ var current_user_id = 0;
 var current_movie_id = 0;
 var current_cricket_id = 0;
 var needs_keyboard = 0;
-var timeline_fudge = 0.96;
+var timeline_fudge = 1.0;
 var state = "none";
 var csrftoken = "none";
 var current_movie = 0;
@@ -50,6 +50,7 @@ function mouse_pos(e, context) {
 }
 
 function change_video(basename) {
+    console.log(basename);
     pop.pause();
     $('video').attr('poster','/media/movies/'+basename+'.jpg');
     $($('video').children()[0]).attr('src','/media/movies/'+basename+'.mp4');
@@ -236,6 +237,7 @@ function training_video_setup() {
         // scrubbing
         $("#time").draggable({
 	    axis:"x",
+	    containment:"#timeline",
 	    drag: function( event, ui ) {
                 var pos = pop.duration() * parseFloat($('#time').css('left')) /
 		    parseFloat($('#time').parent().css('width'));
@@ -427,6 +429,7 @@ function video_setup(user_id, cricket_id, done_keyboard) {
         // scrubbing
         $("#time").draggable({
 	    axis:"x",
+	    containment:"#timeline",
 	    drag: function( event, ui ) {
                 var pos = pop.duration() * parseFloat($('#time').css('left')) /
 		    parseFloat($('#time').parent().css('width'));

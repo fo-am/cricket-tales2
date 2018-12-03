@@ -394,10 +394,10 @@ button.pause {
 
 .timeline {
     position: relative;
-    height: 1vw;
     width: 39vw;
     display: block;
     float: left;
+    overflow:hidden;
 }
 
 .timeline_line {

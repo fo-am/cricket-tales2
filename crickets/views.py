@@ -233,8 +233,12 @@ def record_event(request):
             cricket = Cricket.objects.get(pk=movie.cricket.id)            
                 
             if obj.event_type=="burrow_start":
+                mv = MovieView.objects.create(viewer=Player.objects.get(pk=request.session["player_number"]),
+                                              movie=movie)
+                mv.save()
                 cricket.activity+=1
                 movie.views+=1
+                movie.unique_views = MovieView.objects.filter(movie=movie).values("viewer").distinct().count()
                 movie.save()
 
             if obj.event_type=="cricket_end" or obj.event_type=="no_cricket_end":

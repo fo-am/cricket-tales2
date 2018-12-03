@@ -47,6 +47,7 @@ class Movie(models.Model):
     name = models.CharField(max_length=200)
     camera = models.CharField(max_length=200)
     views = models.IntegerField(default=0)
+    unique_views = models.IntegerField(default=0)
     created_date = models.DateTimeField('date created')
     status = models.IntegerField(default=0)
     src_index_file = models.CharField(max_length=4096)
@@ -60,6 +61,10 @@ class Movie(models.Model):
     def __unicode__(self):
         return str(self.name)+" "+str(self.camera);
 
+class MovieView(models.Model):
+    viewer = models.ForeignKey(Player)
+    movie = models.ForeignKey(Movie)
+    
 class Event(models.Model):
     movie = models.ForeignKey(Movie)
     event_type = models.CharField(max_length=200)

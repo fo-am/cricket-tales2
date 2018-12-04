@@ -229,14 +229,14 @@ div.stretchy-wrapper > div {
     width: 80%;
     justify-content: center;
     text-align: center;    
-    background: yellow;
+    background: #f2ff38;
     border: 2px solid black;
     margin: 3vw;
     position: relative;
 }
 
 .daynight {
-    background-image: linear-gradient(to right, yellow, #93d9cc);
+    background-image: linear-gradient(to right, #f2ff38, #93d9cc);
 }
 
 .personality-pointer {
@@ -405,7 +405,7 @@ button.pause {
 .video-popup {
     position: absolute;
    /* pointer-events: none; */
-    background: #e5ff1e; 
+    background: #f2ff38; 
     top: 38.4vw;
     height: 5vw;
     line-height: 5vw;

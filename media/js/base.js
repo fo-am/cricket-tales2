@@ -14,15 +14,22 @@ var current_movie = 0;
 var translated_text = { 
     training_start: "Welcome to the cricket tales training...",
     training_start2: "These videos provide examples of the behaviour we are looking for and how to record them.",
+    training_loading_singing: "Loading next video...",
     training_singing: "This cricket is singing, notice it's wings fluttering - click on the singing button to record this behaviour.",
+    training_loading_eating: "Loading next video...",
     training_eating: "The cricket is eating – now click the eating button",			
+    training_loading_in: "Loading next video...",
     training_in: "The cricket is completely inside its burrow – click the 'in' button",
+    training_loading_mid: "Loading next video...",
     training_mid: "The cricket has stopped midway in/out of its burrow – click the 'mid' button",
+    training_loading_out: "Loading next video...",
     training_out: "The cricket is completely outside its burrow – click the 'out' button",
+    training_loading_sun: "Loading next video...",
     training_sun: "It is sunny – the image is full colour and bright – click the sun button",
+    training_loading_shade: "Loading next video...",
     training_shade: "It is cloudy – the image is in colour but shadows aren't distinct – click the shade button",
+    training_loading_night: "Loading next video...",
     training_night: "It is night time – the infra red cameras are on so the image is black and white – click the night button",
-    training_pause: "Click the pause button if you need time to think, and the play button when you’re ready to start again",
     training_pause: "Click the pause button if you need time to think, and the play button when you’re ready to start again",
     training_restart: "Click the restart button if you make a mistake and want to start the video again",
     training_congrats: "Well done!",
@@ -61,9 +68,46 @@ function change_video(basename) {
     pop.play();
     
     pop.on("canplay", function() {
-	if (state=="watching_wait_load") {
+	console.log("canplay "+state)
+	switch (state) {
+	case "watching_wait_load":
 	    state="watching_burrow_start";
 	    update_watching();
+	    break;
+
+	case "training_loading_singing":
+	    state="training_singing";
+	    console.log("updating "+state);
+	    update_training();
+	    break;
+	case "training_loading_eating":
+	    state="training_eating";
+	    update_training();
+	    break;
+	case "training_loading_in":
+	    state="training_in";
+	    update_training();
+	    break;
+	case "training_loading_out":
+	    state="training_out";
+	    update_training();
+	    break;
+	case "training_loading_mid":
+	    state="training_mid";
+	    update_training();
+	    break;
+	case "training_loading_sun":
+	    state="training_sun";
+	    update_training();
+	    break;
+	case "training_loading_shade":
+	    state="training_shade";
+	    update_training();
+	    break;
+	case "training_loading_night":
+	    state="training_night";
+	    update_training();
+	    break;
 	}
     });
 }
@@ -106,16 +150,16 @@ function update_training() {
         break;	
     case "training_start2":
         $('#popup-text').html(translated_text["training_start2"]);
-	setTimeout(function() { state="training_singing"; update_training(); }, 5000);
+	setTimeout(function() { state="training_loading_singing"; update_training(); change_video('tutorial/singing'); }, 5000);
         break;	
     case "training_singing":
 	play_movie();
+	console.log("text should be "+translated_text["training_singing"]);
         $('#popup-text').html(translated_text["training_singing"]);
         break;	
     case "training_sing_click":
         $('#popup-text').html(translated_text["training_congrats"]);
-	change_video('tutorial/eating');
-	setTimeout(function() { state="training_eating"; update_training(); }, 1000);
+	setTimeout(function() { state="training_loading_eating"; update_training(); change_video('tutorial/eating');}, 1000);
         break;	
 
     case "training_eating":
@@ -123,8 +167,7 @@ function update_training() {
         break;	
     case "training_eating_click":
         $('#popup-text').html(translated_text["training_congrats"]);
-	change_video('tutorial/in');
-	setTimeout(function() { state="training_in"; update_training(); }, 1000);
+	setTimeout(function() { state="training_loading_in"; update_training(); change_video('tutorial/in');}, 1000);
         break;	
 
     case "training_in":
@@ -132,8 +175,7 @@ function update_training() {
         break;	
     case "training_in_click":
         $('#popup-text').html(translated_text["training_congrats"]);
-	change_video('tutorial/mid');
-	setTimeout(function() { state="training_mid"; update_training(); }, 1000);
+	setTimeout(function() { state="training_loading_mid"; update_training(); change_video('tutorial/mid');}, 1000);
         break;	
 
     case "training_mid":
@@ -141,8 +183,7 @@ function update_training() {
         break;	
     case "training_mid_click":
         $('#popup-text').html(translated_text["training_congrats"]);
-	change_video('tutorial/out');
-	setTimeout(function() { state="training_out"; update_training(); }, 1000);
+	setTimeout(function() { state="training_loading_out"; update_training(); change_video('tutorial/out');}, 1000);
         break;	
 
     case "training_out":
@@ -150,8 +191,7 @@ function update_training() {
         break;	
     case "training_out_click":
         $('#popup-text').html(translated_text["training_congrats"]);
-	change_video('tutorial/sun');
-	setTimeout(function() { state="training_sun"; update_training(); }, 1000);
+	setTimeout(function() { state="training_loading_sun"; update_training(); change_video('tutorial/sun');}, 1000);
         break;	
 
     case "training_sun":
@@ -159,8 +199,7 @@ function update_training() {
         break;	
     case "training_sun_click":
         $('#popup-text').html(translated_text["training_congrats"]);
-	change_video('tutorial/shade');
-	setTimeout(function() { state="training_shade"; update_training(); }, 1000);
+	setTimeout(function() { state="training_loading_shade"; update_training(); change_video('tutorial/shade'); }, 1000);
         break;	
 
     case "training_shade":
@@ -168,8 +207,7 @@ function update_training() {
         break;	
     case "training_shade_click":
         $('#popup-text').html(translated_text["training_congrats"]);
-	change_video('tutorial/night');
-	setTimeout(function() { state="training_night"; update_training(); }, 1000);
+	setTimeout(function() { state="training_loading_night"; update_training(); change_video('tutorial/night'); }, 1000);
         break;	
 
     case "training_night":
@@ -196,6 +234,11 @@ function update_training() {
         $('#popup-text').html(translated_text["training_finished"]);
 	setTimeout(function() { window.location.href='/choose/'; }, 2000);
         break;	
+
+    default:    
+	// for all the loading messages
+        $('#popup-text').html(translated_text[state]);
+	break;
 
     }
 }

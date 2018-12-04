@@ -133,8 +133,9 @@ div.stretchy-wrapper > div {
 }
 
 .about-block {
-    margin-left: 10%;
-    width: 80%;
+    background-size: 85vw auto;
+    margin-left: 10vw;
+    width: 80vw;
     display: flex;
     flex-direction: column;
 }

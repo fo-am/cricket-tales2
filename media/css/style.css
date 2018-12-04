@@ -433,7 +433,7 @@ button.pause {
     width: 39vw;
     display: block;
     float: left;
-    overflow:hidden;
+    overflow: visible;
 }
 
 .timeline_line {
@@ -449,11 +449,11 @@ button.pause {
     /*-webkit-transition: left 1.5s linear;
     -moz-transition: left 1.5s linear;*/
     border-radius: 1vw;
-    width: 2vw;
-    height: 2vw;
+    width: 1.3vw;
+    height: 1.3vw;
     text-align: center;
     position: relative;
-    top: -1vw;
+    top: -0.7vw;
 }
 
 .leaderboard-column {

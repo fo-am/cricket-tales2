@@ -405,7 +405,7 @@ function do_radio_buttons(button) {
     if (["eating","singing"].indexOf(button)>=0) {
 	setTimeout(function() {$("#"+button).css("background-color",""); }, 5000);
     }
-    $("#"+button).css("background-color","white");
+    $("#"+button).css("background-color","#ededf0");
 }
 
 var movies = [];

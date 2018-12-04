@@ -353,7 +353,7 @@ button.image {
 }
 
 button:active { 
-    background-color: white; 
+    background-color: #ededf0; 
 }
 
 button:focus { 

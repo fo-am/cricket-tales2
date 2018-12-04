@@ -11,38 +11,7 @@ var csrftoken = "none";
 var current_movie = 0;
 
 // in order to sort out translations...
-var translated_text = { 
-    training_start: "Welcome to the cricket tales training...",
-    training_start2: "These videos provide examples of the behaviour we are looking for and how to record them.",
-    training_loading_singing: "Loading next video...",
-    training_singing: "This cricket is singing, notice it's wings fluttering - click on the singing button to record this behaviour.",
-    training_loading_eating: "Loading next video...",
-    training_eating: "The cricket is eating – now click the eating button",			
-    training_loading_in: "Loading next video...",
-    training_in: "The cricket is completely inside its burrow – click the 'in' button",
-    training_loading_mid: "Loading next video...",
-    training_mid: "The cricket has stopped midway in/out of its burrow – click the 'mid' button",
-    training_loading_out: "Loading next video...",
-    training_out: "The cricket is completely outside its burrow – click the 'out' button",
-    training_loading_sun: "Loading next video...",
-    training_sun: "It is sunny – the image is full colour and bright – click the sun button",
-    training_loading_shade: "Loading next video...",
-    training_shade: "It is cloudy – the image is in colour but shadows aren't distinct – click the shade button",
-    training_loading_night: "Loading next video...",
-    training_night: "It is night time – the infra red cameras are on so the image is black and white – click the night button",
-    training_pause: "Click the pause button if you need time to think, and the play button when you’re ready to start again",
-    training_restart: "Click the restart button if you make a mistake and want to start the video again",
-    training_congrats: "Well done!",
-    training_finished: "Your training is complete.",
-
-    watching_wait_load: "Loading video, please wait...",
-    watching_burrow_start: "Please click on the burrow first.",
-    watching_cricket_start: "Now click on the cricket if it's visible, or click: ",
-    watching_video: "Video playing...",
-    watching_cricket_end: "Click on the cricket one more time, or click: ",    
-    watching_no_cricket: "In burrow",
-    watching_finished: "Thank you for your help! Loading video ",
-}
+var translated_text = {}
 
 function percentage(x, y) {
     var container_w = $('#ourvideo').width();

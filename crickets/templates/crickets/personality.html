@@ -57,21 +57,25 @@
   {% endif %}
 
   {% if singing_score < 30 %} 
-    {% trans "doesn't sing much" %}
+    {% trans "doesn't sing much," %}
   {% elif singing_score > 30 %} 
-    {% trans "sings more than others" %}
+    {% trans "sings more than others," %}
   {% else %} 
-    {% trans "sings an average amount" %}
+    {% trans "sings an average amount," %}
   {% endif %}
 
-  {% trans "and" %}
-
   {% if moving_score < 30 %} 
-    {% trans "moves less than most crickets" %}
+    {% trans "moves less than most crickets," %}
   {% elif moving_score > 30 %} 
-    {% trans "moves more than most crickets" %}
+    {% trans "moves more than most crickets," %}
   {% else %} 
-    {% trans "moves about an average amount" %}
+    {% trans "moves about an average amount," %}
+  {% endif %}
+
+  {% if daynight_score < 50 %} 
+    {% trans "and is more active early in the day." %}
+  {% else %} 
+    {% trans "and is more active late in the day." %} 
   {% endif %}
 			 
 </div>

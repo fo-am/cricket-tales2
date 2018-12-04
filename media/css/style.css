@@ -58,19 +58,19 @@ body {
 .frame4 { position: absolute; top: 0; left: 65vw; }
 .frame5 { position: absolute; top: 10vw; left: 81vw; }
 
-.portrait0 { position: absolute; top: 4vw; left: 4vw; width: 13vw; }
-.portrait1 { position: absolute; top: 4vw; left: 0vw; width: 16vw; transform: rotate(90deg); }
-.portrait2 { position: absolute; top: 2vw; left: 2vw; width: 16vw; }
-.portrait3 { position: absolute; top: 2vw; left: 2vw; width: 16vw; }
-.portrait4 { position: absolute; top: 4vw; left: 0vw; width: 16vw; transform: rotate(90deg); }
-.portrait5 { position: absolute; top: 4vw; left: 0vw; width: 16vw; transform: rotate(90deg); }
+.portrait0 { position: absolute; top: 4vw; left: 3vw; width: 12vw; }
+.portrait1 { position: absolute; top: 4vw; left: 0vw; width: 14vw; transform: rotate(90deg); }
+.portrait2 { position: absolute; top: 2vw; left: 2vw; width: 14vw; }
+.portrait3 { position: absolute; top: 2vw; left: 2vw; width: 14vw; }
+.portrait4 { position: absolute; top: 4vw; left: 0vw; width: 14vw; transform: rotate(90deg); }
+.portrait5 { position: absolute; top: 4vw; left: 0vw; width: 14vw; transform: rotate(90deg); }
 
-.cframe0 { position: absolute; top: 0; left: 0%;  width: 20vw;}
-.cframe1 { position: absolute; top: 0; left: 20%; height: 20vw;}
-.cframe2 { position: absolute; top: 0; left: 40%; width: 20vw;}
-.cframe3 { position: absolute; top: 0; left: 50%; width: 20vw;}
-.cframe4 { position: absolute; top: 0; left: 70%; height: 20vw;}
-.cframe5 { position: absolute; top: 0; left: 90%; height: 20vw;}
+.cframe0 { position: absolute; top: 0; left: 0%;  width: 18vw;}
+.cframe1 { position: absolute; top: 0; left: 20%; height: 18vw;}
+.cframe2 { position: absolute; top: 0; left: 40%; width: 18vw;}
+.cframe3 { position: absolute; top: 0; left: 50%; width: 18vw;}
+.cframe4 { position: absolute; top: 0; left: 70%; height: 18vw;}
+.cframe5 { position: absolute; top: 0; left: 90%; height: 18vw;}
 
 .personality-portrait {
   position: relative;

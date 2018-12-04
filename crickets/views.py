@@ -206,7 +206,7 @@ class LeaderboardView(generic.DetailView):
     template_name = 'crickets/leaderboard.html'
     def get_context_data(self, **kwargs):
         context = super(LeaderboardView, self).get_context_data(**kwargs)
-        context["player_list"]=Player.objects.exclude(name="???").exclude(videos_watched=0).order_by('-videos_watched')[:20]
+        context["player_list"]=Player.objects.exclude(name="???").exclude(videos_watched=0).order_by('-videos_watched')[:15]
         return context
 
 class EventForm(ModelForm):

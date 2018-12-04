@@ -461,10 +461,12 @@ button.pause {
     float: left; 
     justify-content: center; 
     text-align: center;
+    padding-top: 16vw;
 }
 
 .leaderboard-central {
     width: 50%; 
+    height: 40vw;
     float: left; 
     justify-content: center; 
     text-align: center;

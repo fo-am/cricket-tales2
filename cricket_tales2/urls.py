@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^results_singing/(?P<pk>\d+)/$', views.ResultsSingingView.as_view(), name='results_singing'),
     url(r'^player_name/', views.player_name, name='player_name'),
     url(r'^leaderboard/(?P<pk>\d+)/', views.LeaderboardView.as_view(), name='leaderboard'),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 )
 
 urlpatterns += patterns('',

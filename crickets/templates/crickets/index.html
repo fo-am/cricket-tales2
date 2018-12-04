@@ -3,6 +3,22 @@
 
 {% block crickets_stuff %}
 
+<form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+  <input name="next" type="hidden" value="{{ redirect_to }}" />
+  <select class="lang-select" name="language" onchange="this.form.submit()">
+    {% get_current_language as LANGUAGE_CODE %}
+    <option value="en-gb"{% if 'en-gb' == LANGUAGE_CODE %} selected="selected"{% endif %}>
+      ENGLISH
+    </option>
+    <option value="es"{% if 'es' == LANGUAGE_CODE %} selected="selected"{% endif %}>
+      ESPAÑOL
+    </option>
+    <option value="zh"{% if 'zh' == LANGUAGE_CODE %} selected="selected"{% endif %}>
+      中文
+    </option>
+  </select>
+</form>
+
 <div class="centred-block">
 <h1 style="margin: 0;">{% trans "Cricket Tales" %}</h1>
 </div>

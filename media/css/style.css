@@ -238,6 +238,12 @@ div.stretchy-wrapper > div {
     background-image: linear-gradient(to right, yellow, #93d9cc);
 }
 
+.personality-pointer {
+    position: absolute;
+    top: -2vw;
+    margin-left: -1vw;
+}
+
 .results-pointer {
     position: absolute;
     top: 0vw;

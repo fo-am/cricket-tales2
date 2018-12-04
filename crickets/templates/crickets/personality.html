@@ -17,16 +17,27 @@
   </div>
   <div class="right">
     <div class="results-tab">
-      <div class="results-pointer" style="left: {{ eating_score }}%"></div> {% trans "Eating" %}
+      {% trans "Eating" %}
+      <div class="personality-pointer" style="left: {{ eating_score }}%">	
+	<img src="/media/images/pointer.png" style="width: 2vw;">
+      </div> 
     </div>
     <div class="results-tab">
-      <div class="results-pointer" style="left: {{ singing_score }}%"></div> {% trans "Singing" %}
+      {% trans "Singing" %}
+      <div class="personality-pointer" style="left: {{ singing_score }}%">	
+	<img src="/media/images/pointer.png" style="width: 2vw;">
+      </div> 
     </div>
     <div class="results-tab">
-      <div class="results-pointer" style="left: {{ moving_score }}%"></div> {% trans "Moving" %}
+      {% trans "Moving" %}
+      <div class="personality-pointer" style="left: {{ moving_score }}%">	
+	<img src="/media/images/pointer.png" style="width: 2vw;">
+      </div> 
     </div>
     <div class="results-tab daynight">
-      <div class="results-pointer" style="left: {{ daynight_score }}%"></div>
+      <div class="personality-pointer" style="left: {{ daynight_score }}%">	
+	<img src="/media/images/pointer.png" style="width: 2vw;">
+      </div> 
       <div class="left">
 	{% trans "Early" %}
       </div>

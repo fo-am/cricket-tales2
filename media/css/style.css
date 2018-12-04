@@ -192,7 +192,7 @@ div.stretchy-wrapper > div {
 }
 
 .results-image {
-    width: 100%;
+    width: 35vw;
     height: auto;
 }
 
@@ -203,7 +203,7 @@ div.stretchy-wrapper > div {
 }
 
 .results-axes {
-    width: 100%;
+    width: 33vw;
     height: auto;
 }
 
@@ -211,7 +211,7 @@ div.stretchy-wrapper > div {
     font-size: 75%;
     position: absolute; 
     left: 2vw; 
-    top: 19.5vw;
+    top: 21.5vw;
 }
 
 .results-axes-y {
@@ -219,7 +219,7 @@ div.stretchy-wrapper > div {
     font-size: 75%;
     position: absolute; 
     left: -3.5vw; 
-    top: 9vw;
+    top: 11vw;
 }
 
 .results-tab {

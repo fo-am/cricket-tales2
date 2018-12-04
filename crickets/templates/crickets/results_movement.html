@@ -17,25 +17,38 @@
 <div class="results-block" style="position: relative; margin-top: 1vw;">
   <h4>{% trans "Movement at different times of the day" %}</h4>  
 
-  <div class="left" style="position: relative; margin: 2vw; width: 40%;">
-    <div class="results-pointer" style="top: 1vw; left: {{ moving_score }}%"></div> 
+  <div class="left" style="position: relative; margin: 2vw; width: 40%; padding-bottom: 3vw;">
+    <div class="results-pointer" style="left: {{ moving_score }}%">
+      <div class="results-pointer-text">Your cricket</div>
+      <img src="/media/images/pointer.png" style="width: 2vw;">
+    </div> 
     <img class="results-image" src="/media/images/autoplots/moving.png">
+    <div class="results-axes-container">
+      <img class="results-axes" src="/media/images/axes.png">
+      <div class="results-axes-x">
+	00:00 - 06:00 - 12:00 - 18:00 - 24:00</br>
+	Time of day
+      </div>
+      <div class="results-axes-y">
+	Movement
+      </div>
+    </div>
   </div>
   <div class="right results-text">
     <p>{% trans "Are some crickets more active earlier in the day while others are more active later?" %}</p>
     <p>{% trans "If so, their lifestyles might be flexible and they might cope better as the climate changes." %}</p>
   </div>			 
 
-  <div class="more-results" style="left:-6%">
+  <div class="more-results" style="left:-10%">
     <a href="/results_singing/{{ cricket.id }}">
-      <img src="/media/images/left.png"><br/>
+      <img src="/media/images/left.png" style="width: 8vw"><br/>
       {% trans "MORE RESULTS" %}
     </a>
   </div>
 
-  <div class="more-results" style="left:97%">
+  <div class="more-results" style="left:100%">
     <a href="/results_eating/{{ cricket.id }}">
-      <img src="/media/images/right.png"><br/>
+      <img src="/media/images/right.png" style="width: 8vw"><br/>
       {% trans "MORE RESULTS" %}
     </a>
   </div>

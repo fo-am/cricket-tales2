@@ -105,6 +105,14 @@ class PersonalityView(generic.DetailView):
         context['moving_score'] = score(Event.objects.filter(movie__cricket=cricket).filter(Q(event_type="in")|Q(event_type="mid")|Q(event_type="out")).count(),
                                         Value.objects.filter(name='moving_min')[0].value,
                                         Value.objects.filter(name='moving_max')[0].value)
+
+        # blame git for this...
+        if cricket.tag=="+1": cricket.tag="Plus1"
+        if cricket.tag=="+7": cricket.tag="Plus7"
+        if cricket.tag=="+9": cricket.tag="Plus9"
+        if cricket.tag=="+A": cricket.tag="PlusA"
+        if cricket.tag=="+E": cricket.tag="PlusE"
+        if cricket.tag=="+=": cricket.tag="PlusEqual"
         
         # keeping cricket.daynight_score just in case this
         # becomes too slow...
@@ -129,9 +137,9 @@ class ResultsMovementView(generic.DetailView):
             times.append(event.estimated_real_time)
         if len(times)>0:
             a = avg_time(times)
-            context['moving_score']=(a/(60.0*60.0*24))*100
+            context['moving_score']=(a/(60.0*60.0*24))*80
         else:
-            context['moving_score']=0
+            context['moving_score']=-1000
 
         return context 
 
@@ -147,9 +155,9 @@ class ResultsEatingView(generic.DetailView):
             times.append(event.estimated_real_time)
         if len(times)>0:
             a = avg_time(times)
-            context['eating_score']=(a/(60.0*60.0*24))*100
+            context['eating_score']=(a/(60.0*60.0*24))*80
         else:
-            context['eating_score']=0
+            context['eating_score']=-1000
 
         return context 
 
@@ -165,9 +173,9 @@ class ResultsSingingView(generic.DetailView):
             times.append(event.estimated_real_time)
         if len(times)>0:
             a = avg_time(times)
-            context['singing_score']=(a/(60.0*60.0*24))*100
+            context['singing_score']=(a/(60.0*60.0*24))*80
         else:
-            context['singing_score']=0
+            context['singing_score']=-1000
 
         return context 
 

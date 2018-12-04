@@ -324,7 +324,7 @@ def generate_report():
 
     crickvid_text = ""
     for cricket in Cricket.objects.all():
-        if cricket.videos_ready>0: crickvid_text+=str(cricket.tag)+":"+str(cricket.videos_ready)+" "
+        if cricket.videos_ready>0: crickvid_text+=str(cricket.tag)+":"+str(cricket.activity)+"/"+str(cricket.videos_ready)+" "
 
     #for m in Movie.objects.filter(cricket__tag="NA",status=1):
     #    crickvid_text+="\n"+m.name+" "+m.camera

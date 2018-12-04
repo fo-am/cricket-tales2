@@ -78,6 +78,9 @@ else:
         robot_django2.calculate_minmax_events("singing")
         robot_django2.calculate_minmax_events("eating")
         robot_django2.calculate_minmax_moving()
+
+    if sys.argv[1]=="test-plot":
+        robot_django2.test_plot()
               
     if sys.argv[1]=="video-clearup":
         robot_django.video_clearup()

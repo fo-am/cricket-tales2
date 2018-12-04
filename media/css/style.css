@@ -38,7 +38,7 @@ h4 {
     margin: 0em;
     font-family: 'Love Ya Like A Sister', sans-serif;
     text-transform: uppercase;
-    font-size: 2vw;
+    font-size: 3vw;
     font-weight: 500;
 }
 
@@ -163,7 +163,7 @@ div.stretchy-wrapper > div {
 .results-block {
     margin-left: 10vw;
     width: 80vw;
-    height: 30vw;
+    height: 34vw;
     justify-content: center;
     text-align: center;    
     background: rgba(202,241,131,0.6);
@@ -186,12 +186,39 @@ div.stretchy-wrapper > div {
 
 /* sigh */
 .results-text {
+    text-align: left;    
     padding-right: 4vw;
 }
 
 .results-image {
     width: 100%;
     height: auto;
+}
+
+.results-axes-container {
+    position: absolute; 
+    left: 2vw; 
+    top: 2.5vw;
+}
+
+.results-axes {
+    width: 100%;
+    height: auto;
+}
+
+.results-axes-x {
+    font-size: 75%;
+    position: absolute; 
+    left: 2vw; 
+    top: 19.5vw;
+}
+
+.results-axes-y {
+    transform: rotate(-90deg);
+    font-size: 75%;
+    position: absolute; 
+    left: -3.5vw; 
+    top: 9vw;
 }
 
 .results-tab {
@@ -212,14 +239,16 @@ div.stretchy-wrapper > div {
 }
 
 .results-pointer {
-    background-image: url("/media/images/pointer.png");
-    background-size: 100% 100%;
     position: absolute;
-    top: -1vw;
-    margin-left: -0.75vw;
-    width: 2vw;
-    height: 1.5vw;
-    z-index: 100;
+    top: 0vw;
+    justify-content: center;
+    text-align: center;    
+}
+
+.results-pointer-text {
+    justify-content: center;
+    text-align: center;    
+    font-size: 75%;    
 }
 
 .more-results {

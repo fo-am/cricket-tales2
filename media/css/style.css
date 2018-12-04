@@ -454,3 +454,20 @@ button.pause {
     position: relative;
     top: -1vw;
 }
+
+.leaderboard-column {
+    width: 25%; 
+    float: left; 
+    justify-content: center; 
+    text-align: center;
+}
+
+.leaderboard-central {
+    width: 50%; 
+    float: left; 
+    justify-content: center; 
+    text-align: center;
+    background: rgba(202,241,131,0.6);
+    border: 0px solid #fff !important;
+    border-radius: 0.2em;
+}

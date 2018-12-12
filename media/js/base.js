@@ -184,7 +184,17 @@ function update_training() {
         break;	
     case "training_night_click":
         $('#popup-text').html(translated_text["training_congrats"]);
-	setTimeout(function() { state="training_pause"; update_training(); }, 1000);
+	setTimeout(function() { state="training_overview"; update_training(); }, 1000);
+        break;	
+
+    case "training_overview":
+        $('#popup-text').html(translated_text["training_overview"]);
+	setTimeout(function() { state="training_overview2"; update_training(); }, 4000);
+        break;	
+
+    case "training_overview2":
+        $('#popup-text').html(translated_text["training_overview2"]);
+	setTimeout(function() { state="training_pause"; update_training(); }, 4000);
         break;	
 
     case "training_pause":

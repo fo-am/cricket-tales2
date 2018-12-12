@@ -12,7 +12,7 @@
     {% for c in crickets %}
     <div class="frame{{forloop.counter0}}">
       <a href="/play/{{c.id}}">
-	<img class="portrait{{forloop.counter0}}" src="/media/images/2013-Wings/{{ c.tag }}.JPG"></a>  
+	<img class="portrait{{forloop.counter0}}" src="/media/images/2013-Wings/{{ c.tag }}.JPG" onerror="this.src='/media/images/missing.jpg'"></a>  
       <a href="/play/{{c.id}}">
 	<img class="cframe{{forloop.counter0}}" src="/media/images/pictureframes/frame-{{forloop.counter0}}.png"></a>      
     </div>

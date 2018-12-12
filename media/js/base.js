@@ -377,8 +377,10 @@ function watching_click(button,e) {
 	}
 	break;
     case "watching_video": // normal situation, just pass through
-	add_event(button, 0, 0, null);
-	do_radio_buttons(button);
+	if (button!="video") {
+	    add_event(button, 0, 0, null);
+	    do_radio_buttons(button);
+	}
 	break;
     case "watching_cricket_end":
 	if (button=="video") {

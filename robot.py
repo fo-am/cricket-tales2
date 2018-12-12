@@ -29,9 +29,8 @@ from threading import Thread
 import robot.flock
 
 report_recipients = ["dave@fo.am",
-#                     "amber@fo.am",
-#                     "T.Tregenza@exeter.ac.uk"
-]
+                     "amber@fo.am",
+                     "T.Tregenza@exeter.ac.uk"]
 
 def send_email(f,to,subject,text):
     for recipient in to:
@@ -96,3 +95,5 @@ else:
         robot_django2.generate_data_report()
     if sys.argv[1]=="overwrite-thumbnails":
         robot_django.update_video_thumbs()
+    if sys.argv[1]=="find-missing-photos":
+        robot_django2.find_missing_photos()

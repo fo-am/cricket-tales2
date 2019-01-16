@@ -514,6 +514,7 @@ def find_missing_photos():
         tag = cricket.tag
         if tag=="+1": tag="Plus1"
         if tag=="+7": tag="Plus7"
+        if tag=="+6": tag="Plus6"
         if tag=="+9": tag="Plus9"
         if tag=="+A": tag="PlusA"
         if tag=="+E": tag="PlusE"

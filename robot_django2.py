@@ -183,9 +183,9 @@ def update_video_status():
 def update_video_complete():
     for movie in Movie.objects.all():
         # is this movie complete?
-        if movie.status<2 and movie.unique_views>robot.settings.min_complete_views:
+        if movie.status<2 and movie.unique_views>=robot.settings.min_complete_views:
             print(movie.name+" is complete with "+str(movie.unique_views)+" views")
-            set_movie_status(movie,2)
+            set_movie_status(movie.name,2)
             # delete files separately
 
 def update_cricket_status():
@@ -207,7 +207,7 @@ def video_clearup():
         if var=="y" or var=="Y":
             #print("not deleting "+movie.name)
             robot.process.delete_videos(movie.name)
-            set_movie_status(movie,3)
+            set_movie_status(movie.name,3)
 
 # grab (new) thumbnails from old processed videos
 # hopefully only needed temporarily

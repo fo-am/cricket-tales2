@@ -389,7 +389,6 @@ function update_watching() {
 	    clear_radio_buttons();
 	    $('#video-num').html((current_movie+1)+"/5");
 	    update_watching();	    
-	    pop.pause(); 
 	}, 2000);
         break;	
     }
@@ -504,10 +503,10 @@ function video_setup(user_id, cricket_id, done_keyboard) {
 	state = "watching_wait_load";
 	change_video(movies[current_movie].path+"/"+movies[current_movie].name);
 
-	// loop
         pop.on("ended", function() {
 	    state = "watching_cricket_end";
 	    update_watching();
+	    pop.pause();
 	});
 
         // scrubbing

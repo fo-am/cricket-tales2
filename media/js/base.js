@@ -46,7 +46,6 @@ function change_video(basename) {
 
 	case "training_loading_singing":
 	    state="training_singing";
-	    console.log("updating "+state);
 	    update_training();
 	    break;
 	case "training_loading_eating":

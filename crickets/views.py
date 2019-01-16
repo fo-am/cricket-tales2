@@ -43,6 +43,9 @@ def choose(request):
         request.session["player_number"]=player.id
 
     context = {}
+    # only show ones with enough videos currently ready
+    # and order by reverse activity (activity = total number of 
+    # unique viewers on videos currently avalable)
     context['crickets'] = Cricket.objects.exclude(videos_ready__lt=5).order_by('activity')[:6]
 
     # blame git for this...
@@ -61,8 +64,9 @@ class CricketView(generic.DetailView):
     template_name = 'crickets/play.html'
     def get_context_data(self, **kwargs):
         context = super(CricketView, self).get_context_data(**kwargs)
-        # just a random movie for the moment...
-        context['movies'] = Movie.objects.filter(cricket=context['cricket']).exclude(status=0).order_by('?')[:5]
+        # random selection of currently active videos, should 
+        # be ok as we only have quite a low total available at one time.
+        context['movies'] = Movie.objects.filter(cricket=context['cricket']).filter(status=1).order_by('?')[:5]
         context['path'] = str(context['movies'][0].season)+"/"+context['movies'][0].camera
 
         # check using the session to see where we need to go
@@ -254,10 +258,14 @@ def record_event(request):
                 mv = MovieView.objects.create(viewer=Player.objects.get(pk=request.session["player_number"]),
                                               movie=movie)
                 mv.save()
-                cricket.activity+=1
                 movie.views+=1
                 movie.unique_views = MovieView.objects.filter(movie=movie).values("viewer").distinct().count()
                 movie.save()
+                # activity for a cricket is the total unique views 
+                # across all currently active videos videos - this 
+                # prioritises crickets viewed by fewest different people
+                # (perhaps something we can move to update?)
+                cricket.activity=Movie.objects.filter(cricket=cricket,status=1).aggregate(Sum('unique_views'))['unique_views__sum']  
 
             if obj.event_type=="cricket_end" or obj.event_type=="no_cricket_end":
                 # on burrow_start update player videos watched

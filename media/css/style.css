@@ -323,7 +323,7 @@ button.micro {
     cursor: pointer;
     color: black;
     background: rgba(202,241,131,0.6);
-    border: 0px solid #fff !important;
+    border: 1px solid #000 !important;
     border-radius: 0.2em;
     white-space: nowrap;
     padding-left: 0.5em;

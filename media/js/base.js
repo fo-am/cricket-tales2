@@ -111,15 +111,34 @@ function play_movie() {
 
 /////////////////////////////////////////////////////////////////
 
+function update_helper(new_state,video) {
+    state=new_state; 
+    update_training();
+    if (video!="undefined") {
+	change_video(video);
+    }
+}
+
+function update_button(new_state,video) {
+    return "<button class='micro' onclick='update_helper(\""+new_state+"\",\""+video+"\");'>"+
+	translated_text["next"]+
+	"</button>";
+}
+
 function update_training() {
     switch(state) {
     case "training_start":
-        $('#popup-text').html(translated_text["training_start"]);
-	setTimeout(function() { state="training_start2"; update_training(); }, 5000);
+	console.log(update_button("training_start2"));
+        $('#popup-text').html(translated_text["training_start"]+
+			      update_button("training_start2"));
         break;	
     case "training_start2":
-        $('#popup-text').html(translated_text["training_start2"]);
-	setTimeout(function() { state="training_loading_singing"; update_training(); change_video('tutorial/singing'); }, 5000);
+        $('#popup-text').html(translated_text["training_start2"]+
+			      update_button("training_start3"));
+        break;	
+    case "training_start3":
+        $('#popup-text').html(translated_text["training_start3"]+
+			      update_button("training_loading_singing","tutorial/singing"));
         break;	
     case "training_singing":
 	play_movie();
@@ -188,25 +207,25 @@ function update_training() {
         break;	
 
     case "training_overview":
-        $('#popup-text').html(translated_text["training_overview"]);
-	setTimeout(function() { state="training_overview2"; update_training(); }, 4000);
+        $('#popup-text').html(translated_text["training_overview"]+
+			      update_button("training_overview2"));
         break;	
-
+	
     case "training_overview2":
-        $('#popup-text').html(translated_text["training_overview2"]);
-	setTimeout(function() { state="training_pause"; update_training(); }, 4000);
+        $('#popup-text').html(translated_text["training_overview2"]+
+			      update_button("training_pause"));
         break;	
 
     case "training_pause":
 	// move popup out of the way of the pause button
 	$('.video-popup').css("top","33vw");
-        $('#popup-text').html(translated_text["training_pause"]);
-	setTimeout(function() { state="training_restart"; update_training(); }, 4000);
+        $('#popup-text').html(translated_text["training_pause"]+
+			      update_button("training_restart"));
         break;	
 
     case "training_restart":
-        $('#popup-text').html(translated_text["training_restart"]);
-	setTimeout(function() { state="training_finished"; update_training(); }, 4000);
+        $('#popup-text').html(translated_text["training_restart"]+
+			      update_button("training_finished"));
         break;	
 
     case "training_finished":

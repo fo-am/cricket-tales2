@@ -125,10 +125,17 @@ function update_button(new_state,video) {
 	"</button>";
 }
 
+function highlight_button(button) {
+    $("#"+button).addClass("highlight");
+}
+
+function unhighlight_button(button) {
+    $("#"+button).removeClass("highlight");
+}
+
 function update_training() {
     switch(state) {
     case "training_start":
-	console.log(update_button("training_start2"));
         $('#popup-text').html(translated_text["training_start"]+
 			      update_button("training_start2"));
         break;	
@@ -142,7 +149,7 @@ function update_training() {
         break;	
     case "training_singing":
 	play_movie();
-	console.log("text should be "+translated_text["training_singing"]);
+	highlight_button("singing");
         $('#popup-text').html(translated_text["training_singing"]);
         break;	
     case "training_sing_click":
@@ -152,6 +159,7 @@ function update_training() {
 
     case "training_eating":
         $('#popup-text').html(translated_text["training_eating"]);
+	highlight_button("eating");
         break;	
     case "training_eating_click":
         $('#popup-text').html(translated_text["training_eating2"]+
@@ -160,6 +168,7 @@ function update_training() {
 
     case "training_in":
         $('#popup-text').html(translated_text["training_in"]);
+	highlight_button("in");
         break;	
     case "training_in_click":
         $('#popup-text').html(translated_text["training_congrats"]);
@@ -168,6 +177,7 @@ function update_training() {
 
     case "training_mid":
         $('#popup-text').html(translated_text["training_mid"]);
+	highlight_button("mid");
         break;	
     case "training_mid_click":
         $('#popup-text').html(translated_text["training_congrats"]);
@@ -176,6 +186,7 @@ function update_training() {
 
     case "training_out":
         $('#popup-text').html(translated_text["training_out"]);
+	highlight_button("out");
         break;	
     case "training_out_click":
         $('#popup-text').html(translated_text["training_out2"]+
@@ -184,6 +195,7 @@ function update_training() {
 
     case "training_sun":
         $('#popup-text').html(translated_text["training_sun"]);
+	highlight_button("sun");
         break;	
     case "training_sun_click":
         $('#popup-text').html(translated_text["training_congrats"]);
@@ -192,6 +204,7 @@ function update_training() {
 
     case "training_shade":
         $('#popup-text').html(translated_text["training_shade"]);
+	highlight_button("shade");
         break;	
     case "training_shade_click":
         $('#popup-text').html(translated_text["training_congrats"]);
@@ -200,6 +213,7 @@ function update_training() {
 
     case "training_night":
         $('#popup-text').html(translated_text["training_night"]);
+	highlight_button("night");
         break;	
     case "training_night_click":
         $('#popup-text').html(translated_text["training_night2"]+
@@ -429,6 +443,7 @@ function clear_radio_buttons() {
 }
 
 function do_radio_buttons(button) {
+    unhighlight_button(button);
     if (["sun","shade","night"].indexOf(button)>=0) {
 	$("#sun").css("background-color","");
 	$("#shade").css("background-color","");

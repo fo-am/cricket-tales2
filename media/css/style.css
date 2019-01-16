@@ -287,7 +287,7 @@ button {
     cursor: pointer;
     color: black;
     background: rgba(202,241,131,0.6);
-    border: 0px solid #fff !important;
+    border: 0px solid #fff;
     border-radius: 0.2em;
     white-space: nowrap;
     margin: 0.5em;
@@ -305,7 +305,7 @@ button.small {
     cursor: pointer;
     color: black;
     background: rgba(202,241,131,0.6);
-    border: 0px solid #fff !important;
+    border: 0px solid #fff;
     border-radius: 0.2em;
     white-space: nowrap;
     margin: 0.5em;
@@ -323,7 +323,7 @@ button.micro {
     cursor: pointer;
     color: black;
     background: rgba(202,241,131,0.6);
-    border: 1px solid #000 !important;
+    border: 1px solid #000;
     border-radius: 0.2em;
     white-space: nowrap;
     padding-left: 0.5em;
@@ -340,7 +340,7 @@ button.image {
     cursor: pointer;
     color: black;
     background: rgba(202,241,131,0.6);
-    border: 0px solid #fff !important;
+    border: 0px solid #fff;
     border-radius: 0.2em;
     white-space: nowrap;
     margin: 0.5em;
@@ -366,6 +366,16 @@ button:focus {
     display: block;
     padding-bottom: 1vw;
     padding-top: 1vw;
+}
+
+.highlight {
+  animation: blinker 0.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+      background: #f2ff38;
+  }
 }
 
 /* video shenanigans */

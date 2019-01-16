@@ -42,9 +42,7 @@ function mouse_pos(e, context) {
 }
 
 function change_video(basename) {
-    console.log(basename);
-    pop.pause();
-    $('video').attr('poster','/media/movies/'+basename+'.jpg');
+//    $('video').attr('poster','/media/movies/'+basename+'.jpg');
     $($('video').children()[0]).attr('src','/media/movies/'+basename+'.mp4');
     $($('video').children()[1]).attr('src','/media/movies/'+basename+'.ogv');
 
@@ -98,6 +96,7 @@ function change_video(basename) {
 	    update_training();
 	    break;
 	}
+	pop.off("canplay");
     });
 }
 

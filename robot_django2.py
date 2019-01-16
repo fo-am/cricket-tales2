@@ -323,7 +323,7 @@ def generate_report():
         score_text += str(i)+" "+player['name']+": "+str(player['total'])+"\n"
 
     crickvid_text = ""
-    for cricket in Cricket.objects.all():
+    for cricket in Cricket.objects.all().order_by('-activity'):
         if cricket.videos_ready>0: crickvid_text+=str(cricket.tag)+":"+str(cricket.activity)+"/"+str(cricket.videos_ready)+" "
 
     #for m in Movie.objects.filter(cricket__tag="NA",status=1):
@@ -338,9 +338,12 @@ def generate_report():
     "\n"+\
     "players: "+str(Player.objects.all().count())+"\n"+\
     "crickets with enough videos ready: "+str(Cricket.objects.exclude(videos_ready__lt=robot.settings.videos_needed_per_cricket).count())+"\n"+\
-    "\n"+crickvid_text+"\n"+\
+    "details [cricket:watched videos/videos available]:\n"+\
+    crickvid_text+"\n"+\
     "movies watched: "+str(Movie.objects.all().aggregate(Sum('views'))['views__sum'])+"\n"+\
     "movies unique watched: "+str(Movie.objects.all().aggregate(Sum('unique_views'))['unique_views__sum'])+"\n"+\
+    "movies with >1 unique views:"+str(Movie.objects.filter(unique_views__gte=2).count())+"\n"+\
+    "movies with >0 unique views:"+str(Movie.objects.filter(unique_views__gte=1).count())+"\n"+\
     "events recorded: "+str(Event.objects.all().count())+"\n"+\
     "\n"+\
     "movie info\n"+\
@@ -505,3 +508,16 @@ def generate_data_report():
                              int(event.video_time*event.movie.fps+event.movie.start_frame),
                              event.movie.camera])
 
+def find_missing_photos():
+    ret = ""
+    for cricket in Cricket.objects.all():
+        tag = cricket.tag
+        if tag=="+1": tag="Plus1"
+        if tag=="+7": tag="Plus7"
+        if tag=="+9": tag="Plus9"
+        if tag=="+A": tag="PlusA"
+        if tag=="+E": tag="PlusE"
+        if tag=="+=": tag="PlusEqual"
+        if not os.path.exists("media/images/2013-Wings/"+tag+".JPG"):
+            ret+=cricket.tag+" "
+    print(ret)

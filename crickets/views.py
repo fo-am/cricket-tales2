@@ -13,7 +13,7 @@ def holding(request):
 
 def index(request):
     # on installation version - clear the session stuff here...
-    #request.session.flush()
+    request.session.flush()
     context={}
     context['done_training'] = False
     # don't add anything to session till player has passed check

@@ -154,8 +154,8 @@ function update_training() {
         $('#popup-text').html(translated_text["training_eating"]);
         break;	
     case "training_eating_click":
-        $('#popup-text').html(translated_text["training_congrats"]);
-	setTimeout(function() { state="training_loading_in"; update_training(); change_video('tutorial/in');}, 1000);
+        $('#popup-text').html(translated_text["training_eating2"]+
+			      update_button("training_loading_in","tutorial/in"));
         break;	
 
     case "training_in":
@@ -178,8 +178,8 @@ function update_training() {
         $('#popup-text').html(translated_text["training_out"]);
         break;	
     case "training_out_click":
-        $('#popup-text').html(translated_text["training_congrats"]);
-	setTimeout(function() { state="training_loading_sun"; update_training(); change_video('tutorial/sun');}, 1000);
+        $('#popup-text').html(translated_text["training_out2"]+
+			      update_button("training_loading_sun","tutorial/sun"));
         break;	
 
     case "training_sun":
@@ -202,20 +202,15 @@ function update_training() {
         $('#popup-text').html(translated_text["training_night"]);
         break;	
     case "training_night_click":
-        $('#popup-text').html(translated_text["training_congrats"]);
-	setTimeout(function() { state="training_overview"; update_training(); }, 1000);
+        $('#popup-text').html(translated_text["training_night2"]+
+			      update_button("training_overview"));
         break;	
 
     case "training_overview":
         $('#popup-text').html(translated_text["training_overview"]+
-			      update_button("training_overview2"));
-        break;	
-	
-    case "training_overview2":
-        $('#popup-text').html(translated_text["training_overview2"]+
 			      update_button("training_pause"));
         break;	
-
+	
     case "training_pause":
 	// move popup out of the way of the pause button
 	$('.video-popup').css("top","33vw");

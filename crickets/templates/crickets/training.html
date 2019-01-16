@@ -36,11 +36,11 @@
     <div class="button-container">
       <button id="sun" class="image" onclick="training_click('sun');">
 	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/sun.png">	  
-	{% trans "Sun" %}
+	{% trans "Sunny" %}
       </button>  
       <button id="shade" class="image" onclick="training_click('shade');">
 	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/cloud.png">	  
-	{% trans "Shade" %}
+	{% trans "Shady" %}
       </button>  
       <button id="night" class="image" onclick="training_click('night');">
 	<img class="image-button-image" src="{{MEDIA_URL}}/images/buttons2/night.png">	  
@@ -92,26 +92,30 @@
 
 <script>
   var translated_text = { 
+  next: '{% trans "Next" %}',
   training_start: '{% trans "Welcome to the cricket tales training..." %}',
   training_start2: '{% trans "These videos provide examples of the behaviours we are looking for and how to record them." %}',
+  training_start3: '{% trans "Every video contains a burrow - a hole in the ground where your cricket lives." %}',
   training_loading_singing: '{% trans "Loading first video..." %}',
   training_singing: '{% trans "This cricket is singing, notice its wings fluttering - click on the singing button to record this behaviour." %}',
   training_loading_eating: '{% trans "Loading next video..." %}',
   training_eating: '{% trans "The cricket has changed what it is doing. It is now eating – click the eating button." %}',			
+  training_eating2: '{% trans "Well done! We only need to know which videos contain eating or singing, so only click these buttons once per video." %}',			
   training_loading_in: '{% trans "Loading next video..." %}',
   training_in: '{% trans "We are also interested in how much the cricket moves around. The cricket is completely inside its burrow – click the &apos;in&apos; button." %}',
   training_loading_mid: '{% trans "Loading next video..." %}',
   training_mid: '{% trans "The cricket has now stopped midway in/out of its burrow – click the &apos;mid&apos; button." %}',
   training_loading_out: '{% trans "Loading next video..." %}',
   training_out: '{% trans "The cricket has moved and is completely outside its burrow – click the &apos;out&apos; button." %}',
+  training_out2: '{% trans "Well done! You can click these buttons multiple times per video as the cricket moves around." %}',
   training_loading_sun: '{% trans "Loading next video..." %}',
-  training_sun: '{% trans "The weather can change cricket behaviour, so we record this as well. It is sunny – the image is full colour and bright, click the sun button." %}',
+  training_sun: '{% trans "The weather can change cricket behaviour. It is sunny – the image is full colour and bright, click the sunny button." %}',
   training_loading_shade: '{% trans "Loading next video..." %}',
-  training_shade: '{% trans "The weather has changed and It is cloudy now – the image is in colour but shadows aren&apos;t distinct – click the shade button." %}',
+  training_shade: '{% trans "The weather has changed and It is cloudy now – the image is in colour but shadows aren&apos;t distinct – click the shady button." %}',
   training_loading_night: '{% trans "Loading next video..." %}',
   training_night: '{% trans "It is night time – the infra red cameras are on so the image is black and white – click the night button." %}',
-  training_overview: '{% trans "Some crickets move quickly! When you watch a video, record each time the cricket sings, eats or moves around, and record the weather." %}', 
-  training_overview2: '{% trans "This data will tell you about your cricket&apos;s personality." %}',
+  training_night2:'{% trans "Well done! As with eating and singing, we only need you to record the weather once per video." %}',
+  training_overview: '{% trans "Some crickets move quickly, others are still. Recording their behaviour will tell you about your cricket&apos;s personality." %}', 
   training_pause: '{% trans "Click the pause button if you need time to think, and the play button when you&apos;re ready to start again" %}',
   training_restart: '{% trans "Click the restart button if you make a mistake and want to start the video again" %}',
   training_congrats: '{% trans "Well done!" %}',

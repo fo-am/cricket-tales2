@@ -287,7 +287,7 @@ button {
     cursor: pointer;
     color: black;
     background: rgba(202,241,131,0.6);
-    border: 0px solid #fff !important;
+    border: 0px solid #fff;
     border-radius: 0.2em;
     white-space: nowrap;
     margin: 0.5em;
@@ -305,7 +305,7 @@ button.small {
     cursor: pointer;
     color: black;
     background: rgba(202,241,131,0.6);
-    border: 0px solid #fff !important;
+    border: 0px solid #fff;
     border-radius: 0.2em;
     white-space: nowrap;
     margin: 0.5em;
@@ -323,7 +323,7 @@ button.micro {
     cursor: pointer;
     color: black;
     background: rgba(202,241,131,0.6);
-    border: 0px solid #fff !important;
+    border: 1px solid #000;
     border-radius: 0.2em;
     white-space: nowrap;
     padding-left: 0.5em;
@@ -340,7 +340,7 @@ button.image {
     cursor: pointer;
     color: black;
     background: rgba(202,241,131,0.6);
-    border: 0px solid #fff !important;
+    border: 0px solid #fff;
     border-radius: 0.2em;
     white-space: nowrap;
     margin: 0.5em;
@@ -366,6 +366,16 @@ button:focus {
     display: block;
     padding-bottom: 1vw;
     padding-top: 1vw;
+}
+
+.highlight {
+  animation: blinker 0.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+      background: #f2ff38;
+  }
 }
 
 /* video shenanigans */
@@ -499,4 +509,23 @@ button.pause {
     background: #f2ff38; 
     padding-left: 0.2em; 
     padding-right: 0.2em;
+}
+
+/* The popup form - hidden by default */
+.ipopup {
+  display: none;
+  position: fixed;
+  top:50%;
+  left:50%;
+  width:30vw;  /* adjust as per your needs */
+  height:30vw;   /* adjust as per your needs */
+  margin-left:-15vw;   /* negative half of width above */
+  margin-top:-15vw;   /* negative half of height above */
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.icontainer {
+  padding: 10px;
+  background-color: white;
 }

@@ -510,3 +510,22 @@ button.pause {
     padding-left: 0.2em; 
     padding-right: 0.2em;
 }
+
+/* The popup form - hidden by default */
+.ipopup {
+  display: none;
+  position: fixed;
+  top:50%;
+  left:50%;
+  width:30vw;  /* adjust as per your needs */
+  height:30vw;   /* adjust as per your needs */
+  margin-left:-15vw;   /* negative half of width above */
+  margin-top:-15vw;   /* negative half of height above */
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.icontainer {
+  padding: 10px;
+  background-color: white;
+}

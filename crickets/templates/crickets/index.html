@@ -57,4 +57,20 @@
   <img src="/media/images/nerc logo.jpg" style="width: 20wv; height: auto;">
 </div>
 
+<div id="iphone" class="ipopup">
+  <div class="icontainer">
+    {% trans "Oh no! You appear to be using an iPhone." %}<p>
+    {% trans "Apologies - due to the way Apple implements videos, Cricket Tales may not work correctly on your device." %}</br>
+    <div style="text-align: center;">
+    <button onclick="document.getElementById('iphone').style.display = 'none';">Ok</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  if (iphone()) {
+    document.getElementById("iphone").style.display = "block";
+  }
+</script>
+
 {% endblock %}

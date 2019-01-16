@@ -13,6 +13,21 @@ var current_movie = 0;
 // in order to sort out translations...
 var translated_text = {}
 
+function iphone() {
+  var idevices = [
+    'iPhone',
+    'iPod'
+  ];
+
+  if (!!navigator.platform) {
+    while (idevices.length) {
+      if (navigator.platform === idevices.pop()){ return true; }
+    }
+  }
+
+  return false;
+}
+
 function percentage(x, y) {
     var container_w = $('#ourvideo').width();
     var container_h = $('#ourvideo').height();    

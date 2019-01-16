@@ -49,10 +49,8 @@ function change_video(basename) {
     $($('video').children()[1]).attr('src','/media/movies/'+basename+'.ogv');
 
     pop.load();
-    pop.play();
     
     pop.on("canplay", function() {
-	console.log("canplay "+state)
 	switch (state) {
 	case "watching_wait_load":
 	    state="watching_burrow_start";
@@ -61,34 +59,42 @@ function change_video(basename) {
 
 	case "training_loading_singing":
 	    state="training_singing";
+	    pop.play();
 	    update_training();
 	    break;
 	case "training_loading_eating":
 	    state="training_eating";
+	    pop.play();
 	    update_training();
 	    break;
 	case "training_loading_in":
 	    state="training_in";
+	    pop.play();
 	    update_training();
 	    break;
 	case "training_loading_out":
 	    state="training_out";
+	    pop.play();
 	    update_training();
 	    break;
 	case "training_loading_mid":
 	    state="training_mid";
+	    pop.play();
 	    update_training();
 	    break;
 	case "training_loading_sun":
 	    state="training_sun";
+	    pop.play();
 	    update_training();
 	    break;
 	case "training_loading_shade":
 	    state="training_shade";
+	    pop.play();
 	    update_training();
 	    break;
 	case "training_loading_night":
 	    state="training_night";
+	    pop.play();
 	    update_training();
 	    break;
 	}

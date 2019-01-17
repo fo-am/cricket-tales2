@@ -115,6 +115,7 @@ class PersonalityView(generic.DetailView):
         if cricket.tag=="+1": cricket.tag="Plus1"
         if cricket.tag=="+7": cricket.tag="Plus7"
         if cricket.tag=="+9": cricket.tag="Plus9"
+        if cricket.tag=="+6": cricket.tag="Plus6"
         if cricket.tag=="+A": cricket.tag="PlusA"
         if cricket.tag=="+E": cricket.tag="PlusE"
         if cricket.tag=="+=": cricket.tag="PlusEqual"

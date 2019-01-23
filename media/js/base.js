@@ -9,6 +9,7 @@ var timeline_fudge = 1.0;
 var state = "none";
 var csrftoken = "none";
 var current_movie = 0;
+var weather_recorded = false;
 
 // in order to sort out translations...
 var translated_text = {}
@@ -363,6 +364,10 @@ function update_watching() {
 	pop.play();
 	setTimeout(function() { $("#popup").hide(); }, 2000);
         break;	
+    case "watching_weather_prompt":
+	$('#popup-text').html(translated_text[state]);
+	$("#popup").show();
+	break;
     case "watching_cricket_end":
         $('#popup-text').html(translated_text[state]+"<button class='micro' onclick='no_cricket_click();'>"+translated_text["watching_no_cricket"]+"</button>");
 	$("#popup").show();
@@ -386,6 +391,7 @@ function update_watching() {
 	    current_movie_id = movies[current_movie].movie_id;
 	    state = "watching_wait_load";
 	    clear_radio_buttons();
+	    weather_recorded=false;
 	    $('#video-num').html((current_movie+1)+"/5");
 	    update_watching();	    
 	}, 2000);
@@ -442,6 +448,19 @@ function watching_click(button,e) {
 	if (button!="video") {
 	    add_event(button, 0, 0, null);
 	    do_radio_buttons(button);
+	}
+	// remember the fact we've recorded the weather
+	if (button=="sun" || button=="shade" || button=="night") {
+	    weather_recorded=true;
+	}
+	break;
+    case "watching_weather_prompt":
+	// only interested in the weather!
+	if (button=="sun" || button=="shade" || button=="night") {
+	    add_event(button, 0, 0, null);
+	    do_radio_buttons(button);
+	    state="watching_cricket_end";
+	    update_watching();
 	}
 	break;
     case "watching_cricket_end":
@@ -509,7 +528,11 @@ function video_setup(user_id, cricket_id, done_keyboard) {
 	change_video(movies[current_movie].path+"/"+movies[current_movie].name);
 
         pop.on("ended", function() {
-	    state = "watching_cricket_end";
+	    if (weather_recorded) {
+		state = "watching_cricket_end";
+	    } else {
+		state = "watching_weather_prompt";
+	    }	    
 	    update_watching();
 	    pop.pause();
 	});

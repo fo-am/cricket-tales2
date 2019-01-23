@@ -356,12 +356,14 @@ def generate_report():
     crickvid_text+"\n"+\
     "movies watched: "+str(Movie.objects.all().aggregate(Sum('views'))['views__sum'])+"\n"+\
     "movies unique watched: "+str(Movie.objects.all().aggregate(Sum('unique_views'))['unique_views__sum'])+"\n"+\
-    "movies with >1 unique views:"+str(Movie.objects.filter(unique_views__gte=2).count())+"\n"+\
-    "movies with >0 unique views:"+str(Movie.objects.filter(unique_views__gte=1).count())+"\n"+\
+    "movies with 3 or above unique views:"+str(Movie.objects.filter(unique_views__gte=3).count())+"\n"+\
+    "movies with 2 unique views:"+str(Movie.objects.filter(unique_views=2).count())+"\n"+\
+    "movies with 1 unique views:"+str(Movie.objects.filter(unique_views=1).count())+"\n"+\
     "events recorded: "+str(Event.objects.all().count())+"\n"+\
     "\n"+\
     "movie info\n"+\
     "available: "+str(Movie.objects.filter(status=1).count())+"\n"+\
+    "turned off due to traps: "+str(Movie.objects.filter(trap_present=1).count())+"\n"+\
     "awaiting processing: "+str(Movie.objects.filter(status=0).count())+"\n"+\
     "done but needing deleting: "+str(Movie.objects.filter(status=2).count())+"\n"+\
     "finished: "+str(Movie.objects.filter(status=3).count())+"\n"+\

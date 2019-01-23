@@ -109,6 +109,20 @@ def connect_burrows_to_movies(filename):
             movie.burrow=burrow
             movie.save()
 
+# use the csv file to connect the movies with the right burrows
+def tag_movies_with_trap_times(filename):
+    cameras_to_traps = robot.import_data.import_cameras_to_burrows(filename)
+    # update the movies with the right burrow id
+    # loop over all movies, find the right burrow from camera and time
+    for movie in Movie.objects.all():
+        camera_name = movie.name[2:movie.name.find("/")]
+        movie.trap_present = robot.import_data.is_trap_present(cameras_to_traps,camera_name,
+                                                               movie.start_time.replace(tzinfo=None),
+                                                               movie.end_time.replace(tzinfo=None))
+        if movie.trap_present:
+            print(movie)
+            #movie.save()
+
 # convert time from exicatcher to datetime format
 def conv_time(t):
     return datetime.datetime(t[0],t[1],t[3],t[4],t[5],t[6],t[7]/1000)

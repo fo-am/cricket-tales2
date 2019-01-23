@@ -56,6 +56,7 @@ class Movie(models.Model):
     length_frames = models.IntegerField(default=0)
     start_time = models.DateTimeField('start time')
     end_time = models.DateTimeField('end time')
+    trap_present = models.IntegerField(default=0)
     # stuff updated from periodic update.py
     num_events = models.IntegerField(default=0)
     def __unicode__(self):

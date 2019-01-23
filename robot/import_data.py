@@ -17,6 +17,21 @@
 import csv
 import datetime
 
+def time_intersection(t1, t2):
+    t1start, t1end = t1[0], t1[1]
+    t2start, t2end = t2[0], t2[1]
+    if t1end < t2start: return False
+    if t1end == t2start: return True
+    if t1start == t2start: return True
+    if t1start < t2start and t2start < t1end: return True
+    if t1start > t2start and t1end < t2end: return True
+    if t1start < t2start and t1end > t2end: return True
+    if t1start < t2end and t1end > t2end: return True
+    if t1start > t2start and t1start < t2end: return True
+    if t1start == t2end: return True
+    if t1end == t2end: return True 
+    if t1start > t2end: return False
+
 def import_crickets(filename, make_fn):
     with open(filename) as csvfile:
         r = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -55,6 +70,25 @@ def get_burrow(cameras_to_burrows,camera_name,start_time,end_time):
             return c2b["burrow"]
     return False
 
+def import_cameras_to_traps(filename):
+    ret = []
+    with open(filename) as csvfile:
+        r = csv.reader(csvfile, delimiter=',', quotechar='"')
+        for i,row in enumerate(r):
+            if i>0:
+                ret.append({"year": row[0],
+                            "camera": row[1],
+                            "start": datetime.datetime.strptime(row[2],"%d/%m/%Y  %H:%M"),
+                            "end": datetime.datetime.strptime(row[3],"%d/%m/%Y  %H:%M")})
+        return ret
+
+def is_trap_present(cameras_to_traps,camera_name,start_time,end_time):
+    for c2t in cameras_to_traps:        
+        if c2t["camera"] == camera_name and time_intersection((start_time,end_time), 
+                                                              (c2t["start"],c2t["end"])):
+            return True
+    return False
+
 def connect_cricket_to_movies(filename, connect_fn):
     with open(filename) as csvfile:
         r = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -70,3 +104,4 @@ def connect_cricket_to_movies(filename, connect_fn):
                 date_out = datetime.datetime.strptime(date_out,"%d-%b-%Y  %H:%M")
 
                 connect_fn(name,burrow,date_in,date_out)
+

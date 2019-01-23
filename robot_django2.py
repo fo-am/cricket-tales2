@@ -310,6 +310,20 @@ def import_crickets(filename,video_length,fps):
                
                 add_movies(season,camera,start,end,cricket_id,video_length,fps,tag,sex)
 
+# use the csv file to connect the movies with the right burrows
+def tag_movies_with_trap_times(filename):
+    cameras_to_traps = robot.import_data.import_cameras_to_traps(filename)
+    # update the movies with the right burrow id
+    # loop over all movies, find the right burrow from camera and time
+    for movie in Movie.objects.all():
+        camera_name = movie.name[2:movie.name.find("/")]
+        movie.trap_present = robot.import_data.is_trap_present(cameras_to_traps,camera_name,
+                                                               movie.start_time.replace(tzinfo=None),
+                                                               movie.end_time.replace(tzinfo=None))
+        if movie.trap_present:
+            print(movie)
+            #movie.save()
+
 def disk_state():
     df = subprocess.Popen(["df", "-h", "/"], stdout=subprocess.PIPE)
     output = df.communicate()[0]

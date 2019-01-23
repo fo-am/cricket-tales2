@@ -155,16 +155,17 @@ def make_video(movie,instance_name):
 # new approach to processing, try and keep videos_per_cricket amount of 
 # videos always availible - this doesn't delete finished ones though
 def process_cricket_video(instance_name):
-    #cricket = crickets.common.random_one(Cricket)
-    # cricket = Cricket.objects.filter(tag="NA")[0]
+    # find crickets that need videos according to their videos ready data
     crickets = Cricket.objects.filter(videos_ready__lt=robot.settings.videos_per_cricket).order_by('?')
     if len(crickets)>0:
         cricket=crickets[0]
-        # double check the actual videos - count videos active for this cricket
+        # double check the actual videos - count videos already active for this cricket
         videos_ready = Movie.objects.filter(cricket=cricket,status=1).count()
         if videos_ready<robot.settings.videos_per_cricket:
-            videos_to_process = Movie.objects.filter(cricket=cricket,status=0).order_by('?')
+            # find a videos, but remove ones with traps present
+            videos_to_process = Movie.objects.filter(cricket=cricket,status=0,trap_present=0).order_by('?')
             if len(videos_to_process)>0:
+                # if one exists...
                 make_video(videos_to_process[0],instance_name)
     
 def update_video_status():
@@ -316,13 +317,12 @@ def tag_movies_with_trap_times(filename):
     # update the movies with the right burrow id
     # loop over all movies, find the right burrow from camera and time
     for movie in Movie.objects.all():
-        camera_name = movie.name[2:movie.name.find("/")]
-        movie.trap_present = robot.import_data.is_trap_present(cameras_to_traps,camera_name,
+        movie.trap_present = robot.import_data.is_trap_present(cameras_to_traps,movie.camera,
                                                                movie.start_time.replace(tzinfo=None),
                                                                movie.end_time.replace(tzinfo=None))
         if movie.trap_present:
             print(movie)
-            #movie.save()
+        movie.save()
 
 def disk_state():
     df = subprocess.Popen(["df", "-h", "/"], stdout=subprocess.PIPE)

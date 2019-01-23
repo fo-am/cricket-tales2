@@ -83,7 +83,7 @@ def import_cameras_to_traps(filename):
         return ret
 
 def is_trap_present(cameras_to_traps,camera_name,start_time,end_time):
-    for c2t in cameras_to_traps:        
+    for c2t in cameras_to_traps: 
         if c2t["camera"] == camera_name and time_intersection((start_time,end_time), 
                                                               (c2t["start"],c2t["end"])):
             return True

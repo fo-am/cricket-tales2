@@ -395,6 +395,12 @@ function update_watching() {
 
 function restart_click() {
     add_event("video_restart", 0, 0, null);
+    // reset everything...
+    clear_radio_buttons();
+    $('.toggle-button').css({
+        "background": "url(/media/images/movie_buttons/pause.png)",
+        "background-size": "100% 100%"
+    });
     state = "watching_burrow_start";
     update_watching();    
 }

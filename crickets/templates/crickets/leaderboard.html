@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load l10n %}
 
 {% block crickets_stuff %}
 
@@ -23,7 +24,7 @@
 <div style="width: 50%; float:left;">  
   <div class="centered-block"><h4>{% trans "Videos watched" %}</h4></div> 
   {% for player in player_list %}
-  <div class="centered-block">{{ player.videos_watched }}</div>
+  <div class="centered-block">{{ player.videos_watched|localize }}</div>
   {% endfor %}
 </div>
 

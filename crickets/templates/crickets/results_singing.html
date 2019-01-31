@@ -16,18 +16,18 @@
 
   <div class="left" style="position: relative; margin: 2vw; width: 40%; padding-bottom: 1vw;">
     <div class="results-pointer" style="left: {{ singing_score }}%">
-      <div class="results-pointer-text">Your cricket</div>
+      <div class="results-pointer-text">{% trans "Your cricket" %}</div>
       <img src="/media/images/pointer.png" style="width: 2vw;">
     </div> 
     <img class="results-image" src="/media/images/autoplots/singing.png">
     <div class="results-axes-container">
       <img class="results-axes" src="/media/images/axes.png">
       <div class="results-axes-x">
-	00:00 - 06:00 - 12:00 - 18:00 - 24:00</br>
-	Time of day
+	{% trans "00:00 - 06:00 - 12:00 - 18:00 - 24:00" %}</br>
+	{% trans "Time of day" %}
       </div>
       <div class="results-axes-y">
-	Singing
+	{% trans "Singing" %}
       </div>
     </div>
   </div>

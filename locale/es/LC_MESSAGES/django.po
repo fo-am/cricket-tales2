@@ -1,0 +1,559 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-31 11:13+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: crickets/templates/crickets/about.html:7
+msgid "About the project"
+msgstr ""
+
+#: crickets/templates/crickets/about.html:13
+msgid ""
+"In a secret field in Northern Spain, hundreds of cricket burrows are "
+"monitored using CCTV. This is the first long-term study on the behaviour of "
+"wild insects. By tagging events in the videos, you are contributing directly "
+"to research that will show whether crickets have individual personalities."
+msgstr ""
+
+#: crickets/templates/crickets/about.html:15
+msgid ""
+"The results will tell us whether some crickets are more active in the "
+"morning, while others are more active later in the day. This tells us how "
+"flexible their lifestyles are, and how insects might cope as our climate "
+"changes. Play the game and you will see the latest results, including the "
+"data that you contribute!"
+msgstr ""
+
+#: crickets/templates/crickets/about.html:24
+msgid "BACK"
+msgstr ""
+
+#: crickets/templates/crickets/check.html:7
+msgid "Are you happy for us to use the data you generate for insect research?"
+msgstr ""
+
+#: crickets/templates/crickets/check.html:11
+msgid ""
+"We will store a unique number on your computer so you can return to the "
+"game. We are not collecting any data that could be used to identify players."
+msgstr ""
+
+#: crickets/templates/crickets/check.html:20
+msgid "Yes, let's play"
+msgstr ""
+
+#: crickets/templates/crickets/check.html:23
+msgid "No, quit"
+msgstr ""
+
+#: crickets/templates/crickets/choose.html:7
+msgid "Choose your cricket"
+msgstr ""
+
+#: crickets/templates/crickets/choose.html:24
+msgid "You will see 5 different 30 second videos of your cricket."
+msgstr ""
+
+#: crickets/templates/crickets/choose.html:28
+msgid "The data you generate will tell you about your cricket's personality."
+msgstr ""
+
+#: crickets/templates/crickets/choose.html:32
+msgid ""
+"Don't worry if they are hiding in their burrow, this is valuable data too!"
+msgstr ""
+
+#: crickets/templates/crickets/choose.html:37
+#: crickets/templates/crickets/leaderboard.html:51
+#: crickets/templates/crickets/personality.html:98
+#: crickets/templates/crickets/play.html:88
+#: crickets/templates/crickets/results_eating.html:71
+#: crickets/templates/crickets/results_movement.html:71
+#: crickets/templates/crickets/results_singing.html:70
+#: crickets/templates/crickets/training.html:85
+msgid "Quit"
+msgstr ""
+
+#: crickets/templates/crickets/choose.html:41
+#: crickets/templates/crickets/play.html:92
+msgid "Training"
+msgstr ""
+
+#: crickets/templates/crickets/index.html:22
+msgid "Cricket Tales"
+msgstr ""
+
+#: crickets/templates/crickets/index.html:30
+msgid ""
+"Some of us are morning people, others like evenings better. Are insects the "
+"same as us?"
+msgstr ""
+
+#: crickets/templates/crickets/index.html:34
+msgid "Help find out by playing this game!"
+msgstr ""
+
+#: crickets/templates/crickets/index.html:43
+msgid "PLAY!"
+msgstr ""
+
+#: crickets/templates/crickets/index.html:46
+msgid "ABOUT THE PROJECT"
+msgstr ""
+
+#: crickets/templates/crickets/index.html:57
+msgid "Oh no! You appear to be using an iPhone."
+msgstr ""
+
+#: crickets/templates/crickets/index.html:58
+msgid ""
+"Apologies - due to the way Apple implements videos, Cricket Tales may not "
+"work correctly on your device."
+msgstr ""
+
+#: crickets/templates/crickets/keyboard.html:7
+msgid "Well done"
+msgstr ""
+
+#: crickets/templates/crickets/keyboard.html:11
+msgid "You have contributed data for"
+msgstr ""
+
+#: crickets/templates/crickets/keyboard.html:11
+msgid "videos."
+msgstr ""
+
+#: crickets/templates/crickets/keyboard.html:15
+msgid "Enter your name to appear on the leaderboard:"
+msgstr ""
+
+#: crickets/templates/crickets/keyboard.html:59
+msgid "Continue"
+msgstr ""
+
+#: crickets/templates/crickets/leaderboard.html:8
+#: crickets/templates/crickets/personality.html:86
+#: crickets/templates/crickets/results_eating.html:59
+#: crickets/templates/crickets/results_movement.html:59
+#: crickets/templates/crickets/results_singing.html:58
+msgid "Leaderboard"
+msgstr ""
+
+#: crickets/templates/crickets/leaderboard.html:18
+msgid "Player"
+msgstr ""
+
+#: crickets/templates/crickets/leaderboard.html:25
+msgid "Videos watched"
+msgstr ""
+
+#: crickets/templates/crickets/leaderboard.html:43
+#: crickets/templates/crickets/results_eating.html:63
+#: crickets/templates/crickets/results_movement.html:63
+#: crickets/templates/crickets/results_singing.html:62
+msgid "My Cricket"
+msgstr ""
+
+#: crickets/templates/crickets/leaderboard.html:47
+#: crickets/templates/crickets/personality.html:94
+#: crickets/templates/crickets/results_eating.html:67
+#: crickets/templates/crickets/results_movement.html:67
+#: crickets/templates/crickets/results_singing.html:66
+msgid "Play again"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:7
+msgid "Your cricket&thinsp;'s personality:"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:20
+#: crickets/templates/crickets/play.html:72
+#: crickets/templates/crickets/results_eating.html:30
+#: crickets/templates/crickets/training.html:74
+msgid "Eating"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:26
+#: crickets/templates/crickets/play.html:68
+#: crickets/templates/crickets/results_singing.html:30
+#: crickets/templates/crickets/training.html:70
+msgid "Singing"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:32
+msgid "Moving"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:42
+msgid "Early"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:45
+msgid "Late"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:50
+msgid "Your data shows that"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:52
+#: crickets/templates/crickets/personality.html:54
+msgid "eats less than normal,"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:56
+msgid "eats an average amount,"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:60
+msgid "doesn't sing much,"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:62
+msgid "sings more than others,"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:64
+msgid "sings an average amount,"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:68
+msgid "moves less than most crickets,"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:70
+msgid "moves more than most crickets,"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:72
+msgid "moves about an average amount,"
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:76
+msgid "and is more active early in the day."
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:78
+msgid "and is more active late in the day."
+msgstr ""
+
+#: crickets/templates/crickets/personality.html:90
+msgid "More results"
+msgstr ""
+
+#: crickets/templates/crickets/play.html:6
+msgid "You are watching cricket: "
+msgstr ""
+
+#: crickets/templates/crickets/play.html:6
+msgid " video: "
+msgstr ""
+
+#: crickets/templates/crickets/play.html:6
+msgid "1/5"
+msgstr ""
+
+#: crickets/templates/crickets/play.html:15
+#: crickets/templates/crickets/training.html:17
+msgid ""
+"I'm sorry; your browser doesn't support HTML5 video in WebM with VP8 or MP4 "
+"with H.264."
+msgstr ""
+
+#: crickets/templates/crickets/play.html:37
+#: crickets/templates/crickets/training.html:39
+msgid "Sunny"
+msgstr ""
+
+#: crickets/templates/crickets/play.html:41
+#: crickets/templates/crickets/training.html:43
+msgid "Cloudy"
+msgstr ""
+
+#: crickets/templates/crickets/play.html:45
+#: crickets/templates/crickets/training.html:47
+msgid "Night"
+msgstr ""
+
+#: crickets/templates/crickets/play.html:52
+#: crickets/templates/crickets/training.html:54
+msgid "In"
+msgstr ""
+
+#: crickets/templates/crickets/play.html:56
+#: crickets/templates/crickets/training.html:58
+msgid "Mid"
+msgstr ""
+
+#: crickets/templates/crickets/play.html:60
+#: crickets/templates/crickets/training.html:62
+msgid "Out"
+msgstr ""
+
+#: crickets/templates/crickets/play.html:105
+msgid "Loading video, please wait..."
+msgstr ""
+
+#: crickets/templates/crickets/play.html:106
+msgid "Please click on the burrow first."
+msgstr ""
+
+#: crickets/templates/crickets/play.html:107
+msgid "Now click on the cricket if it&apos;s visible, or click: "
+msgstr ""
+
+#: crickets/templates/crickets/play.html:108
+msgid "Video playing..."
+msgstr ""
+
+#: crickets/templates/crickets/play.html:109
+msgid "What is the weather like?"
+msgstr ""
+
+#: crickets/templates/crickets/play.html:110
+msgid "Click on the cricket one more time, or click: "
+msgstr ""
+
+#: crickets/templates/crickets/play.html:111
+msgid "Not visible"
+msgstr ""
+
+#: crickets/templates/crickets/play.html:112
+msgid "Thank you for your help! Loading video "
+msgstr ""
+
+#: crickets/templates/crickets/results_eating.html:7
+#: crickets/templates/crickets/results_movement.html:7
+#: crickets/templates/crickets/results_singing.html:7
+msgid "Research results"
+msgstr ""
+
+#: crickets/templates/crickets/results_eating.html:11
+#: crickets/templates/crickets/results_movement.html:11
+#: crickets/templates/crickets/results_singing.html:11
+msgid "These are the live combined results from all players, including you."
+msgstr ""
+
+#: crickets/templates/crickets/results_eating.html:15
+msgid "Eating at different times of the day"
+msgstr ""
+
+#: crickets/templates/crickets/results_eating.html:19
+#: crickets/templates/crickets/results_movement.html:19
+#: crickets/templates/crickets/results_singing.html:19
+msgid "Your cricket"
+msgstr ""
+
+#: crickets/templates/crickets/results_eating.html:26
+#: crickets/templates/crickets/results_movement.html:26
+#: crickets/templates/crickets/results_singing.html:26
+msgid "00:00 - 06:00 - 12:00 - 18:00 - 24:00"
+msgstr ""
+
+#: crickets/templates/crickets/results_eating.html:27
+#: crickets/templates/crickets/results_movement.html:27
+#: crickets/templates/crickets/results_singing.html:27
+msgid "Time of day"
+msgstr ""
+
+#: crickets/templates/crickets/results_eating.html:36
+msgid "What times of the day do most crickets eat?"
+msgstr ""
+
+#: crickets/templates/crickets/results_eating.html:37
+msgid ""
+"If they only eat at very specific times, then their lifestyles may not be "
+"very flexible, and they could face difficulties as our climate changes."
+msgstr ""
+
+#: crickets/templates/crickets/results_eating.html:43
+#: crickets/templates/crickets/results_eating.html:50
+#: crickets/templates/crickets/results_movement.html:42
+#: crickets/templates/crickets/results_movement.html:49
+#: crickets/templates/crickets/results_singing.html:42
+#: crickets/templates/crickets/results_singing.html:49
+msgid "MORE RESULTS"
+msgstr ""
+
+#: crickets/templates/crickets/results_movement.html:15
+msgid "Movement at different times of the day"
+msgstr ""
+
+#: crickets/templates/crickets/results_movement.html:30
+msgid "Movement"
+msgstr ""
+
+#: crickets/templates/crickets/results_movement.html:35
+msgid ""
+"Are some crickets more active earlier in the day while others are more "
+"active later?"
+msgstr ""
+
+#: crickets/templates/crickets/results_movement.html:36
+msgid ""
+"If so, their lifestyles might be flexible and they might cope better as the "
+"climate changes."
+msgstr ""
+
+#: crickets/templates/crickets/results_singing.html:15
+msgid "Singing at different times of the day"
+msgstr ""
+
+#: crickets/templates/crickets/results_singing.html:35
+msgid "Do crickets sing all day, or only at certain times?"
+msgstr ""
+
+#: crickets/templates/crickets/results_singing.html:36
+msgid ""
+"Crickets usually sing to attract mates. If they only sing at certain times, "
+"this might be linked to the temperature or light levels."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:7
+msgid "Training video - watch the cricket!"
+msgstr ""
+
+#: crickets/templates/crickets/training.html:89
+msgid "Skip"
+msgstr ""
+
+#: crickets/templates/crickets/training.html:95
+msgid "Next"
+msgstr ""
+
+#: crickets/templates/crickets/training.html:96
+msgid "Welcome to the Cricket Tales training..."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:97
+msgid ""
+"These videos provide examples of the behaviours we are looking for and how "
+"to record them."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:98
+msgid ""
+"Every video contains a burrow - a hole in the ground where your cricket "
+"lives."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:99
+msgid "Loading first video..."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:100
+msgid ""
+"This cricket is singing, notice its wings fluttering - click on the singing "
+"button to record this behaviour."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:101
+#: crickets/templates/crickets/training.html:104
+#: crickets/templates/crickets/training.html:106
+#: crickets/templates/crickets/training.html:108
+#: crickets/templates/crickets/training.html:111
+#: crickets/templates/crickets/training.html:113
+#: crickets/templates/crickets/training.html:115
+msgid "Loading next video..."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:102
+msgid ""
+"The cricket has changed what it is doing. It is now eating – click the "
+"eating button."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:103
+msgid ""
+"Well done! We only need to know which videos contain eating or singing, so "
+"only click these buttons once per video."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:105
+msgid ""
+"We are also interested in how much the cricket moves around. The cricket is "
+"completely inside its burrow – click the &apos;in&apos; button."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:107
+msgid ""
+"The cricket has now stopped midway in/out of its burrow – click the &apos;"
+"mid&apos; button."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:109
+msgid ""
+"The cricket has moved and is completely outside its burrow – click the &apos;"
+"out&apos; button."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:110
+msgid ""
+"Well done! You can click these buttons multiple times per video as the "
+"cricket moves around."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:112
+msgid ""
+"The weather can change cricket behaviour. It is sunny – the image is full "
+"colour and bright, click the sunny button."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:114
+msgid ""
+"The weather has changed and it is cloudy now – the image is in colour but "
+"shadows aren&apos;t distinct – click the cloudy button."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:116
+msgid ""
+"It is night time – the infra red cameras are on so the image is black and "
+"white – click the night button."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:117
+msgid ""
+"Well done! As with eating and singing, we only need you to record the "
+"weather once per video."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:118
+msgid ""
+"Some crickets move in and out more than others. Recording their behaviour "
+"will tell you about your cricket&apos;s personality."
+msgstr ""
+
+#: crickets/templates/crickets/training.html:119
+msgid ""
+"Click the pause button if you need time to think, and the play button when "
+"you&apos;re ready to start again"
+msgstr ""
+
+#: crickets/templates/crickets/training.html:120
+msgid ""
+"Click the restart button if you make a mistake and want to start the video "
+"again"
+msgstr ""
+
+#: crickets/templates/crickets/training.html:121
+msgid "Well done!"
+msgstr ""
+
+#: crickets/templates/crickets/training.html:122
+msgid "Your training is complete."
+msgstr ""

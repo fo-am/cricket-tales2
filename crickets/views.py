@@ -12,8 +12,8 @@ def holding(request):
     return render(request, 'crickets/holding.html', {})
 
 def index(request):
+    print request.LANGUAGE_CODE
     # on installation version - clear the session stuff here...
-    request.session.flush()
     context={}
     context['done_training'] = False
     # don't add anything to session till player has passed check

@@ -19,7 +19,7 @@
 </form>
 
 <div class="centred-block">
-<h1 style="margin: 0;">{% trans "Cricket Tales" %}</h1>
+<h1 {% if "es" == LANGUAGE_CODE %} style="margin: 0; font-size:300%;" {% else %} style="margin: 0;" {% endif %}>{% trans "Cricket Tales" %}</h1>
 </div>
 
 <div class="button-row">

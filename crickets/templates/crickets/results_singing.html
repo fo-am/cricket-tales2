@@ -7,7 +7,8 @@
   <h3>{% trans "Research results" %}</h3>
 </div>
 
-<div class="centred-block">
+{% get_current_language as LANGUAGE_CODE %}
+<div class="centred-block" {% if "es" == LANGUAGE_CODE %} style="font-size:90%;" {% endif %}>
   {% trans "These are the live combined results from all players, including you." %}
 </div>
 
@@ -26,7 +27,7 @@
 	{% trans "00:00 - 06:00 - 12:00 - 18:00 - 24:00" %}</br>
 	{% trans "Time of day" %}
       </div>
-      <div class="results-axes-y">
+      <div class="results-axes-y" {% if "zh" == LANGUAGE_CODE %} style="left:-2vw;" {% endif %}>
 	{% trans "Singing" %}
       </div>
     </div>

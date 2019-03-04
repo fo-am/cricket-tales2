@@ -20,15 +20,16 @@
   </div>
 </div>
 
-<div class="centred-block" style="margin-top: 32vw">
+{% get_current_language as LANGUAGE_CODE %}
+<div class="centred-block" {% if "es" == LANGUAGE_CODE %} style="margin-top: 32vw; font-size:80%;" {% else %} style="margin-top: 32vw" {% endif %}>
   {% trans "You will see 5 different 30 second videos of your cricket." %}
 </div>
 
-<div class="centred-block">
+<div class="centred-block" {% if "es" == LANGUAGE_CODE %} style="font-size:80%;" {% endif %}>
   {% trans "The data you generate will tell you about your cricket's personality." %}
 </div>
 
-<div class="centred-block">
+<div class="centred-block" {% if "es" == LANGUAGE_CODE %} style="font-size:80%;" {% endif %}>
   {% trans "Don't worry if they are hiding in their burrow, this is valuable data too!" %}
 </div>
 

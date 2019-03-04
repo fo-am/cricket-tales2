@@ -5,6 +5,7 @@ from django.views import generic
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect, HttpResponse
 import datetime
+from django.utils import translation
 
 # Create your views here.
 
@@ -18,7 +19,6 @@ def index(request):
     context['done_training'] = False
     # don't add anything to session till player has passed check
     if 'done_training' in request.session:
-        print(request.session["done_training"])
         context['done_training'] = request.session["done_training"]
         
     return render(request, 'crickets/index.html', context)

@@ -2,19 +2,19 @@
 {% load i18n %}
 
 {% block crickets_stuff %}
-<form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+
+<form action="/i18n/setlang/" method="post">
+  {% csrf_token %}
   <input name="next" type="hidden" value="{{ redirect_to }}" />
   <select class="lang-select" name="language" onchange="this.form.submit()">
     {% get_current_language as LANGUAGE_CODE %}
-    <option value="en-gb"{% if 'en-gb' == LANGUAGE_CODE %} selected="selected"{% endif %}>
-      ENGLISH
+    {% for lang in LANGUAGES %}
+    <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>
+      {% if lang.0 == "en" %}English{% endif %}
+      {% if lang.0 == "es" %}ESPAÑOL{% endif %}
+      {% if lang.0 == "zh" %}中文{% endif %}
     </option>
-    <option value="es"{% if 'es' == LANGUAGE_CODE %} selected="selected"{% endif %}>
-      ESPAÑOL
-    </option>
-<!--    <option value="zh"{% if 'zh' == LANGUAGE_CODE %} selected="selected"{% endif %}>
-      中文
-    </option> -->
+    {% endfor %}
   </select>
 </form>
 

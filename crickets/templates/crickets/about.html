@@ -17,13 +17,20 @@
     <p>
     {% trans "The results will tell us whether some crickets are more active in the morning, while others are more active later in the day. This tells us how flexible their lifestyles are, and how insects might cope as our climate changes. Play the game and you will see the latest results, including the data that you contribute!" %}
     <br/>
+
+{% if not request.session.exhib %}
     <a href="http://www.wildcrickets.org/">www.wildcrickets.org</a>
+{% endif %}
   </div>
   
 </div>
 
 <div class="button-row">
-  <button class="small" onclick="window.location.href='/beta/'">
+{% if not request.session.exhib %}
+  <button class="small" onclick="window.location.href='/'">
+{% else %}
+  <button class="small" onclick="window.location.href='/exhib/'">
+{% endif %}
     {% trans "BACK" %}
   </button>  
 </div>

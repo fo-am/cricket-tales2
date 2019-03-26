@@ -19,7 +19,11 @@
   <button onclick="window.location.href='/training/'">
     {% trans "Yes, let's play" %}
   </button>  
-  <button onclick="window.location.href='/beta/'">
+{% if not request.session.exhib %}
+    <button onclick="window.location.href='/'">
+{% else %}
+    <button onclick="window.location.href='/exhib/'">
+{% endif %}
     {% trans "No, quit" %}
   </button>  
 </div>

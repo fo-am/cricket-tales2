@@ -27,6 +27,7 @@ class Value(models.Model):
 class Player(models.Model):
     name = models.CharField(max_length=200)
     videos_watched = models.IntegerField(default=0)
+    exhib = models.IntegerField(default=0)
     def __unicode__(self):
         return str(self.id)+" "+self.name
 

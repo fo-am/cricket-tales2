@@ -13,8 +13,19 @@ def holding(request):
     return render(request, 'crickets/holding.html', {})
 
 def index(request):
-    print request.LANGUAGE_CODE
+    context={}
+    request.session["exhib"] = False
+    context['done_training'] = False
+    # don't add anything to session till player has passed check
+    if 'done_training' in request.session:
+        context['done_training'] = request.session["done_training"]
+        
+    return render(request, 'crickets/index.html', context)
+
+def index_exhib(request):
     # on installation version - clear the session stuff here...
+    request.session.flush()
+    request.session["exhib"] = True
     context={}
     context['done_training'] = False
     # don't add anything to session till player has passed check
@@ -22,6 +33,7 @@ def index(request):
         context['done_training'] = request.session["done_training"]
         
     return render(request, 'crickets/index.html', context)
+
 
 def about(request):
     return render(request, 'crickets/about.html', {})
@@ -38,7 +50,12 @@ def choose(request):
     request.session["done_training"]=True
 
     if 'player_number' not in request.session:
-        player = Player(name = "???", videos_watched = 0)
+        exhib = 0
+        # at the moment just eden, but could have others...
+        if request.session["exhib"]: exhib=1
+        player = Player(name = "???", 
+                        videos_watched = 0, 
+                        exhib = exhib)
         player.save()
         request.session["player_number"]=player.id
 

@@ -6,8 +6,9 @@ from django.views.decorators.csrf import csrf_exempt
 import settings
 
 urlpatterns = patterns('',
-    url(r'^$', views.holding, name='index'),
-    url(r'^beta/', views.index, name='beta'),
+    url(r'^$', views.index, name='index'),
+    url(r'^beta/', views.index, name='index'),
+    url(r'^exhib/', views.index_exhib, name='exhib'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^about/', views.about, name='about'),
     url(r'^check/', views.check, name='check'),

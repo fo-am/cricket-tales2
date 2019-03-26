@@ -66,8 +66,11 @@
 	    onclick="window.location.href='/choose/'">
       {% trans "Play again" %}
     </button>
-    <button class="small"
-	    onclick="window.location.href='/beta/'">
+{% if not request.session.exhib %}
+    <button class="small" onclick="window.location.href='/'">
+{% else %}
+    <button class="small" onclick="window.location.href='/exhib/'">
+{% endif %}
 	{% trans "Quit" %}
     </button>
 </div>

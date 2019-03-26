@@ -109,7 +109,7 @@ msgstr "通过玩这个游戏帮助您找到答案！ "
 
 #: crickets/templates/crickets/index.html:43
 msgid "PLAY!"
-msgstr "玩！"
+msgstr "开始游戏！"
 
 #: crickets/templates/crickets/index.html:46
 msgid "ABOUT THE PROJECT"

@@ -71,7 +71,7 @@ msgstr "Verás 5 vídeos diferentes de tu grillo de 30 segundos de duración."
 
 #: crickets/templates/crickets/choose.html:28
 msgid "The data you generate will tell you about your cricket's personality."
-msgstr "Los datos que generes te dirán cómo es la personalidad de tu grillo."
+msgstr "Los datos que obtengas te dirán cómo es la personalidad de tu grillo."
 
 #: crickets/templates/crickets/choose.html:32
 msgid ""
@@ -102,7 +102,7 @@ msgstr "Relatos sobre grillos"
 msgid ""
 "Some of us are morning people, others like evenings better. Are insects the "
 "same as us?"
-msgstr "Algunos de nosotros somos gente madrugadora, otros estamos más activos por la tarde. ¿Son los insectos igual que nosotros?"
+msgstr "Algunos de nosotros somos gente madrugadora, otros estamos más activos por la tarde. ¿Sucede lo mismo con los insectos?"
 
 #: crickets/templates/crickets/index.html:34
 msgid "Help find out by playing this game!"

@@ -57,11 +57,6 @@ body {
     margin: 0px;
 }
 
-body:lang(zh) {
-    font-family: 'Noto', sans-serif;
-    color: red;
-}
-
 .frame0 { position: absolute; top: 0; left: 0%; }
 .frame1 { position: absolute; top: 10vw; left: 20vw; }
 .frame2 { position: absolute; top: 0; left: 35vw; }

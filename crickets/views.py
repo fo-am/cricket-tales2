@@ -22,9 +22,25 @@ def index(request):
         
     return render(request, 'crickets/index.html', context)
 
-def index_exhib(request):
+def index_exhib_reset_lang(request):
     # on installation version - clear the session stuff here...
     request.session.flush()
+    request.session["exhib"] = True
+    context={}
+    context['done_training'] = False
+    # don't add anything to session till player has passed check
+    if 'done_training' in request.session:
+        context['done_training'] = request.session["done_training"]
+        
+    return render(request, 'crickets/index.html', context)
+
+def index_exhib(request):
+    # on installation version - clear the session stuff here...
+    lang = False
+    if translation.LANGUAGE_SESSION_KEY in request.session:
+        lang = request.session[translation.LANGUAGE_SESSION_KEY]
+    request.session.flush()
+    if lang: request.session[translation.LANGUAGE_SESSION_KEY]=lang
     request.session["exhib"] = True
     context={}
     context['done_training'] = False

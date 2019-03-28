@@ -635,7 +635,7 @@ function runtimeout(exhib) {
 	
 	function refresh() {
 	    if(new Date().getTime() - time >= 60000) {
-		if (exhib) window.location="/exhib";
+		if (exhib) window.location="/exhib_reset_lang";
 		else window.location="/";
 	    } else { 
 		setTimeout(refresh, 10000);

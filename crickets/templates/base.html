@@ -26,4 +26,7 @@
       </div>
     </div>
   </body>
+  <script>
+    runtimeout({% if request.session.exhib %}true{% else %}false{% endif %});
+  </script>
 </html>

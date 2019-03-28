@@ -10,6 +10,12 @@
         url('../fonts/Vidaloka-Regular.ttf');
 }
 
+@font-face {
+  font-family: 'Noto';
+  src: local('Noto'),
+        url('../fonts/NotoSans-Regular.ttf');
+}
+
 h1 {
     font-family: 'Love Ya Like A Sister', sans-serif;
     text-transform: uppercase;
@@ -45,10 +51,15 @@ h4 {
 body {
     background: url('../images/background.png');
     background-repeat: repeat;
-    font-family: 'Vidaloka', sans-serif;
+    font-family: 'Noto', sans-serif;
     font-size: 2vw;
     padding: 0px;
     margin: 0px;
+}
+
+body:lang(zh) {
+    font-family: 'Noto', sans-serif;
+    color: red;
 }
 
 .frame0 { position: absolute; top: 0; left: 0%; }

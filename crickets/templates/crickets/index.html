@@ -3,7 +3,10 @@
 
 {% block crickets_stuff %}
 
-<form action="/i18n/setlang/" method="post">
+<form action="/i18n/setlang/" method="post" style="margin-left:1em;" >
+  {% if request.session.exhib %}
+  Language:
+  {% endif %}
   {% csrf_token %}
   <input name="next" type="hidden" value="{{ redirect_to }}" />
   <select class="lang-select" name="language" onchange="this.form.submit()">

@@ -56,17 +56,17 @@
     {% trans "eats an average amount," %} 
   {% endif %}
 
-  {% if singing_score < 30 %} 
+  {% if singing_score < 33 %} 
     {% trans "doesn't sing much," %}
-  {% elif singing_score > 30 %} 
+  {% elif singing_score > 66 %} 
     {% trans "sings more than others," %}
   {% else %} 
     {% trans "sings an average amount," %}
   {% endif %}
 
-  {% if moving_score < 30 %} 
+  {% if moving_score < 33 %} 
     {% trans "moves less than most crickets," %}
-  {% elif moving_score > 30 %} 
+  {% elif moving_score > 66 %} 
     {% trans "moves more than most crickets," %}
   {% else %} 
     {% trans "moves about an average amount," %}

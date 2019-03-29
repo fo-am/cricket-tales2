@@ -627,21 +627,23 @@ function add_event(event_type, xpos, ypos, other) {
 }
 
 function runtimeout(exhib) {
-    document.addEventListener("DOMContentLoaded", function () {
-	var time = new Date().getTime();
-	$(document.body).bind("mousemove keypress", function(e) {
-	    time = new Date().getTime();
-	});
-	
-	function refresh() {
-	    if(new Date().getTime() - time >= 60000) {
-		if (exhib) window.location="/exhib_reset_lang";
-		else window.location="/";
-	    } else { 
-		setTimeout(refresh, 10000);
+    if (exhib) {
+	document.addEventListener("DOMContentLoaded", function () {
+	    var time = new Date().getTime();
+	    $(document.body).bind("mousemove keypress", function(e) {
+		time = new Date().getTime();
+	    });
+	    
+	    function refresh() {
+		if(new Date().getTime() - time >= 60000) {
+		    if (exhib) window.location="/exhib_reset_lang";
+		    else window.location="/";
+		} else { 
+		    setTimeout(refresh, 10000);
+		}
 	    }
-	}
-	
-	setTimeout(refresh, 10000);
-    });
+	    
+	    setTimeout(refresh, 10000);
+	});
+    }
 }

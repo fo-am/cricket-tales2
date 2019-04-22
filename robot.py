@@ -85,7 +85,7 @@ else:
         robot_django2.test_plot()
               
     if sys.argv[1]=="video-clearup":
-        robot_django.video_clearup()
+        robot_django2.video_clearup()
 
     if sys.argv[1]=="print-report":
          print(robot_django2.generate_report())

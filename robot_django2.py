@@ -123,7 +123,7 @@ def get_movie_status(moviename):
 
 # calculate frames and actually do the work, set movie state
 def make_video(movie,instance_name):
-    #print("making "+movie.name)
+    print("making "+movie.name)
     frames = robot.exicatcher.read_index(movie.src_index_file)
     frames = frames[movie.start_frame:movie.start_frame+movie.length_frames]
     orig_moviename = os.path.splitext(movie.src_index_file)[0]+".generic.sfs"
@@ -204,10 +204,11 @@ def update_cricket_status():
 def video_clearup():
     for movie in Movie.objects.filter(status=2):
         print(movie.name)
-        var = raw_input("Ok to delete "+movie.name+", status:"+str(movie.status)+" with "+str(movie.unique_views)+" views? [y/n] ")
+        path = str(movie.season)+"/"+movie.camera+"/"
+        var = raw_input("Ok to delete "+path+movie.name+", status:"+str(movie.status)+" with "+str(movie.unique_views)+" views? [y/n] ")
         if var=="y" or var=="Y":
             #print("not deleting "+movie.name)
-            robot.process.delete_videos(movie.name)
+            robot.process.delete_videos(path+movie.name)
             set_movie_status(movie.name,3)
 
 # grab (new) thumbnails from old processed videos
@@ -362,11 +363,12 @@ def generate_report():
     "events recorded: "+str(Event.objects.all().count())+"\n"+\
     "\n"+\
     "movie info\n"+\
-    "available: "+str(Movie.objects.filter(status=1).count())+"\n"+\
+    "total: "+str(Movie.objects.all().count())+"\n"+\
+    "ready to watch: "+str(Movie.objects.filter(status=1).count())+"\n"+\
     "turned off due to traps: "+str(Movie.objects.filter(trap_present=1).count())+"\n"+\
     "awaiting processing: "+str(Movie.objects.filter(status=0).count())+"\n"+\
     "done but needing deleting: "+str(Movie.objects.filter(status=2).count())+"\n"+\
-    "finished: "+str(Movie.objects.filter(status=3).count())+"\n"+\
+    "finished: "+str(Movie.objects.filter(status=3).count())+" ("+str((Movie.objects.filter(status=3).count()/float(Movie.objects.all().count()))*100.0)+"%)\n"+\
     "\n"+\
     "top 10 players:\n"+\
     score_text+\

@@ -367,7 +367,7 @@ def generate_report():
     cricket_end = EventType.objects.filter(name="Cricket End").first()
 
     score_text = ""
-    for i,player in enumerate(PlayerBurrowScore.objects.values('player__username').order_by('player').annotate(total=Sum('movies_finished')).order_by('-total')[:10]):
+    for i,player in enumerate(PlayerBurrowScore.objects.filter(exhib=1).values('player__username').order_by('player').annotate(total=Sum('movies_finished')).order_by('-total')[:10]):
         score_text += str(i)+" "+player['player__username']+": "+str(player['total'])+"\n"
 
     story_text = ""

@@ -123,7 +123,7 @@ def get_movie_status(moviename):
 
 # calculate frames and actually do the work, set movie state
 def make_video(movie,instance_name):
-    print("making "+movie.name)
+    #print("making "+movie.name)
     frames = robot.exicatcher.read_index(movie.src_index_file)
     frames = frames[movie.start_frame:movie.start_frame+movie.length_frames]
     orig_moviename = os.path.splitext(movie.src_index_file)[0]+".generic.sfs"
@@ -205,7 +205,7 @@ def video_clearup():
     for movie in Movie.objects.filter(status=2):
         print(movie.name)
         path = str(movie.season)+"/"+movie.camera+"/"
-        var = raw_input("Ok to delete "+path+movie.name+", status:"+str(movie.status)+" with "+str(movie.unique_views)+" views? [y/n] ")
+        var = "y" #raw_input("Ok to delete "+path+movie.name+", status:"+str(movie.status)+" with "+str(movie.unique_views)+" views? [y/n] ")
         if var=="y" or var=="Y":
             #print("not deleting "+movie.name)
             robot.process.delete_videos(path+movie.name)
@@ -334,8 +334,10 @@ def disk_state():
 def generate_report():
     score_text = ""
 
-    for i,player in enumerate(Player.objects.values('name').order_by('player').annotate(total=Sum('videos_watched')).order_by('-total')[:10]):
-        score_text += str(i)+" "+player['name']+": "+str(player['total'])+"\n"
+    for i,player in enumerate(Player.objects.filter(exhib=1).values('name','exhib').order_by('player').annotate(total=Sum('videos_watched')).order_by('-total')[:10]):
+        eden = ""
+        if player['exhib']: eden = "(@eden)"
+        score_text += str(i)+" "+player['name']+": "+str(player['total'])+" "+eden+"\n"
 
     crickvid_text = ""
     for cricket in Cricket.objects.all().order_by('-activity'):

@@ -88,6 +88,7 @@ def choose(request):
         if cricket.tag=="+9": cricket.tag="Plus9"
         if cricket.tag=="+6": cricket.tag="Plus6"
         if cricket.tag=="+A": cricket.tag="PlusA"
+        if cricket.tag=="+C": cricket.tag="PlusC"
         if cricket.tag=="+E": cricket.tag="PlusE"
         if cricket.tag=="+=": cricket.tag="PlusEqual"
 
@@ -150,6 +151,7 @@ class PersonalityView(generic.DetailView):
         if cricket.tag=="+9": cricket.tag="Plus9"
         if cricket.tag=="+6": cricket.tag="Plus6"
         if cricket.tag=="+A": cricket.tag="PlusA"
+        if cricket.tag=="+C": cricket.tag="PlusC"
         if cricket.tag=="+E": cricket.tag="PlusE"
         if cricket.tag=="+=": cricket.tag="PlusEqual"
         
